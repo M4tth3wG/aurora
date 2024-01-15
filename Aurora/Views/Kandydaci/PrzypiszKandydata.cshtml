@@ -1,0 +1,85 @@
+﻿@model Kandydat
+@{
+    ViewData["Title"] = "Przypisz kandydata";
+}
+
+
+<div class="frame-container">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
+            <p>Nazwisko: @Model.Nazwisko.PadRight(60) Imię: @Model.Imie</p>
+            <p>ID: @Model.ID</p>
+        </div>
+        <div>
+            <button class="btn btn-danger">Anuluj przypisanie</button>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-inline pull-left">
+            @using (Html.BeginForm("Index", "Kandydaci", FormMethod.Get, new { @class = "form-group", id = "searchForm" }))
+            {
+                <input type="text" class="form-control" placeholder="Wyszukaj" id="txtSearchFilter" name="searchFilter" value="@ViewBag.SearchFilter" />
+                <button type="submit" class="btn btn-secondary">Szukaj</button>
+                @Html.Hidden("sortOption", TempData["SortOption"])
+                @Html.Hidden("filterOption1", TempData["FilterOption1"])
+                @Html.Hidden("filterOption2", TempData["FilterOption2"])
+                @Html.Hidden("filterOption3", TempData["FilterOption3"])
+                @Html.Hidden("filterOption4", TempData["FilterOption4"])
+                @Html.Hidden("filterOption5", TempData["FilterOption5"])
+            }
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-inline pull-right">
+            @using (Html.BeginForm("Index", "Kandydaci", FormMethod.Get, new { @class = "form-group", id = "filterForm" }))
+            {
+@*                 <div>
+                    <label for="sortOption">Sortowanie:</label>
+                    @Html.DropDownList("sortOption", new SelectList(ViewBag.SortOptions, "Value", "Text", ViewBag.SelectedSortOption), new { onchange = "submitFilterForm();", @value = ViewBag.SelectedSortOption })
+                </div> *@
+
+                <div>
+                    <label for="filterOption1">Filtr 1:</label>
+                    @Html.DropDownList("filterOption1", new SelectList(ViewBag.FilterOptions, "Value", "Text", ViewBag.SelectedFilterOption1), new { onchange = "submitFilterForm();", @value = ViewBag.SelectedFilterOption1 })
+                </div>
+                <div>
+                    <label for="filterOption1">Filtr 1:</label>
+                    @Html.DropDownList("filterOption1", new SelectList(ViewBag.FilterOptions, "Value", "Text", ViewBag.SelectedFilterOption1), new { onchange = "submitFilterForm();", @value = ViewBag.SelectedFilterOption1 })
+                </div>
+                <div>
+                    <label for="filterOption1">Filtr 1:</label>
+                    @Html.DropDownList("filterOption1", new SelectList(ViewBag.FilterOptions, "Value", "Text", ViewBag.SelectedFilterOption1), new { onchange = "submitFilterForm();", @value = ViewBag.SelectedFilterOption1 })
+                </div>
+                <div>
+                    <label for="filterOption1">Filtr 1:</label>
+                    @Html.DropDownList("filterOption1", new SelectList(ViewBag.FilterOptions, "Value", "Text", ViewBag.SelectedFilterOption1), new { onchange = "submitFilterForm();", @value = ViewBag.SelectedFilterOption1 })
+                </div>
+                <div>
+                    <label for="filterOption1">Filtr 1:</label>
+                    @Html.DropDownList("filterOption1", new SelectList(ViewBag.FilterOptions, "Value", "Text", ViewBag.SelectedFilterOption1), new { onchange = "submitFilterForm();", @value = ViewBag.SelectedFilterOption1 })
+                </div>
+
+
+                <input type="hidden" name="searchFilter" value="@ViewBag.SearchFilter" />
+                <input type="hidden" name="sortOption" value="@TempData["SortOption"]" />
+            }
+        </div>
+    </div>
+    <div id="tab-kand" class="col-sm-12">
+        <!-- ... -->
+    </div>
+</div>
+
+<script>
+    function submitFilterForm() {
+        document.getElementById("filterForm").submit();
+    }
+</script>
+
+
+
+
+
