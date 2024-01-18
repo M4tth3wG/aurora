@@ -50,48 +50,42 @@ namespace Aurora.Models
             }
         }
 
-        [Required]
-        public int SkladowaWspRekrutID { get; set; }
-
-        [AllowNull]
-        public virtual SkladowaWspRekrut SkladowaWspRekrut { get; set; }
-
         [AllowNull]
         [MaxLength(255)]
-        public string? Dziedzina { get; set; }
+        public string Dziedzina { get; set; }
 
 
         [AllowNull]
         [MaxLength(255)]
-        public string? Przedmiot {  get; set; }
+        public string Przedmiot {  get; set; }
 
         [AllowNull]
         [MaxLength(255)]
-        public string? Forma { get; set; }
-
-
-        [AllowNull]
-        [MaxLength(255)]
-        public string? Poziom { get; set; }
+        public string Forma { get; set; }
 
 
         [AllowNull]
         [MaxLength(255)]
-        public string? ZawodNauczany {  get; set; }
+        public string Poziom { get; set; }
 
 
         [AllowNull]
         [MaxLength(255)]
-        public string? Kod { get; set; }
+        public string ZawodNauczany {  get; set; }
 
 
         [AllowNull]
         [MaxLength(255)]
-        public string? Kwalifikacje { get; set; }
+        public string Kod { get; set; }
+
+
+        [AllowNull]
+        [MaxLength(255)]
+        public string Kwalifikacje { get; set; }
 
         public Egzamin() { }
 
-        protected Egzamin(int iD, int? turaRekrutacjiID, int kandydatID, string organ, string ocena, double? liczbaPunktow, double? maksymalnaLiczbaPunktow, int skladowaWspRekrutID, string dziedzina, string przedmiot, string forma, string poziom, string zawodNauczany, string kod, string kwalifikacje)
+        protected Egzamin(int iD, int? turaRekrutacjiID, int kandydatID, string organ, string ocena, double? liczbaPunktow, double? maksymalnaLiczbaPunktow, string dziedzina, string przedmiot, string forma, string poziom, string zawodNauczany, string kod, string kwalifikacje)
         {
             ID = iD;
             TuraRekrutacjiID = turaRekrutacjiID;
@@ -100,7 +94,6 @@ namespace Aurora.Models
             Ocena = ocena;
             LiczbaPunktow = liczbaPunktow;
             MaksymalnaLiczbaPunktow = maksymalnaLiczbaPunktow;
-            SkladowaWspRekrutID = skladowaWspRekrutID;
             Dziedzina = dziedzina;
             Przedmiot = przedmiot;
             Forma = forma;

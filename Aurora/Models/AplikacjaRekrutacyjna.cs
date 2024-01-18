@@ -13,6 +13,12 @@ namespace Aurora.Models
         public int ID { get; set; }
 
         [Required]
+        public int KierunekStudiowID { get; set; }
+
+        [AllowNull]
+        public virtual KierunekStudiow KierunekStudiow { get; set; }
+
+        [Required]
         public int TuraRekrutacjiID { get; set; }
 
         [AllowNull]
@@ -29,12 +35,8 @@ namespace Aurora.Models
 
         [Required]
         public int Status { get; set; }
-
-        [Required]
-        public int WspolczynnikRekrutacyjnyID { get; set; }
-
         [AllowNull]
-        public virtual WspolczynnikRekrutacyjny WspolczynnikRekrutacyjny { get; set; } 
+        public WspolczynnikRekrutacyjny WspolczynnikRekrutacyjny { get; set; } 
         
         [Required]
         public int KandydatID { get; set; }
@@ -42,24 +44,14 @@ namespace Aurora.Models
         [AllowNull]
         public virtual Kandydat Kandydat { get; set; }
 
-        public AplikacjaRekrutacyjna(int iD, int turaRekrutacjiID, int oplataRekrutacyjnaID, DateTime dataZlozenia, int status, int wspolczynnikRekrutacyjnyID, int kandydatID)
+        public AplikacjaRekrutacyjna(int iD, int kierunekStudiowID, int turaRekrutacjiID, int oplataRekrutacyjnaID, DateTime dataZlozenia, int status, int kandydatID)
         {
             ID = iD;
+            KierunekStudiowID = kierunekStudiowID;
             TuraRekrutacjiID = turaRekrutacjiID;
             OplataRekrutacyjnaID = oplataRekrutacyjnaID;
             DataZlozenia = dataZlozenia;
             Status = status;
-            WspolczynnikRekrutacyjnyID = wspolczynnikRekrutacyjnyID;
-            KandydatID = kandydatID;
-        }
-        public AplikacjaRekrutacyjna(int iD, int turaRekrutacjiID, int oplataRekrutacyjnaID, DateTime dataZlozenia, RodzajStatusuAplikacji status, int wspolczynnikRekrutacyjnyID, int kandydatID)
-        {
-            ID = iD;
-            TuraRekrutacjiID = turaRekrutacjiID;
-            OplataRekrutacyjnaID = oplataRekrutacyjnaID;
-            DataZlozenia = dataZlozenia;
-            Status = Convert.ToInt32(status);
-            WspolczynnikRekrutacyjnyID = wspolczynnikRekrutacyjnyID;
             KandydatID = kandydatID;
         }
 

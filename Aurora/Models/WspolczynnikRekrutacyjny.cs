@@ -11,7 +11,7 @@ namespace Aurora.Models
     {
         [Key]
         [Display(Name = "ID")]
-        public string ID { get; set; }
+        public int ID { get; set; }
 
         [NotMapped]
         private StrategiaWspolRekrut strategia { get; set; }
@@ -31,26 +31,27 @@ namespace Aurora.Models
         [AllowNull]
         [Display(Name = "Aplikacja rekrutacyjna")]
         public virtual AplikacjaRekrutacyjna AplikacjaRekrutacyjna { get; set; }
+        
+        [AllowNull]
+        [Display(Name = "Egzamin")]
+        public virtual Egzamin egzamin { get; set; }
 
         public ICollection<SkladowaWspRekrut> skladowe { get; set; }
 
         public WspolczynnikRekrutacyjny()
         {
         }
-
-        public WspolczynnikRekrutacyjny(string iD, int aplikacjaRekrutacyjnaID, ICollection<SkladowaWspRekrut> skladowe)
+        public WspolczynnikRekrutacyjny(int iD, int aplikacjaRekrutacyjnaID)
         {
             ID = iD;
             AplikacjaRekrutacyjnaID = aplikacjaRekrutacyjnaID;
-            this.skladowe = skladowe;
         }
 
-        public WspolczynnikRekrutacyjny(string iD, StrategiaWspolRekrut strategia, int aplikacjaRekrutacyjnaID, ICollection<SkladowaWspRekrut> skladowe)
+        public WspolczynnikRekrutacyjny(int iD, StrategiaWspolRekrut strategia, int aplikacjaRekrutacyjnaID)
         {
             ID = iD;
             this.strategia = strategia;
             AplikacjaRekrutacyjnaID = aplikacjaRekrutacyjnaID;
-            this.skladowe = skladowe;
         }
     }
 }

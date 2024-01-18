@@ -84,16 +84,26 @@ namespace Aurora.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Wiadomosc",
+                name: "Kandydaci",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Tresc = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false)
+                    AdresID = table.Column<int>(type: "int", nullable: false),
+                    PESEL = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
+                    Imie = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Nazwisko = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    AdresEmail = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Wiadomosc", x => x.ID);
+                    table.PrimaryKey("PK_Kandydaci", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Kandydaci_Adresy_AdresID",
+                        column: x => x.AdresID,
+                        principalTable: "Adresy",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -230,60 +240,6 @@ namespace Aurora.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Kandydaci",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    WiadomoscID = table.Column<int>(type: "int", nullable: false),
-                    AdresID = table.Column<int>(type: "int", nullable: false),
-                    PESEL = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
-                    Imie = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Nazwisko = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    AdresEmail = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Kandydaci", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Kandydaci_Adresy_AdresID",
-                        column: x => x.AdresID,
-                        principalTable: "Adresy",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Kandydaci_Wiadomosc_WiadomoscID",
-                        column: x => x.WiadomoscID,
-                        principalTable: "Wiadomosc",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "KandydaciTuryRekrutacji",
-                columns: table => new
-                {
-                    KandydatID = table.Column<int>(type: "int", nullable: false),
-                    TuraRekrutacjiID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_KandydaciTuryRekrutacji", x => new { x.KandydatID, x.TuraRekrutacjiID });
-                    table.ForeignKey(
-                        name: "FK_KandydaciTuryRekrutacji_Kandydaci_KandydatID",
-                        column: x => x.KandydatID,
-                        principalTable: "Kandydaci",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_KandydaciTuryRekrutacji_TuryRekrutacji_TuraRekrutacjiID",
-                        column: x => x.TuraRekrutacjiID,
-                        principalTable: "TuryRekrutacji",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "KandydatKierunekStudiow",
                 columns: table => new
                 {
@@ -352,18 +308,99 @@ namespace Aurora.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Wiadomosc",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Tresc = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    KandydatID = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Wiadomosc", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Wiadomosc_Kandydaci_KandydatID",
+                        column: x => x.KandydatID,
+                        principalTable: "Kandydaci",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Egzaminy",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TuraRekrutacjiID = table.Column<int>(type: "int", nullable: true),
+                    KandydatID = table.Column<int>(type: "int", nullable: false),
+                    Organ = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Ocena = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    LiczbaPunktow = table.Column<double>(type: "float", nullable: true),
+                    MaksymalnaLiczbaPunktow = table.Column<double>(type: "float", nullable: true),
+                    WynikProcentowy = table.Column<double>(type: "float", nullable: true),
+                    Dziedzina = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Przedmiot = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Forma = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Poziom = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    ZawodNauczany = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Kod = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Kwalifikacje = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Egzaminy", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Egzaminy_Kandydaci_KandydatID",
+                        column: x => x.KandydatID,
+                        principalTable: "Kandydaci",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Egzaminy_TuryRekrutacji_TuraRekrutacjiID",
+                        column: x => x.TuraRekrutacjiID,
+                        principalTable: "TuryRekrutacji",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "KandydaciTuryRekrutacji",
+                columns: table => new
+                {
+                    KandydatID = table.Column<int>(type: "int", nullable: false),
+                    TuraRekrutacjiID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_KandydaciTuryRekrutacji", x => new { x.KandydatID, x.TuraRekrutacjiID });
+                    table.ForeignKey(
+                        name: "FK_KandydaciTuryRekrutacji_Kandydaci_KandydatID",
+                        column: x => x.KandydatID,
+                        principalTable: "Kandydaci",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_KandydaciTuryRekrutacji_TuryRekrutacji_TuraRekrutacjiID",
+                        column: x => x.TuraRekrutacjiID,
+                        principalTable: "TuryRekrutacji",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AplikacjeRekrutacyjne",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    KierunekStudiowID = table.Column<int>(type: "int", nullable: false),
                     TuraRekrutacjiID = table.Column<int>(type: "int", nullable: false),
                     OplataRekrutacyjnaID = table.Column<int>(type: "int", nullable: false),
                     DataZlozenia = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
-                    WspolczynnikRekrutacyjnyID = table.Column<int>(type: "int", nullable: false),
-                    KandydatID = table.Column<int>(type: "int", nullable: false),
-                    KierunekStudiowID = table.Column<int>(type: "int", nullable: true)
+                    KandydatID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -398,8 +435,10 @@ namespace Aurora.Migrations
                 name: "WspolczynnikiRekrutacyjne",
                 columns: table => new
                 {
-                    ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    AplikacjaRekrutacyjnaID = table.Column<int>(type: "int", nullable: false)
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AplikacjaRekrutacyjnaID = table.Column<int>(type: "int", nullable: false),
+                    egzaminID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -408,6 +447,12 @@ namespace Aurora.Migrations
                         name: "FK_WspolczynnikiRekrutacyjne_AplikacjeRekrutacyjne_AplikacjaRekrutacyjnaID",
                         column: x => x.AplikacjaRekrutacyjnaID,
                         principalTable: "AplikacjeRekrutacyjne",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_WspolczynnikiRekrutacyjne_Egzaminy_egzaminID",
+                        column: x => x.egzaminID,
+                        principalTable: "Egzaminy",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -419,64 +464,116 @@ namespace Aurora.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     WspolczynnikRekrutacyjnyID = table.Column<int>(type: "int", nullable: false),
-                    WspolczynnikRekrutacyjnyID1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     PrzedmiotMaturalny = table.Column<int>(type: "int", nullable: true),
-                    RodzajSkladowejWspRekrut = table.Column<int>(type: "int", nullable: false)
+                    RodzajSkladowejWspRekrut = table.Column<int>(type: "int", nullable: false),
+                    EgzaminID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SkladoweWspRekrut", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_SkladoweWspRekrut_WspolczynnikiRekrutacyjne_WspolczynnikRekrutacyjnyID1",
-                        column: x => x.WspolczynnikRekrutacyjnyID1,
+                        name: "FK_SkladoweWspRekrut_Egzaminy_EgzaminID",
+                        column: x => x.EgzaminID,
+                        principalTable: "Egzaminy",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_SkladoweWspRekrut_WspolczynnikiRekrutacyjne_WspolczynnikRekrutacyjnyID",
+                        column: x => x.WspolczynnikRekrutacyjnyID,
                         principalTable: "WspolczynnikiRekrutacyjne",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Egzaminy",
-                columns: table => new
+            migrationBuilder.InsertData(
+                table: "Adresy",
+                columns: new[] { "ID", "KodPocztowy", "Miejscowosc", "NumerBudynku", "Ulica" },
+                values: new object[,]
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TuraRekrutacjiID = table.Column<int>(type: "int", nullable: true),
-                    KandydatID = table.Column<int>(type: "int", nullable: false),
-                    Organ = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Ocena = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    LiczbaPunktow = table.Column<double>(type: "float", nullable: true),
-                    MaksymalnaLiczbaPunktow = table.Column<double>(type: "float", nullable: true),
-                    WynikProcentowy = table.Column<double>(type: "float", nullable: true),
-                    SkladowaWspRekrutID = table.Column<int>(type: "int", nullable: false),
-                    Dziedzina = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    Przedmiot = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    Forma = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    Poziom = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    ZawodNauczany = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    Kod = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    Kwalifikacje = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
-                },
-                constraints: table =>
+                    { 1, "00-001", "Warszawa", "123", "Aleje Jerozolimskie" },
+                    { 2, "30-062", "Kraków", "45", "Rynek Główny" },
+                    { 3, "80-830", "Gdańsk", "8", "Długi Targ" },
+                    { 4, "50-384", "Wrocław", "4", "Plac Grunwaldzki" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "KierunkiStudiow",
+                columns: new[] { "ID", "Czesne", "CzesneDlaObcokrajowcow", "FormaStudiow", "JezykWykladowy", "MiejsceStudiow", "NazwaKierunku", "OpisKierunku", "PoziomStudiow", "Wydzial" },
+                values: new object[,]
                 {
-                    table.PrimaryKey("PK_Egzaminy", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Egzaminy_Kandydaci_KandydatID",
-                        column: x => x.KandydatID,
-                        principalTable: "Kandydaci",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Egzaminy_SkladoweWspRekrut_SkladowaWspRekrutID",
-                        column: x => x.SkladowaWspRekrutID,
-                        principalTable: "SkladoweWspRekrut",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Egzaminy_TuryRekrutacji_TuraRekrutacjiID",
-                        column: x => x.TuraRekrutacjiID,
-                        principalTable: "TuryRekrutacji",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                    { 1, 0.0, 1500.0, 1, 1, 1, "Architektura", "Architektura dla ambitnych", 1, 0 },
+                    { 2, 0.0, 1250.0, 1, 1, 1, "Automatyka i Robotyka", "AiR dla wymagających", 1, 10 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Kandydaci",
+                columns: new[] { "ID", "AdresEmail", "AdresID", "Imie", "Nazwisko", "PESEL" },
+                values: new object[,]
+                {
+                    { 3, "piotr.zalewski@example.com", 1, "Piotr", "Zalewski", "55511133344" },
+                    { 1, "jan.kowalski@example.com", 2, "Jan", "Kowalski", "12345678901" },
+                    { 2, "anna.nowak@example.com", 3, "Anna", "Nowak", "98765432109" },
+                    { 4, "adam.kowalski@example.com", 4, "Adam", "Kowalski", "66677733212" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "TuryRekrutacji",
+                columns: new[] { "ID", "DataOtwarcia", "DataZakonczenia", "KierunekStudiowID", "LiczbaZajetychMiejsc", "LimitPrzyjec", "MinimalnyProgPunktowy", "RodzajRekrutacji", "StatusTury", "TerminZakonczeniaPrzyjmowaniaAplikacji" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 0, 50, 300.0, 2, 2, new DateTime(2024, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2, new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 0, 150, 225.0, 2, 2, new DateTime(2024, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                });
+
+            migrationBuilder.InsertData(
+                table: "OplatyRekrutacyjne",
+                columns: new[] { "ID", "KandydatID", "Kwota" },
+                values: new object[] { 1, 2, 80.0 });
+
+            migrationBuilder.InsertData(
+                table: "OplatyRekrutacyjne",
+                columns: new[] { "ID", "KandydatID", "Kwota" },
+                values: new object[] { 2, 2, 80.0 });
+
+            migrationBuilder.InsertData(
+                table: "AplikacjeRekrutacyjne",
+                columns: new[] { "ID", "DataZlozenia", "KandydatID", "KierunekStudiowID", "OplataRekrutacyjnaID", "Status", "TuraRekrutacjiID" },
+                values: new object[] { 1, new DateTime(2024, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 1, 1, 8, 1 });
+
+            migrationBuilder.InsertData(
+                table: "AplikacjeRekrutacyjne",
+                columns: new[] { "ID", "DataZlozenia", "KandydatID", "KierunekStudiowID", "OplataRekrutacyjnaID", "Status", "TuraRekrutacjiID" },
+                values: new object[] { 2, new DateTime(2024, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 2, 2, 8, 1 });
+
+            migrationBuilder.InsertData(
+                table: "WspolczynnikiRekrutacyjne",
+                columns: new[] { "ID", "AplikacjaRekrutacyjnaID", "egzaminID" },
+                values: new object[] { 1, 1, null });
+
+            migrationBuilder.InsertData(
+                table: "WspolczynnikiRekrutacyjne",
+                columns: new[] { "ID", "AplikacjaRekrutacyjnaID", "egzaminID" },
+                values: new object[] { 2, 2, null });
+
+            migrationBuilder.InsertData(
+                table: "SkladoweWspRekrut",
+                columns: new[] { "ID", "EgzaminID", "PrzedmiotMaturalny", "RodzajSkladowejWspRekrut", "WspolczynnikRekrutacyjnyID" },
+                values: new object[,]
+                {
+                    { 1, null, 0, 1, 1 },
+                    { 2, null, 3, 1, 1 },
+                    { 3, null, 1, 1, 1 },
+                    { 4, null, 1, 0, 1 },
+                    { 5, null, 2, 0, 1 },
+                    { 6, null, 2, 1, 1 },
+                    { 7, null, null, 2, 1 },
+                    { 8, null, 0, 1, 2 },
+                    { 9, null, 3, 1, 2 },
+                    { 10, null, 1, 1, 2 },
+                    { 11, null, 1, 0, 2 },
+                    { 12, null, 2, 0, 2 },
+                    { 13, null, 2, 1, 2 },
+                    { 14, null, null, 2, 2 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -544,11 +641,6 @@ namespace Aurora.Migrations
                 column: "KandydatID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Egzaminy_SkladowaWspRekrutID",
-                table: "Egzaminy",
-                column: "SkladowaWspRekrutID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Egzaminy_TuraRekrutacjiID",
                 table: "Egzaminy",
                 column: "TuraRekrutacjiID");
@@ -563,11 +655,6 @@ namespace Aurora.Migrations
                 table: "Kandydaci",
                 column: "PESEL",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Kandydaci_WiadomoscID",
-                table: "Kandydaci",
-                column: "WiadomoscID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_KandydaciTuryRekrutacji_TuraRekrutacjiID",
@@ -590,9 +677,14 @@ namespace Aurora.Migrations
                 column: "KandydatID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SkladoweWspRekrut_WspolczynnikRekrutacyjnyID1",
+                name: "IX_SkladoweWspRekrut_EgzaminID",
                 table: "SkladoweWspRekrut",
-                column: "WspolczynnikRekrutacyjnyID1");
+                column: "EgzaminID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SkladoweWspRekrut_WspolczynnikRekrutacyjnyID",
+                table: "SkladoweWspRekrut",
+                column: "WspolczynnikRekrutacyjnyID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TuryRekrutacji_KierunekStudiowID",
@@ -600,10 +692,20 @@ namespace Aurora.Migrations
                 column: "KierunekStudiowID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Wiadomosc_KandydatID",
+                table: "Wiadomosc",
+                column: "KandydatID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_WspolczynnikiRekrutacyjne_AplikacjaRekrutacyjnaID",
                 table: "WspolczynnikiRekrutacyjne",
                 column: "AplikacjaRekrutacyjnaID",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WspolczynnikiRekrutacyjne_egzaminID",
+                table: "WspolczynnikiRekrutacyjne",
+                column: "egzaminID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -624,9 +726,6 @@ namespace Aurora.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Egzaminy");
-
-            migrationBuilder.DropTable(
                 name: "KandydaciTuryRekrutacji");
 
             migrationBuilder.DropTable(
@@ -636,19 +735,25 @@ namespace Aurora.Migrations
                 name: "KandydatUlubionyKierunekStudiow");
 
             migrationBuilder.DropTable(
+                name: "SkladoweWspRekrut");
+
+            migrationBuilder.DropTable(
+                name: "Wiadomosc");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "SkladoweWspRekrut");
-
-            migrationBuilder.DropTable(
                 name: "WspolczynnikiRekrutacyjne");
 
             migrationBuilder.DropTable(
                 name: "AplikacjeRekrutacyjne");
+
+            migrationBuilder.DropTable(
+                name: "Egzaminy");
 
             migrationBuilder.DropTable(
                 name: "OplatyRekrutacyjne");
@@ -664,9 +769,6 @@ namespace Aurora.Migrations
 
             migrationBuilder.DropTable(
                 name: "Adresy");
-
-            migrationBuilder.DropTable(
-                name: "Wiadomosc");
         }
     }
 }

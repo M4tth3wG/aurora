@@ -15,10 +15,10 @@ namespace Aurora.OtherClasses.StrategiesForRR
         {
             if (!UtilsRR.HasPassedMatura(skladowe, new List<PrzedmiotMaturalny>() { PrzedmiotMaturalny.Fizyka })) return 0.0;
 
-            var punktyMatematyka = UtilsRR.GetPoints(skladowe, PrzedmiotMaturalny.Matematyka);
-            var punktyFizyka = UtilsRR.GetPoints(skladowe, PrzedmiotMaturalny.Fizyka);
-            var punktyJezykObcy = UtilsRR.GetPoints(skladowe, PrzedmiotMaturalny.JezykObcy);
-            var punktyJezykPolski= UtilsRR.GetPoints2(skladowe, PrzedmiotMaturalny.JezykPolski);
+            var punktyMatematyka = UtilsRR.GetPoints(skladowe, RodzajSkladowejWspRekrut.M, PrzedmiotMaturalny.Matematyka);
+            var punktyFizyka = UtilsRR.GetPoints(skladowe, RodzajSkladowejWspRekrut.PD, PrzedmiotMaturalny.Fizyka);
+            var punktyJezykObcy = UtilsRR.GetPoints(skladowe, RodzajSkladowejWspRekrut.JO, PrzedmiotMaturalny.JezykObcy);
+            var punktyJezykPolski= UtilsRR.GetPoints2(skladowe, RodzajSkladowejWspRekrut.JP, PrzedmiotMaturalny.JezykPolski);
             var punktyEgzamin = UtilsRR.GetExamPoints(skladowe);
                
             return punktyMatematyka + punktyFizyka + 0.1 * punktyJezykObcy + 0.1 * punktyJezykPolski + punktyEgzamin;

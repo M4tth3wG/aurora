@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aurora.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    [Migration("20240114221511_Corrections1")]
-    partial class Corrections1
+    [Migration("20240116192027_DataCorrections2")]
+    partial class DataCorrections2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -51,6 +51,40 @@ namespace Aurora.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Adresy");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            KodPocztowy = "00-001",
+                            Miejscowosc = "Warszawa",
+                            NumerBudynku = "123",
+                            Ulica = "Aleje Jerozolimskie"
+                        },
+                        new
+                        {
+                            ID = 2,
+                            KodPocztowy = "30-062",
+                            Miejscowosc = "Kraków",
+                            NumerBudynku = "45",
+                            Ulica = "Rynek Główny"
+                        },
+                        new
+                        {
+                            ID = 3,
+                            KodPocztowy = "80-830",
+                            Miejscowosc = "Gdańsk",
+                            NumerBudynku = "8",
+                            Ulica = "Długi Targ"
+                        },
+                        new
+                        {
+                            ID = 4,
+                            KodPocztowy = "50-384",
+                            Miejscowosc = "Wrocław",
+                            NumerBudynku = "4",
+                            Ulica = "Plac Grunwaldzki"
+                        });
                 });
 
             modelBuilder.Entity("Aurora.Models.AplikacjaRekrutacyjna", b =>
@@ -66,7 +100,7 @@ namespace Aurora.Migrations
                     b.Property<int>("KandydatID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("KierunekStudiowID")
+                    b.Property<int>("KierunekStudiowID")
                         .HasColumnType("int");
 
                     b.Property<int>("OplataRekrutacyjnaID")
@@ -76,9 +110,6 @@ namespace Aurora.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("TuraRekrutacjiID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WspolczynnikRekrutacyjnyID")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
@@ -92,6 +123,28 @@ namespace Aurora.Migrations
                     b.HasIndex("TuraRekrutacjiID");
 
                     b.ToTable("AplikacjeRekrutacyjne");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            DataZlozenia = new DateTime(2024, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            KandydatID = 2,
+                            KierunekStudiowID = 1,
+                            OplataRekrutacyjnaID = 1,
+                            Status = 8,
+                            TuraRekrutacjiID = 1
+                        },
+                        new
+                        {
+                            ID = 2,
+                            DataZlozenia = new DateTime(2024, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            KandydatID = 2,
+                            KierunekStudiowID = 2,
+                            OplataRekrutacyjnaID = 2,
+                            Status = 8,
+                            TuraRekrutacjiID = 1
+                        });
                 });
 
             modelBuilder.Entity("Aurora.Models.Egzamin", b =>
@@ -144,9 +197,6 @@ namespace Aurora.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<int>("SkladowaWspRekrutID")
-                        .HasColumnType("int");
-
                     b.Property<int?>("TuraRekrutacjiID")
                         .HasColumnType("int");
 
@@ -160,8 +210,6 @@ namespace Aurora.Migrations
                     b.HasKey("ID");
 
                     b.HasIndex("KandydatID");
-
-                    b.HasIndex("SkladowaWspRekrutID");
 
                     b.HasIndex("TuraRekrutacjiID");
 
@@ -206,6 +254,44 @@ namespace Aurora.Migrations
                         .IsUnique();
 
                     b.ToTable("Kandydaci");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            AdresEmail = "jan.kowalski@example.com",
+                            AdresID = 2,
+                            Imie = "Jan",
+                            Nazwisko = "Kowalski",
+                            PESEL = "12345678901"
+                        },
+                        new
+                        {
+                            ID = 2,
+                            AdresEmail = "anna.nowak@example.com",
+                            AdresID = 3,
+                            Imie = "Anna",
+                            Nazwisko = "Nowak",
+                            PESEL = "98765432109"
+                        },
+                        new
+                        {
+                            ID = 3,
+                            AdresEmail = "piotr.zalewski@example.com",
+                            AdresID = 1,
+                            Imie = "Piotr",
+                            Nazwisko = "Zalewski",
+                            PESEL = "55511133344"
+                        },
+                        new
+                        {
+                            ID = 4,
+                            AdresEmail = "adam.kowalski@example.com",
+                            AdresID = 4,
+                            Imie = "Adam",
+                            Nazwisko = "Kowalski",
+                            PESEL = "66677733212"
+                        });
                 });
 
             modelBuilder.Entity("Aurora.Models.KandydatKierunekStudiow", b =>
@@ -294,6 +380,34 @@ namespace Aurora.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("KierunkiStudiow");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            Czesne = 0.0,
+                            CzesneDlaObcokrajowcow = 1500.0,
+                            FormaStudiow = 0,
+                            JezykWykladowy = 1,
+                            MiejsceStudiow = 0,
+                            NazwaKierunku = "Architektura",
+                            OpisKierunku = "Architektura dla ambitnych",
+                            PoziomStudiow = 0,
+                            Wydzial = 0
+                        },
+                        new
+                        {
+                            ID = 2,
+                            Czesne = 0.0,
+                            CzesneDlaObcokrajowcow = 1250.0,
+                            FormaStudiow = 0,
+                            JezykWykladowy = 1,
+                            MiejsceStudiow = 0,
+                            NazwaKierunku = "Automatyka i Robotyka",
+                            OpisKierunku = "AiR dla wymagających",
+                            PoziomStudiow = 0,
+                            Wydzial = 10
+                        });
                 });
 
             modelBuilder.Entity("Aurora.Models.OplataRekrutacyjna", b =>
@@ -314,6 +428,61 @@ namespace Aurora.Migrations
                     b.HasIndex("KandydatID");
 
                     b.ToTable("OplatyRekrutacyjne");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            KandydatID = 2,
+                            Kwota = 80.0
+                        },
+                        new
+                        {
+                            ID = 2,
+                            KandydatID = 2,
+                            Kwota = 80.0
+                        });
+                });
+
+            modelBuilder.Entity("Aurora.Models.PracownikDziekanatu", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Imie")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("Nazwisko")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<int>("Wydzial")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("PracownicyDziekanatu");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            Imie = "Natalia",
+                            Nazwisko = "Kowalczyk",
+                            Wydzial = 0
+                        },
+                        new
+                        {
+                            ID = 2,
+                            Imie = "Jakub",
+                            Nazwisko = "Nowak",
+                            Wydzial = 10
+                        });
                 });
 
             modelBuilder.Entity("Aurora.Models.SkladowaWspRekrut", b =>
@@ -322,6 +491,9 @@ namespace Aurora.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
+
+                    b.Property<int?>("EgzaminID")
+                        .HasColumnType("int");
 
                     b.Property<int?>("PrzedmiotMaturalny")
                         .HasColumnType("int");
@@ -332,14 +504,111 @@ namespace Aurora.Migrations
                     b.Property<int>("WspolczynnikRekrutacyjnyID")
                         .HasColumnType("int");
 
-                    b.Property<string>("WspolczynnikRekrutacyjnyID1")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("ID");
 
-                    b.HasIndex("WspolczynnikRekrutacyjnyID1");
+                    b.HasIndex("EgzaminID");
+
+                    b.HasIndex("WspolczynnikRekrutacyjnyID");
 
                     b.ToTable("SkladoweWspRekrut");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            PrzedmiotMaturalny = 0,
+                            RodzajSkladowejWspRekrut = 1,
+                            WspolczynnikRekrutacyjnyID = 1
+                        },
+                        new
+                        {
+                            ID = 2,
+                            PrzedmiotMaturalny = 3,
+                            RodzajSkladowejWspRekrut = 1,
+                            WspolczynnikRekrutacyjnyID = 1
+                        },
+                        new
+                        {
+                            ID = 3,
+                            PrzedmiotMaturalny = 1,
+                            RodzajSkladowejWspRekrut = 1,
+                            WspolczynnikRekrutacyjnyID = 1
+                        },
+                        new
+                        {
+                            ID = 4,
+                            PrzedmiotMaturalny = 1,
+                            RodzajSkladowejWspRekrut = 0,
+                            WspolczynnikRekrutacyjnyID = 1
+                        },
+                        new
+                        {
+                            ID = 5,
+                            PrzedmiotMaturalny = 2,
+                            RodzajSkladowejWspRekrut = 0,
+                            WspolczynnikRekrutacyjnyID = 1
+                        },
+                        new
+                        {
+                            ID = 6,
+                            PrzedmiotMaturalny = 2,
+                            RodzajSkladowejWspRekrut = 1,
+                            WspolczynnikRekrutacyjnyID = 1
+                        },
+                        new
+                        {
+                            ID = 7,
+                            RodzajSkladowejWspRekrut = 2,
+                            WspolczynnikRekrutacyjnyID = 1
+                        },
+                        new
+                        {
+                            ID = 8,
+                            PrzedmiotMaturalny = 0,
+                            RodzajSkladowejWspRekrut = 1,
+                            WspolczynnikRekrutacyjnyID = 2
+                        },
+                        new
+                        {
+                            ID = 9,
+                            PrzedmiotMaturalny = 3,
+                            RodzajSkladowejWspRekrut = 1,
+                            WspolczynnikRekrutacyjnyID = 2
+                        },
+                        new
+                        {
+                            ID = 10,
+                            PrzedmiotMaturalny = 1,
+                            RodzajSkladowejWspRekrut = 1,
+                            WspolczynnikRekrutacyjnyID = 2
+                        },
+                        new
+                        {
+                            ID = 11,
+                            PrzedmiotMaturalny = 1,
+                            RodzajSkladowejWspRekrut = 0,
+                            WspolczynnikRekrutacyjnyID = 2
+                        },
+                        new
+                        {
+                            ID = 12,
+                            PrzedmiotMaturalny = 2,
+                            RodzajSkladowejWspRekrut = 0,
+                            WspolczynnikRekrutacyjnyID = 2
+                        },
+                        new
+                        {
+                            ID = 13,
+                            PrzedmiotMaturalny = 2,
+                            RodzajSkladowejWspRekrut = 1,
+                            WspolczynnikRekrutacyjnyID = 2
+                        },
+                        new
+                        {
+                            ID = 14,
+                            RodzajSkladowejWspRekrut = 2,
+                            WspolczynnikRekrutacyjnyID = 2
+                        });
                 });
 
             modelBuilder.Entity("Aurora.Models.TuraRekrutacji", b =>
@@ -381,6 +650,34 @@ namespace Aurora.Migrations
                     b.HasIndex("KierunekStudiowID");
 
                     b.ToTable("TuryRekrutacji");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            DataOtwarcia = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DataZakonczenia = new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            KierunekStudiowID = 1,
+                            LiczbaZajetychMiejsc = 0,
+                            LimitPrzyjec = 50,
+                            MinimalnyProgPunktowy = 300.0,
+                            RodzajRekrutacji = 2,
+                            StatusTury = 2,
+                            TerminZakonczeniaPrzyjmowaniaAplikacji = new DateTime(2024, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ID = 2,
+                            DataOtwarcia = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DataZakonczenia = new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            KierunekStudiowID = 2,
+                            LiczbaZajetychMiejsc = 0,
+                            LimitPrzyjec = 150,
+                            MinimalnyProgPunktowy = 225.0,
+                            RodzajRekrutacji = 2,
+                            StatusTury = 2,
+                            TerminZakonczeniaPrzyjmowaniaAplikacji = new DateTime(2024, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("Aurora.Models.Wiadomosc", b =>
@@ -390,7 +687,10 @@ namespace Aurora.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int?>("KandydatID")
+                    b.Property<int>("KandydatID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PracownikDziekanatuID")
                         .HasColumnType("int");
 
                     b.Property<string>("Tresc")
@@ -402,15 +702,22 @@ namespace Aurora.Migrations
 
                     b.HasIndex("KandydatID");
 
-                    b.ToTable("Wiadomosc");
+                    b.HasIndex("PracownikDziekanatuID");
+
+                    b.ToTable("Wiadomosci");
                 });
 
             modelBuilder.Entity("Aurora.Models.WspolczynnikRekrutacyjny", b =>
                 {
-                    b.Property<string>("ID")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
                     b.Property<int>("AplikacjaRekrutacyjnaID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("egzaminID")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
@@ -418,7 +725,21 @@ namespace Aurora.Migrations
                     b.HasIndex("AplikacjaRekrutacyjnaID")
                         .IsUnique();
 
+                    b.HasIndex("egzaminID");
+
                     b.ToTable("WspolczynnikiRekrutacyjne");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            AplikacjaRekrutacyjnaID = 1
+                        },
+                        new
+                        {
+                            ID = 2,
+                            AplikacjaRekrutacyjnaID = 2
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -625,10 +946,11 @@ namespace Aurora.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Aurora.Models.KierunekStudiow", null)
+                    b.HasOne("Aurora.Models.KierunekStudiow", "KierunekStudiow")
                         .WithMany("aplikacje")
                         .HasForeignKey("KierunekStudiowID")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("Aurora.Models.OplataRekrutacyjna", "OplataRekrutacyjna")
                         .WithMany()
@@ -644,6 +966,8 @@ namespace Aurora.Migrations
 
                     b.Navigation("Kandydat");
 
+                    b.Navigation("KierunekStudiow");
+
                     b.Navigation("OplataRekrutacyjna");
 
                     b.Navigation("TuraRekrutacji");
@@ -657,20 +981,12 @@ namespace Aurora.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Aurora.Models.SkladowaWspRekrut", "SkladowaWspRekrut")
-                        .WithMany()
-                        .HasForeignKey("SkladowaWspRekrutID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("Aurora.Models.TuraRekrutacji", "TuraRekrutacji")
                         .WithMany("egzaminy")
                         .HasForeignKey("TuraRekrutacjiID")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Kandydat");
-
-                    b.Navigation("SkladowaWspRekrut");
 
                     b.Navigation("TuraRekrutacji");
                 });
@@ -756,10 +1072,18 @@ namespace Aurora.Migrations
 
             modelBuilder.Entity("Aurora.Models.SkladowaWspRekrut", b =>
                 {
+                    b.HasOne("Aurora.Models.Egzamin", "Egzamin")
+                        .WithMany()
+                        .HasForeignKey("EgzaminID")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("Aurora.Models.WspolczynnikRekrutacyjny", "WspolczynnikRekrutacyjny")
                         .WithMany("skladowe")
-                        .HasForeignKey("WspolczynnikRekrutacyjnyID1")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("WspolczynnikRekrutacyjnyID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Egzamin");
 
                     b.Navigation("WspolczynnikRekrutacyjny");
                 });
@@ -777,10 +1101,21 @@ namespace Aurora.Migrations
 
             modelBuilder.Entity("Aurora.Models.Wiadomosc", b =>
                 {
-                    b.HasOne("Aurora.Models.Kandydat", null)
+                    b.HasOne("Aurora.Models.Kandydat", "kandydat")
                         .WithMany("wiadomosci")
                         .HasForeignKey("KandydatID")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Aurora.Models.PracownikDziekanatu", "pracownikDziekanatu")
+                        .WithMany()
+                        .HasForeignKey("PracownikDziekanatuID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("kandydat");
+
+                    b.Navigation("pracownikDziekanatu");
                 });
 
             modelBuilder.Entity("Aurora.Models.WspolczynnikRekrutacyjny", b =>
@@ -791,7 +1126,14 @@ namespace Aurora.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Aurora.Models.Egzamin", "egzamin")
+                        .WithMany()
+                        .HasForeignKey("egzaminID")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.Navigation("AplikacjaRekrutacyjna");
+
+                    b.Navigation("egzamin");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

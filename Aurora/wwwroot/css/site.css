@@ -79,11 +79,41 @@ body {
     border-radius: 5px;
 }
 
-    .frame-container p {
-        margin: 0;
-    }
+.frame-container p {
+    margin: 0;
+}
 
-    .frame-container button {
-        margin-top: 10px;
-    }
+.frame-container button {
+    margin-top: 10px;
+}
+
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.popup-buttons {
+    margin-top: 10px;
+}
+
+
+.application-row {
+
+}
+
+.left-table {
+    float: left;
+}
+
+.right-table {
+    float: right;
+}
 

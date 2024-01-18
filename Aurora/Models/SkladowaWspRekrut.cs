@@ -19,25 +19,14 @@ namespace Aurora.Models
         {
         }
 
-        public SkladowaWspRekrut(int iD, double liczbaPunktow, int wspolczynnikRekrutacyjnyID, int? przedmiotMaturalnyID, int rodzajSkladowejWspRekrutID)
+        public SkladowaWspRekrut(int iD, double liczbaPunktow, int wspolczynnikRekrutacyjnyID, int? przedmiotMaturalny, int rodzajSkladowejWspRekrut, int? egzaminID)
         {
             ID = iD;
             LiczbaPunktow = liczbaPunktow;
             WspolczynnikRekrutacyjnyID = wspolczynnikRekrutacyjnyID;
-            PrzedmiotMaturalny = przedmiotMaturalnyID;
-            RodzajSkladowejWspRekrut = rodzajSkladowejWspRekrutID;
-        }
-
-        public SkladowaWspRekrut(int iD, double liczbaPunktow, int wspolczynnikRekrutacyjnyID, PrzedmiotMaturalny? przedmiotMaturalny, RodzajSkladowejWspRekrut rodzajSkladowejWspRekrut)
-        {
-            ID = iD;
-            LiczbaPunktow = liczbaPunktow;
-            WspolczynnikRekrutacyjnyID = wspolczynnikRekrutacyjnyID;
-            if (przedmiotMaturalny != null)
-                PrzedmiotMaturalny = Convert.ToInt32(przedmiotMaturalny);
-            else
-                PrzedmiotMaturalny = null;
-            RodzajSkladowejWspRekrut = Convert.ToInt32(rodzajSkladowejWspRekrut);
+            PrzedmiotMaturalny = przedmiotMaturalny;
+            RodzajSkladowejWspRekrut = rodzajSkladowejWspRekrut;
+            EgzaminID = egzaminID;
         }
 
         [Required]
@@ -55,6 +44,11 @@ namespace Aurora.Models
 
         [Required]
         public int RodzajSkladowejWspRekrut { get; set; }
+
+        public int? EgzaminID { get; set; }
+
+        [AllowNull]
+        public virtual Egzamin Egzamin { get; set; }
 
     
     }

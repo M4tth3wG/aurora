@@ -24,21 +24,34 @@ namespace Aurora.Utils
             return R;
         }
 
-        public static double GetPoints(List<SkladowaWspRekrut> components, PrzedmiotMaturalny subject)
+        public static double GetPoints(List<SkladowaWspRekrut> components, RodzajSkladowejWspRekrut comp, PrzedmiotMaturalny subject)
         {
-            var subjectInt = Convert.ToInt32(subject);
-            var subjectComponents = components.Where(s => s.PrzedmiotMaturalny == subjectInt);
-            var PPoints = components.Where(s => s.RodzajSkladowejWspRekrut == P).FirstOrDefault()?.LiczbaPunktow ?? 0.0;
-            var RPoints = components.Where(s => s.RodzajSkladowejWspRekrut == R).FirstOrDefault()?.LiczbaPunktow ?? 0.0;
-            return GetMaxPointsCombination(PPoints, RPoints);
+            var compInt = Convert.ToInt32(comp);
+            var searchComponent = components.Where(c => c.RodzajSkladowejWspRekrut == compInt).FirstOrDefault();
+            if (searchComponent == null)
+            {
+                var subjectInt = Convert.ToInt32(subject);
+                var subjectComponents = components.Where(s => s.PrzedmiotMaturalny == subjectInt);
+                var PPoints = subjectComponents.Where(s => s.RodzajSkladowejWspRekrut == P).FirstOrDefault()?.LiczbaPunktow ?? 0.0;
+                var RPoints = subjectComponents.Where(s => s.RodzajSkladowejWspRekrut == R).FirstOrDefault()?.LiczbaPunktow ?? 0.0;
+                return GetMaxPointsCombination(PPoints, RPoints);
+            }
+            return searchComponent.LiczbaPunktow;
+
         }
-        public static double GetPoints2(List<SkladowaWspRekrut> components, PrzedmiotMaturalny subject)
+        public static double GetPoints2(List<SkladowaWspRekrut> components, RodzajSkladowejWspRekrut comp, PrzedmiotMaturalny subject)
         {
-            var subjectInt = Convert.ToInt32(subject);
-            var subjectComponents = components.Where(s => s.PrzedmiotMaturalny == subjectInt);
-            var PPoints = components.Where(s => s.RodzajSkladowejWspRekrut == P).FirstOrDefault()?.LiczbaPunktow ?? 0.0;
-            var RPoints = components.Where(s => s.RodzajSkladowejWspRekrut == R).FirstOrDefault()?.LiczbaPunktow ?? 0.0;
-            return GetMaxPointsCombination2(PPoints, RPoints);
+            var compInt = Convert.ToInt32(comp);
+            var searchComponent = components.Where(c => c.RodzajSkladowejWspRekrut == compInt).FirstOrDefault();
+            if (searchComponent == null)
+            {
+                var subjectInt = Convert.ToInt32(subject);
+                var subjectComponents = components.Where(s => s.PrzedmiotMaturalny == subjectInt);
+                var PPoints = subjectComponents.Where(s => s.RodzajSkladowejWspRekrut == P).FirstOrDefault()?.LiczbaPunktow ?? 0.0;
+                var RPoints = subjectComponents.Where(s => s.RodzajSkladowejWspRekrut == R).FirstOrDefault()?.LiczbaPunktow ?? 0.0;
+                return GetMaxPointsCombination2(PPoints, RPoints);
+            }
+            return searchComponent.LiczbaPunktow;
         }
 
         public static bool HasPassedMatura(List<SkladowaWspRekrut> components, List<PrzedmiotMaturalny> maturaSubjects) 
