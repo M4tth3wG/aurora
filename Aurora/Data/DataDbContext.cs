@@ -40,6 +40,9 @@ namespace Aurora.Data
 
         public DbSet<Wiadomosc> Wiadomosci { get; set; }
 
+        public DbSet<Opinia> Opinia { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
