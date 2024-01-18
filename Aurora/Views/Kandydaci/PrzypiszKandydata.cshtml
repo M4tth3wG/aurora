@@ -1,10 +1,12 @@
-﻿@model Kandydat
+﻿@using Aurora.Enums
+@using Aurora.Utils
+@model IEnumerable<AplikacjaRekrutacyjna>
 @{
     ViewData["Title"] = "Przypisz kandydata";
 }
 
 
-<div class="frame-container">
+@* <div class="frame-container">
     <div style="display: flex; justify-content: space-between; align-items: center;">
         <div>
             <p>Nazwisko: @Model.Nazwisko.PadRight(60) Imię: @Model.Imie</p>
@@ -14,71 +16,294 @@
             <button class="btn btn-danger">Anuluj przypisanie</button>
         </div>
     </div>
-</div>
+</div> *@
 
 <div class="row">
-    <div class="col-md-6">
+@*     <div id="tab-kand" class="col-sm-12">
+        <div style="display: flex; flex-direction: row;">
+            <div style="flex: 1;">
+                <p>Nazwisko:</p>    
+            </div>
+            <div style="flex: 2;">
+                <p>@ViewBag.Nazwisko.PadRight(60)</p>
+            </div>
+            <div style="flex: 1;">
+                <p style="margin: 0;">Imię:</p>
+            </div>
+            <div style="flex: 2;">
+                <p style="margin: 0;">@ViewBag.Imie.PadRight(60)</p>
+            </div>
+        </div>
+        <p>ID kandydata: @ViewBag.ID</p>
+    </div> *@
+
+
+    <div class="row col-md-12">
+        <table class="table">
+            <thead>
+            </thead>
+            <tbody>
+                    <tr>
+                        <td class="my-td">Nazwisko: @ViewBag.Nazwisko</td>
+                        <td class="my-td">Imię: @ViewBag.Imie</td>
+                        <td class="text-right" rowspan="2" style="white-space: nowrap;">
+                            <button type="button" id="cancelAssignmentBtn" class="btn btn-secondary" style="padding: 8px 16px;">Anuluj przypisanie</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="my-td">ID Kandydata: @ViewBag.ID</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+             </tbody>
+        </table>
+    </div>
+
+    <div class="col-md-3">
         <div class="form-inline pull-left">
-            @using (Html.BeginForm("Index", "Kandydaci", FormMethod.Get, new { @class = "form-group", id = "searchForm" }))
+            @using (Html.BeginForm("PrzypiszKandydata", "Kandydaci", FormMethod.Get, new { @class = "form-group", id = "searchForm" }))
             {
-                <input type="text" class="form-control" placeholder="Wyszukaj" id="txtSearchFilter" name="searchFilter" value="@ViewBag.SearchFilter" />
-                <button type="submit" class="btn btn-secondary">Szukaj</button>
-                @Html.Hidden("sortOption", TempData["SortOption"])
-                @Html.Hidden("filterOption1", TempData["FilterOption1"])
-                @Html.Hidden("filterOption2", TempData["FilterOption2"])
-                @Html.Hidden("filterOption3", TempData["FilterOption3"])
-                @Html.Hidden("filterOption4", TempData["FilterOption4"])
-                @Html.Hidden("filterOption5", TempData["FilterOption5"])
+                <div class="custom-dropdown">
+                    <label for="txtSearchFilter">Wyszukaj kierunek:</label>
+                    <input type="text" class="form-control" placeholder="Wyszukaj kierunek" id="txtSearchFilter" name="searchFilter" value="@ViewBag.SearchFilter" />
+                    <button type="submit" class="btn btn-secondary">Szukaj</button>
+                    @Html.Hidden("filterPoziom", TempData["FilterPoziom"])
+                    @Html.Hidden("filterForma", TempData["FilterForma"])
+                    @Html.Hidden("filterJezyk", TempData["FilterJezyk"])
+                    @Html.Hidden("filterWydzial", TempData["FilterWydzial"])
+                    @Html.Hidden("filterMiejsce", TempData["FilterMiejsce"])
+                </div>
+     
             }
         </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-9">
         <div class="form-inline pull-right">
-            @using (Html.BeginForm("Index", "Kandydaci", FormMethod.Get, new { @class = "form-group", id = "filterForm" }))
+            @using (Html.BeginForm("PrzypiszKandydata", "Kandydaci", FormMethod.Get, new { @class = "form-group", id = "filterForm" }))
             {
-@*                 <div>
-                    <label for="sortOption">Sortowanie:</label>
-                    @Html.DropDownList("sortOption", new SelectList(ViewBag.SortOptions, "Value", "Text", ViewBag.SelectedSortOption), new { onchange = "submitFilterForm();", @value = ViewBag.SelectedSortOption })
-                </div> *@
 
-                <div>
-                    <label for="filterOption1">Filtr 1:</label>
-                    @Html.DropDownList("filterOption1", new SelectList(ViewBag.FilterOptions, "Value", "Text", ViewBag.SelectedFilterOption1), new { onchange = "submitFilterForm();", @value = ViewBag.SelectedFilterOption1 })
+                <div class="custom-dropdown">
+
+                    <label for="filterPoziom">Poziom studiów:</label>
+                    @Html.DropDownList("filterPoziom", new SelectList(ViewBag.FilterOptionsPoziom, "Value", "Text", ViewBag.SelectedFilterPoziom), new { onchange = "submitFilterForm();", @value = ViewBag.SelectedFilterPoziom, style = "width: 200px;" })
                 </div>
-                <div>
-                    <label for="filterOption1">Filtr 1:</label>
-                    @Html.DropDownList("filterOption1", new SelectList(ViewBag.FilterOptions, "Value", "Text", ViewBag.SelectedFilterOption1), new { onchange = "submitFilterForm();", @value = ViewBag.SelectedFilterOption1 })
+                <div class="custom-dropdown">
+                    <label for="filterForma">Forma studiów:</label>
+                    @Html.DropDownList("filterForma", new SelectList(ViewBag.FilterOptionsForma, "Value", "Text", ViewBag.SelectedFilterForma), new { onchange = "submitFilterForm();", @value = ViewBag.SelectedFilterForma , style = "width: 200px;"})
                 </div>
-                <div>
-                    <label for="filterOption1">Filtr 1:</label>
-                    @Html.DropDownList("filterOption1", new SelectList(ViewBag.FilterOptions, "Value", "Text", ViewBag.SelectedFilterOption1), new { onchange = "submitFilterForm();", @value = ViewBag.SelectedFilterOption1 })
+                <div class="custom-dropdown">
+                    <label for="filterJezyk">Język wykładowy:</label>
+                    @Html.DropDownList("filterJezyk", new SelectList(ViewBag.FilterOptionsJezyk, "Value", "Text", ViewBag.SelectedFilterJezyk), new { onchange = "submitFilterForm();", @value = ViewBag.SelectedFilterJezyk, style = "width: 200px;" })
                 </div>
-                <div>
-                    <label for="filterOption1">Filtr 1:</label>
-                    @Html.DropDownList("filterOption1", new SelectList(ViewBag.FilterOptions, "Value", "Text", ViewBag.SelectedFilterOption1), new { onchange = "submitFilterForm();", @value = ViewBag.SelectedFilterOption1 })
+                <div class="custom-dropdown">
+                    <label for="filterWydzial">Wydział kierunku</label>
+                    @Html.DropDownList("filterWydzial", new SelectList(ViewBag.FilterOptionsWydzial, "Value", "Text", ViewBag.SelectedFilterWydzial), new { onchange = "submitFilterForm();", @value = ViewBag.SelectedFilterWydzial, style = "width: 200px;" })
                 </div>
-                <div>
-                    <label for="filterOption1">Filtr 1:</label>
-                    @Html.DropDownList("filterOption1", new SelectList(ViewBag.FilterOptions, "Value", "Text", ViewBag.SelectedFilterOption1), new { onchange = "submitFilterForm();", @value = ViewBag.SelectedFilterOption1 })
+                <div class="custom-dropdown">
+                    <label for="filterOption1">Miejsce studiów:</label>
+                    @Html.DropDownList("filterMiejsce", new SelectList(ViewBag.FilterOptionsMiejsce, "Value", "Text", ViewBag.SelectedFilterMiejsce), new { onchange = "submitFilterForm();", @value = ViewBag.SelectedFilterMiejsce, style = "width: 200px;" })
                 </div>
 
 
                 <input type="hidden" name="searchFilter" value="@ViewBag.SearchFilter" />
-                <input type="hidden" name="sortOption" value="@TempData["SortOption"]" />
+                <input type="hidden" name="filterPoziom" value="@TempData["FilterPoziom"]" />
+                <input type="hidden" name="filterForma" value="@TempData["FilterForma"]" />
+                <input type="hidden" name="filterJezyk" value="@TempData["FilterJezyk"]" />
+                <input type="hidden" name="filterWydzial" value="@TempData["FilterWydzial"]" />
+                <input type="hidden" name="filterMiejsce" value="@TempData["FilterMiejsce"]" />
             }
         </div>
     </div>
-    <div id="tab-kand" class="col-sm-12">
-        <!-- ... -->
+
+</div>
+
+@if (Model.Any())
+{
+    <div class="row">
+        <table class="table">
+            <thead>
+            </thead>
+            <tbody>
+                @foreach (var aplikacja in Model)
+                {
+                    @* <div class="application-row"> *@
+                    <tr>
+                        <td class="my-td" colspan="2">Kierunek: @aplikacja.KierunekStudiow.NazwaKierunku</td>
+                        <td class="my-td">Forma studiów: @(EnumUtils.ConvertIDToTypeAsString<FormaStudiow>(aplikacja.KierunekStudiow.FormaStudiow))</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="my-td" colspan="2">Wydział: @(EnumUtils.ConvertIDToTypeAsString<NazwaWydzialu>(aplikacja.KierunekStudiow.Wydzial))</td>
+                        <td class="my-td">Poziom studiów: @(EnumUtils.ConvertIDToTypeAsString<PoziomStudiow>(aplikacja.KierunekStudiow.PoziomStudiow)) </td>
+                        <td class="text-right" rowspan="2" style="white-space: nowrap;">
+@*                             <button type="button" class="btn btn-secondary" style="padding: 8px 16px;">Wyślij wiadomość</button>
+ *@                         <form asp-action="WyslijWiadomosc" asp-route-id="@aplikacja.ID" method="get" style="display: inline-block;">
+                                <button type="submit" class="btn btn-secondary">Wyślij wiadomość</button>
+                            </form>
+                            <button type="button" class="btn btn-secondary" style="padding: 8px 16px;" data-toggle="modal" data-target="#confirmationModal" data-app-id="@aplikacja.ID">
+                                Przypisz
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="my-td" colspan="2"></td>
+                        <td class="my-td">Język wykładowy: @(EnumUtils.ConvertIDToTypeAsString<Jezyk>(aplikacja.KierunekStudiow.JezykWykladowy))</td>
+
+                    </tr>
+                    <tr>
+                        <td class="my-td" colspan="2"></td>
+                        <td class="my-td">Miejsce: @(EnumUtils.ConvertIDToTypeAsString<MiejsceStudiow>(aplikacja.KierunekStudiow.MiejsceStudiow))</td>
+                        <td></td>
+                    </tr>
+        @* </div> *@
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Potwierdzenie akcji</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Czy na pewno chcesz wykonać tę akcję dla aplikacji o ID: <span id="appIdPlaceholder"></span>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+                    <form id="confirmationForm" method="post">
+                        <button type="submit" class="btn btn-secondary">Zatwierdź</button>
+                        <input type="hidden" id="aplikacjaId" name="aplikacjaId" value="">
+                        <input type="hidden" name="searchFilter" value="@ViewBag.SearchFilter" />
+                        <input type="hidden" name="filterPoziom" value="@TempData["FilterPoziom"]" />
+                        <input type="hidden" name="filterForma" value="@TempData["FilterForma"]" />
+                        <input type="hidden" name="filterJezyk" value="@TempData["FilterJezyk"]" />
+                        <input type="hidden" name="filterWydzial" value="@TempData["FilterWydzial"]" />
+                        <input type="hidden" name="filterMiejsce" value="@TempData["FilterMiejsce"]" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+} 
+@if(!string.IsNullOrEmpty(ViewBag.NoResultMessage))
+{
+    <p style="padding: 20px; text-align: center">@ViewBag.NoResultMessage</p>
+} 
+
+
+@if (ViewBag.PopUpMessage != null)
+{
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title"></h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                    <p style="text-align: center">@ViewBag.PopUpMessage</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Zamknij</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            var popUpMessage = '@Html.Raw(ViewBag.PopUpMessage)';
+
+            if (popUpMessage.trim() !== '') {
+                $('#myModal').modal('show');
+            }
+        });
+    </script>
+}
+
+<div class="modal fade" id="cancellingModal" tabindex="-1" role="dialog" aria-labelledby="cancellingModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cancellingModal">Potwierdzenie opuszczenia strony</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Zamknij">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align: center">
+                Czy na pewno chcesz anulować przypisanie i powrócić do listy kandydatów?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="confirmLeaveBtn">Potwierdź</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancelLeaveBtn">Anuluj</button>
+            </div>
+        </div>
     </div>
 </div>
+
+
 
 <script>
     function submitFilterForm() {
         document.getElementById("filterForm").submit();
+        document.getElementById("searchForm").elements["filterPoziom"].value = document.getElementById("filterPoziom").value;
+        document.getElementById("searchForm").elements["filterForma"].value = document.getElementById("filterForma").value;
+        document.getElementById("searchForm").elements["filterJezyk"].value = document.getElementById("filterJezyk").value;
+        document.getElementById("searchForm").elements["filterWydzial"].value = document.getElementById("filterWydzial").value;
+        document.getElementById("searchForm").elements["filterMiejsce"].value = document.getElementById("filterMiejsce").value;
     }
-</script>
 
+    function executeAction() {
+        $.ajax({
+            url: '/KandydaciController/PrzypiszKandydata',
+            type: 'POST',
+            data: { id: $("#confirmationModal").data("app-id") },
+            success: function (result) {
+                console.log(result);
+                showPopup("Nowa treść po wywołaniu akcji kontrolera");
+            },
+            error: function (error) {
+                console.error(error);
+            }
+        });
+        $('#confirmationModal').modal('hide');
+    }
+
+    function showPopup(content) {
+        $("#confirmationModal .modal-body").text(content);
+        $('#confirmationModal').modal('show');
+    }
+
+    $(document).ready(function () {
+        $("#cancelAssignmentBtn").click(function () {
+            showLeaveConfirmationModal();
+        });
+
+        function showLeaveConfirmationModal() {
+            $('#cancellingModal').modal('show');
+
+            $("#confirmLeaveBtn").click(function () {
+                window.location.href = '/Kandydaci/Index';
+                $('#cancellingModal').modal('hide');
+            });       
+            
+            $("#cancelLeaveBtn").click(function () {
+                $('#cancellingModal').modal('hide');
+            });
+        }
+    });
+
+</script>
 
 
 
