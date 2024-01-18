@@ -31,6 +31,7 @@ namespace Aurora.Models
         public OplataRekrutacyjna OplataRekrutacyjna { get; set; }
 
         [Required]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DataZlozenia { get; set; }
 
         [Required]

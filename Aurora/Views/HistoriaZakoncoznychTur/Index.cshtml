@@ -1,0 +1,88 @@
+﻿@using Aurora.Utils
+@using Aurora.Enums
+@model IEnumerable<AplikacjaRekrutacyjna>
+
+@{
+    ViewData["Title"] = "Historia";
+}
+
+<h1>Historia</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.KierunekStudiow.Wydzial)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KierunekStudiow.NazwaKierunku)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KierunekStudiow.FormaStudiow)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KierunekStudiow.PoziomStudiow)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KierunekStudiow.JezykWykladowy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataZlozenia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @(EnumUtils.ConvertIDToTypeAsString<NazwaWydzialu>(item.KierunekStudiow.Wydzial))
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KierunekStudiow.NazwaKierunku)
+            </td>
+            <td>
+                @(EnumUtils.ConvertIDToTypeAsString<FormaStudiow>(item.KierunekStudiow.FormaStudiow))
+            </td>
+            <td>
+                @(EnumUtils.ConvertIDToTypeAsString<PoziomStudiow>(item.KierunekStudiow.PoziomStudiow))
+            </td>
+            <td>
+                @(EnumUtils.ConvertIDToTypeAsString<Jezyk>(item.KierunekStudiow.JezykWykladowy))
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.DataZlozenia)
+            </td>
+            <td>
+                @(EnumUtils.ConvertIDToTypeAsString<RodzajStatusuAplikacji>(item.Status))
+            </td>
+            <td>
+            <td>
+                <a class ="btn btn-primary" href="@Url.Action("Index", "Home")" class="text-white">Szczegóły</a>
+            </td>
+            </td>
+            <td>
+                <a class="btn btn-primary" href="@Url.Action("Index", "Home")" class="text-white">Opinia</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+
+@if (!Model.Any())
+{
+    <h3 class="text-danger">Historia jest pusta</h3>
+    <br>
+    <br>
+}
+
+<div>
+    <a class="btn btn-primary" href="@Url.Action("Index", "Home")" class="text-white">Powrót</a>
+</div>
+
