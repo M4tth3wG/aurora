@@ -7634,19 +7634,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\trine\\.nuget": {}
+    "C:\\Users\\matig\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\C# Projects\\aurora\\Aurora\\Aurora.csproj",
+      "projectUniqueName": "D:\\Studia\\Semestr 5\\Projektowanie oprogramowania\\Aurora repo\\aurora\\Aurora\\Aurora.csproj",
       "projectName": "Aurora",
-      "projectPath": "D:\\C# Projects\\aurora\\Aurora\\Aurora.csproj",
-      "packagesPath": "C:\\Users\\trine\\.nuget",
-      "outputPath": "D:\\C# Projects\\aurora\\Aurora\\obj\\",
+      "projectPath": "D:\\Studia\\Semestr 5\\Projektowanie oprogramowania\\Aurora repo\\aurora\\Aurora\\Aurora.csproj",
+      "packagesPath": "C:\\Users\\matig\\.nuget\\packages\\",
+      "outputPath": "D:\\Studia\\Semestr 5\\Projektowanie oprogramowania\\Aurora repo\\aurora\\Aurora\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\trine\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\matig\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7710,7 +7715,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }
