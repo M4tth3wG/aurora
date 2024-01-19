@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace Aurora
 {
@@ -26,11 +27,26 @@ namespace Aurora
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            IServiceProvider serviceProvider = services.BuildServiceProvider();
+            IWebHostEnvironment env = serviceProvider.GetService<IWebHostEnvironment>();
+
             services.AddControllersWithViews();
 
             services.AddMvc();
+
+            string connectionString = null;
+
+            if (env.IsDevelopment())
+            {
+                connectionString = "AuroraDB";
+            }
+            else if (env.IsProduction())
+            {
+                connectionString = "AuroraDB_release";
+            }
+
             services.AddDbContext<DataDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("AuroraDB"))
+                options.UseSqlServer(Configuration.GetConnectionString(connectionString))
             );
         }
 
