@@ -22,7 +22,9 @@ namespace Aurora.Models
         [AllowNull]
         public virtual TuraRekrutacji TuraRekrutacji { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Treść jest wymagana.")]
+        [StringLength(1000, MinimumLength = 5, ErrorMessage = "Długość pola Treści powinna być od 5 do 1000 znaków.")]
+
         public string Tresc { get; set; }
 
 
