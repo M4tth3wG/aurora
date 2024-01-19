@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Users\\Igor\\Documents\\GitHub\\aurora\\Aurora\\Aurora.csproj": {}
   },
   "projects": {
@@ -12,9 +13,30 @@
         "projectPath": "C:\\Users\\Igor\\Documents\\GitHub\\aurora\\Aurora\\Aurora.csproj",
         "packagesPath": "C:\\Users\\Igor\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\Igor\\Documents\\GitHub\\aurora\\Aurora\\obj\\",
+=======
+    "D:\\Studia\\Semestr 5\\Projektowanie oprogramowania\\Aurora repo\\aurora\\Aurora\\Aurora.csproj": {}
+  },
+  "projects": {
+    "D:\\Studia\\Semestr 5\\Projektowanie oprogramowania\\Aurora repo\\aurora\\Aurora\\Aurora.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Studia\\Semestr 5\\Projektowanie oprogramowania\\Aurora repo\\aurora\\Aurora\\Aurora.csproj",
+        "projectName": "Aurora",
+        "projectPath": "D:\\Studia\\Semestr 5\\Projektowanie oprogramowania\\Aurora repo\\aurora\\Aurora\\Aurora.csproj",
+        "packagesPath": "C:\\Users\\matig\\.nuget\\packages\\",
+        "outputPath": "D:\\Studia\\Semestr 5\\Projektowanie oprogramowania\\Aurora repo\\aurora\\Aurora\\obj\\",
+>>>>>>> main
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
+<<<<<<< HEAD
           "C:\\Users\\Igor\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+          "C:\\Users\\matig\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+>>>>>>> main
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
