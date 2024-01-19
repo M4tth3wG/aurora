@@ -14,13 +14,9 @@
     <WebStackScaffolding_IsReferencingScriptLibrariesSelected>False</WebStackScaffolding_IsReferencingScriptLibrariesSelected>
     <Controller_SelectedScaffolderID>MvcControllerWithContextScaffolder</Controller_SelectedScaffolderID>
     <Controller_SelectedScaffolderCategoryPath>root/Common/MVC/Controller</Controller_SelectedScaffolderCategoryPath>
-<<<<<<< HEAD
     <WebStackScaffolding_ControllerDialogWidth>650,4</WebStackScaffolding_ControllerDialogWidth>
     <WebStackScaffolding_DbContextTypeFullName>Aurora.Data.DataDbContext</WebStackScaffolding_DbContextTypeFullName>
     <WebStackScaffolding_IsAsyncSelected>False</WebStackScaffolding_IsAsyncSelected>
     <WebStackScaffolding_IsViewGenerationSelected>True</WebStackScaffolding_IsViewGenerationSelected>
-=======
-    <NameOfLastUsedPublishProfile>D:\Studia\Semestr 5\Projektowanie oprogramowania\Aurora repo\aurora\Aurora\Properties\PublishProfiles\m4tth3wg-001-site1 - FTP.pubxml</NameOfLastUsedPublishProfile>
->>>>>>> main
   </PropertyGroup>
 </Project>
