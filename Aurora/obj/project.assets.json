@@ -7977,11 +7977,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Igor\\Documents\\GitHub\\aurora\\Aurora\\Aurora.csproj",
+      "projectUniqueName": "C:\\Users\\Igor\\Source\\Repos\\M4tth3wG\\aurora\\Aurora\\Aurora.csproj",
       "projectName": "Aurora",
-      "projectPath": "C:\\Users\\Igor\\Documents\\GitHub\\aurora\\Aurora\\Aurora.csproj",
+      "projectPath": "C:\\Users\\Igor\\Source\\Repos\\M4tth3wG\\aurora\\Aurora\\Aurora.csproj",
       "packagesPath": "C:\\Users\\Igor\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Igor\\Documents\\GitHub\\aurora\\Aurora\\obj\\",
+      "outputPath": "C:\\Users\\Igor\\Source\\Repos\\M4tth3wG\\aurora\\Aurora\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Igor\\AppData\\Roaming\\NuGet\\NuGet.Config",
