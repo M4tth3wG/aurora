@@ -15,6 +15,13 @@ namespace Aurora.Models
         [AllowNull]
         public virtual Kandydat Kandydat { get; set; }
 
+
+        [Required]
+        public int TuraRekrutacjiID { get; set; }
+
+        [AllowNull]
+        public virtual TuraRekrutacji TuraRekrutacji { get; set; }
+
         [Required]
         public string Tresc { get; set; }
 
