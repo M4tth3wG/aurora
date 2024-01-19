@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "CjJrJMi9TtpIFJKtl/FgbZjUvbO2sKjqxP0oz+SzY46Bud7kp3knwnqhA0I9O2EEqlTlSCw7fdVwq61g12EpzQ==",
+  "dgSpecHash": "1EGqgKREMg8xOL7BNpPjyXuewAoQfiR8y8EMZ9U3B14LfZ0nYy+RTJ7yEFsCvYeGcYhYXQoaC8GpQs2n8QABpA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Igor\\Source\\Repos\\M4tth3wG\\aurora\\Aurora\\Aurora.csproj",
+  "projectFilePath": "C:\\Users\\Igor\\Documents\\GitHub\\aurora\\Aurora\\Aurora.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Igor\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Igor\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.1\\microsoft.aspnetcore.cryptography.internal.5.0.1.nupkg.sha512",

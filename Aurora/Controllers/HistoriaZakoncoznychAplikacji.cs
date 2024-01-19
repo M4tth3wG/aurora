@@ -28,10 +28,12 @@ namespace Aurora.Controllers
         public IActionResult Index()
         {
             var aplikacje = _context.AplikacjeRekrutacyjne
-                .Where(e => e.Status == 5 || e.Status == 6)
+/*                .Where(e => e.Status == 5 || e.Status == 6)*/
                 .Include(e => e.Kandydat)
 /*                .Where(e => e.Kandydat.ID == 2)
 */                .Include(e => e.KierunekStudiow)
+                .Include(e => e.TuraRekrutacji)
+                .Where(e => e.TuraRekrutacji.DataZakonczenia < DateTime.Now.Date)
                 .ToList();
             return View(aplikacje);
         }
