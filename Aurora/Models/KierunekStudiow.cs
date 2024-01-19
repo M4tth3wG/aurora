@@ -7,6 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Aurora.Models
 {
+    [Serializable]
     public class KierunekStudiow
     {
         [Key]

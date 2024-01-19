@@ -5,39 +5,19 @@
     ViewData["Title"] = "Przypisz kandydata";
 }
 
-
-@* <div class="frame-container">
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-        <div>
-            <p>Nazwisko: @Model.Nazwisko.PadRight(60) Imię: @Model.Imie</p>
-            <p>ID: @Model.ID</p>
-        </div>
-        <div>
-            <button class="btn btn-danger">Anuluj przypisanie</button>
-        </div>
-    </div>
-</div> *@
-
-<div class="row">
-@*     <div id="tab-kand" class="col-sm-12">
-        <div style="display: flex; flex-direction: row;">
-            <div style="flex: 1;">
-                <p>Nazwisko:</p>    
+    @* <div class="frame-container">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <p>Nazwisko: @Model.Nazwisko.PadRight(60) Imię: @Model.Imie</p>
+                <p>ID: @Model.ID</p>
             </div>
-            <div style="flex: 2;">
-                <p>@ViewBag.Nazwisko.PadRight(60)</p>
-            </div>
-            <div style="flex: 1;">
-                <p style="margin: 0;">Imię:</p>
-            </div>
-            <div style="flex: 2;">
-                <p style="margin: 0;">@ViewBag.Imie.PadRight(60)</p>
+            <div>
+                <button class="btn btn-danger">Anuluj przypisanie</button>
             </div>
         </div>
-        <p>ID kandydata: @ViewBag.ID</p>
     </div> *@
 
-
+<div class="row">
     <div class="row col-md-12">
         <table class="table">
             <thead>
@@ -55,11 +35,11 @@
                         <td></td>
                         <td></td>
                     </tr>
-             </tbody>
+                </tbody>
         </table>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-4" style="margin-right: 10px; margin-bottom: 20px;">
         <div class="form-inline pull-left">
             @using (Html.BeginForm("PrzypiszKandydata", "Kandydaci", FormMethod.Get, new { @class = "form-group", id = "searchForm" }))
             {
@@ -67,6 +47,7 @@
                     <label for="txtSearchFilter">Wyszukaj kierunek:</label>
                     <input type="text" class="form-control" placeholder="Wyszukaj kierunek" id="txtSearchFilter" name="searchFilter" value="@ViewBag.SearchFilter" />
                     <button type="submit" class="btn btn-secondary">Szukaj</button>
+                    <button type="button" class="btn btn-secondary" onclick="clearFilters()">Usuń filtry</button>
                     @Html.Hidden("filterPoziom", TempData["FilterPoziom"])
                     @Html.Hidden("filterForma", TempData["FilterForma"])
                     @Html.Hidden("filterJezyk", TempData["FilterJezyk"])
@@ -77,7 +58,7 @@
             }
         </div>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-8">
         <div class="form-inline pull-right">
             @using (Html.BeginForm("PrzypiszKandydata", "Kandydaci", FormMethod.Get, new { @class = "form-group", id = "filterForm" }))
             {
@@ -103,6 +84,7 @@
                     <label for="filterOption1">Miejsce studiów:</label>
                     @Html.DropDownList("filterMiejsce", new SelectList(ViewBag.FilterOptionsMiejsce, "Value", "Text", ViewBag.SelectedFilterMiejsce), new { onchange = "submitFilterForm();", @value = ViewBag.SelectedFilterMiejsce, style = "width: 200px;" })
                 </div>
+
 
 
                 <input type="hidden" name="searchFilter" value="@ViewBag.SearchFilter" />
@@ -137,7 +119,7 @@
                         <td class="my-td">Poziom studiów: @(EnumUtils.ConvertIDToTypeAsString<PoziomStudiow>(aplikacja.KierunekStudiow.PoziomStudiow)) </td>
                         <td class="text-right" rowspan="2" style="white-space: nowrap;">
 @*                             <button type="button" class="btn btn-secondary" style="padding: 8px 16px;">Wyślij wiadomość</button>
- *@                         <form asp-action="WyslijWiadomosc" asp-route-id="@aplikacja.ID" method="get" style="display: inline-block;">
+    *@                         <form asp-action="WyslijWiadomosc" asp-route-id="@aplikacja.ID" method="get" style="display: inline-block;">
                                 <button type="submit" class="btn btn-secondary">Wyślij wiadomość</button>
                             </form>
                             <button type="button" class="btn btn-secondary" style="padding: 8px 16px;" data-toggle="modal" data-target="#confirmationModal" data-app-id="@aplikacja.ID">
@@ -253,15 +235,11 @@
 
 
 
+
 <script>
-    function submitFilterForm() {
-        document.getElementById("filterForm").submit();
-        document.getElementById("searchForm").elements["filterPoziom"].value = document.getElementById("filterPoziom").value;
-        document.getElementById("searchForm").elements["filterForma"].value = document.getElementById("filterForma").value;
-        document.getElementById("searchForm").elements["filterJezyk"].value = document.getElementById("filterJezyk").value;
-        document.getElementById("searchForm").elements["filterWydzial"].value = document.getElementById("filterWydzial").value;
-        document.getElementById("searchForm").elements["filterMiejsce"].value = document.getElementById("filterMiejsce").value;
-    }
+
+
+
 
     function executeAction() {
         $.ajax({

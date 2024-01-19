@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Aurora.Utils
 {
     public static class StringUtils
     {
-
+        public static bool IsSubstring(string mainString, string substring)
+        {
+            return mainString.ToLower().Contains(substring.ToLower());
+        }
 
         public static string ConvertCamelCaseToTitleCase(string input)
         {
@@ -17,7 +21,7 @@ namespace Aurora.Utils
                 {
                     if (i > 0)
                     {
-                        stringBuilder.Append(' '); // Dodaj spację przed każdym słowem (oprócz pierwszego słowa)
+                        stringBuilder.Append(' ');
                     }
                     stringBuilder.Append(currentChar);
                 }
@@ -41,6 +45,21 @@ namespace Aurora.Utils
                 default:
                     return "Dowolny";
             }
+        }
+
+        public static string ConvertListToTupleFormat<T>(List<T> list, char beginChar = '(', char sep = ',', char endChar = ')')
+        {
+            var stringBuilder = new StringBuilder();
+            stringBuilder.Append(beginChar);
+
+            foreach (var item in list)
+            {
+                stringBuilder.Append($"{item}{sep} ");
+            }
+
+            stringBuilder = stringBuilder.Remove(stringBuilder.Length - 2, 2);
+            stringBuilder.Append(endChar);
+            return stringBuilder.ToString().Trim();
         }
 
 
