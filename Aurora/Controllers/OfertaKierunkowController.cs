@@ -1,12 +1,16 @@
 ﻿using Aurora.Data;
 using Aurora.Enums;
+using Aurora.Interfaces;
 using Aurora.Models;
+using Aurora.OtherClasses.StrategiesForRR;
 using Aurora.Utils;
+using Aurora.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -37,7 +41,7 @@ namespace Aurora.Controllers
 
             if (!string.IsNullOrEmpty(searchFilter))
             {
-               kierunki = kierunki.Where(a => a.NazwaKierunku.Contains(searchFilter)).ToList();
+               kierunki = kierunki.Where(a => StringUtils.IsSubstring(a.NazwaKierunku, searchFilter)).ToList();
             }
 
             ViewBag.FilterOptionsPoziom = EnumUtils.GetWartosciEnumaJakoSelectList<PoziomStudiow>();
@@ -74,6 +78,70 @@ namespace Aurora.Controllers
 
             return View(kierunki);
 
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> WyliczWspolczynnik(int id)
+        {
+            var kierunek = await _context.KierunkiStudiow.FindAsync(id);
+            if (kierunek == null)
+            {
+                return View("Error");
+            }
+
+            return View(new WyliczWspolczynnikViewModel(kierunek));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> WyliczWspolczynnik(WyliczWspolczynnikViewModel model)
+        {
+
+            if (model == null) return View("Error");
+
+            var kierunek = await _context.KierunkiStudiow.FindAsync(model.KierunekID);
+            if (kierunek == null)
+            {
+                return View("Error");
+            }
+
+            var strategia = UtilsRR.GetStrategiaDlaKierunku(kierunek);
+
+            var (listaBrakujacychPrzedmiotow, czyWprowadzonoEgzaminZRysunku) = CzyWprowadzonoWszystkiePotrzebneWartosci(strategia, model);
+            if (listaBrakujacychPrzedmiotow.Count > 0)
+            {
+                ViewBag.PopUpMessage = $"Brak podanego przynajmniej jednego wyniku dla przedmiotu {StringUtils.ConvertListToTupleFormat(listaBrakujacychPrzedmiotow)}.";
+            }
+            else if (strategia is StrategiaArchitektura && !czyWprowadzonoEgzaminZRysunku)
+            {
+                ViewBag.PopUpMessage = "Brak podanego wyniku dla egzaminu z rysunku.";
+            }
+            else 
+            {
+                ViewBag.WartoscWR = ObliczPunktyWspolczynnika(strategia, model);
+            }
+
+            return View(model); 
+        }
+
+        private (List<string>, bool) CzyWprowadzonoWszystkiePotrzebneWartosci(StrategiaWspolRekrut strategia, WyliczWspolczynnikViewModel model)
+        {
+            var brakujacePrzedmioty = new List<string>();
+            var czyWprowadzonoEgzamin = true;
+
+            if (model.wynikiMaturalne["MatPodst"] == null && model.wynikiMaturalne["MatRoz"] == null) brakujacePrzedmioty.Add("Matemtyka");
+            if (model.wynikiMaturalne["PolPodst"] == null && model.wynikiMaturalne["PolRoz"] == null) brakujacePrzedmioty.Add("Język polski");
+            if (model.wynikiMaturalne["ObcPodst"] == null && model.wynikiMaturalne["ObcRoz"] == null) brakujacePrzedmioty.Add("Język obcy");
+
+            if (model.wynikiMaturalne["EgzRys"] == null) czyWprowadzonoEgzamin = false;
+           
+            return (brakujacePrzedmioty, czyWprowadzonoEgzamin);
+        }
+
+        private double? ObliczPunktyWspolczynnika(StrategiaWspolRekrut strategia, WyliczWspolczynnikViewModel model)
+        {
+            if (strategia == null || model == null) return null;
+            var components = UtilsRR.ConvertFormPointsToComponents(model);
+            return strategia.WyliczPunkty(components);
         }
 
 

@@ -1,0 +1,122 @@
+﻿@using Aurora.Enums
+@using Aurora.Utils
+@using Aurora.ViewModels
+@model WyliczWspolczynnikViewModel
+@{
+    ViewData["Title"] = "Wylicz swój współczynnik rekrutacyjny";
+}
+
+<h3 style="margin-bottom: 20px;">Wyliczanie współczynnika rekrutacyjnego dla kierunku @Model.NazwaKierunku</h3>
+
+
+<div style="text-align: center; margin-bottom: 30px;">
+    <h2 style="margin-bottom: 20px;">Wartość współczynnika: @ViewBag.WartoscWR</h2>
+    <h3>Wyniki procentowe z egzaminu maturalnego</h3>
+</div>
+
+
+<form method="post" action="@Url.Action("WyliczWspolczynnik", "OfertaKierunkow")">
+    <input type="hidden" id="id" name="KierunekID" value="@Model.KierunekID">
+    <input type="hidden" id="id" name="NazwaKierunku" value="@Model.NazwaKierunku">
+    <div class="rr-form-table-container">
+        <table class="rr-form-table">
+            <thead>
+                <tr>
+                    <th>Przedmiot</th>
+                    <th>Poziom podstawowy</th>
+                    <th>Poziom rozszerzony</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><label for="MatPodst">Matematyka</label></td>
+                    <td><input type="number" id="MatPodst" name="WynikiMaturalne[MatPodst]" min="0" max="100" value=@Model.wynikiMaturalne["MatPodst"] oninput="ograniczDoMaksimum(this)"></td>
+                    <td><input type="number" id="MatRoz" name="WynikiMaturalne[MatRoz]" min="0" max="100" value=@Model.wynikiMaturalne["MatRoz"] oninput="ograniczDoMaksimum(this)"></td>
+                </tr>
+                <tr>
+                    <td><label for="FizPodst">Fizyka</label></td> 
+                    <td><input type="number" id="FizPodst" name="WynikiMaturalne[FizPodst]" min="0" max="100" value=@Model.wynikiMaturalne["FizPodst"] oninput="ograniczDoMaksimum(this)"></td>
+                    <td><input type="number" id="FizRoz" name="WynikiMaturalne[FizRoz]" min="0" max="100" value=@Model.wynikiMaturalne["FizRoz"] oninput="ograniczDoMaksimum(this)"></td>
+                </tr>
+                <tr>
+                    <td><label for="PolPodst">Język polski</label></td>
+                    <td><input type="number" id="PolPodst" name="WynikiMaturalne[PolPodst]" min="0" max="100" value=@Model.wynikiMaturalne["PolPodst"] oninput="ograniczDoMaksimum(this)"></td>
+                    <td><input type="number" id="PolRoz" name="WynikiMaturalne[PolRoz]" min="0" max="100" value=@Model.wynikiMaturalne["PolRoz"] oninput="ograniczDoMaksimum(this)"></td>
+                </tr>
+                <tr>
+                    <td><label for="ObcPodst">Język obcy</label></td>
+                    <td><input type="number" id="ObcPodst" name="WynikiMaturalne[ObcPodst]" min="0" max="100" value=@Model.wynikiMaturalne["ObcPodst"] oninput="ograniczDoMaksimum(this)"></td>
+                    <td><input type="number" id="ObcRoz" name="WynikiMaturalne[ObcRoz]" min="0" max="100" value=@Model.wynikiMaturalne["ObcRoz"] oninput="ograniczDoMaksimum(this)"></td>
+                </tr>
+                <tr>
+                    <td><label for="BioPodst">Biologia</label></td>
+                    <td><input type="number" id="BioPodst" name="WynikiMaturalne[BioPodst]" min="0" max="100" value=@Model.wynikiMaturalne["BioPodst"] oninput="ograniczDoMaksimum(this)"></td>
+                    <td><input type="number" id="BioRoz" name="WynikiMaturalne[BioRoz]" min="0" max="100" value=@Model.wynikiMaturalne["BioPodst"] oninput="ograniczDoMaksimum(this)"></td>
+                </tr>
+                <tr>
+                    <td><label for="ChePodst">Chemia</label></td>
+                    <td><input type="number" id="ChePodst" name="WynikiMaturalne[ChePodst]" min="0" max="100" value=@Model.wynikiMaturalne["ChePodst"] oninput="ograniczDoMaksimum(this)"></td>
+                    <td><input type="number" id="CheRoz" name="WynikiMaturalne[CheRoz]" min="0" max="100" value=@Model.wynikiMaturalne["CheRoz"] oninput="ograniczDoMaksimum(this)"></td>
+                </tr>
+                <tr>
+                    <td><label for="GeoPodst">Geografia</label></td>
+                    <td><input type="number" id="GeoPodst" name="WynikiMaturalne[GeoPodst]" min="0" max="100" value=@Model.wynikiMaturalne["GeoPodst"] oninput="ograniczDoMaksimum(this)"></td>
+                    <td><input type="number" id="GeoRoz" name="WynikiMaturalne[GeoRoz]" min="0" max="100" value=@Model.wynikiMaturalne["GeoRoz"] oninput="ograniczDoMaksimum(this)"></td>
+                </tr>
+                <tr>
+                    <td><label for="InfoPodst">Informatyka</label></td>
+                    <td><input type="number" id="InfoPodst" name="WynikiMaturalne[InfoPodst]" min="0" max="100" value=@Model.wynikiMaturalne["InfoPodst"] oninput="ograniczDoMaksimum(this)"></td>
+                    <td><input type="number" id="InfoRoz" name="WynikiMaturalne[InfoRoz]" min="0" max="100" value=@Model.wynikiMaturalne["InfoRoz"] oninput="ograniczDoMaksimum(this)"></td>
+                </tr>                
+                <tr>
+                    <td><label for="EgzRys">Egzamin z rysunku</label></td>
+                    <td colspan="2"><input type="number" id="InfoPodst" name="WynikiMaturalne[EgzRys]" min="0" value=@Model.wynikiMaturalne["EgzRys"]></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div style="text-align: center; margin-top: 20px;">
+        <button type="submit" style="display: inline-block;">Submit</button>
+        <button type="button" onclick="history.back()" style="display: inline-block; margin-left: 10px;">Powrót</button>
+    </div>
+
+</form>
+
+
+@if (ViewBag.PopUpMessage != null)
+{
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title"></h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                    <p style="text-align: center">@ViewBag.PopUpMessage</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Zamknij</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            var popUpMessage = '@Html.Raw(ViewBag.PopUpMessage)';
+
+            if (popUpMessage.trim() !== '') {
+                $('#myModal').modal('show');
+            }
+        });
+    </script>
+}
+
+
+

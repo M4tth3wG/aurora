@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Aurora.OtherClasses.StrategiesForRR
 {
-    public class Architektura1Stopien : StrategiaWspolRekrut
+    public class StrategiaArchitektura : StrategiaWspolRekrutJednolite
 
     {
         public double WyliczPunkty(List<SkladowaWspRekrut> skladowe)
@@ -20,7 +20,12 @@ namespace Aurora.OtherClasses.StrategiesForRR
             var punktyJezykObcy = UtilsRR.GetPoints(skladowe, RodzajSkladowejWspRekrut.JO, PrzedmiotMaturalny.JezykObcy);
             var punktyJezykPolski= UtilsRR.GetPoints2(skladowe, RodzajSkladowejWspRekrut.JP, PrzedmiotMaturalny.JezykPolski);
             var punktyEgzamin = UtilsRR.GetExamPoints(skladowe);
-               
+
+            return WyliczPunkty(punktyMatematyka, punktyFizyka, punktyJezykObcy, punktyJezykPolski, punktyEgzamin);
+        }
+
+        public double WyliczPunkty(double punktyMatematyka, double punktyFizyka, double punktyJezykObcy, double punktyJezykPolski, double punktyEgzamin)
+        {
             return punktyMatematyka + punktyFizyka + 0.1 * punktyJezykObcy + 0.1 * punktyJezykPolski + punktyEgzamin;
         }
     }
