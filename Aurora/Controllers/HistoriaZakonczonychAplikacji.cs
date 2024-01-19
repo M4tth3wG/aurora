@@ -29,26 +29,44 @@ namespace Aurora.Controllers
         public IActionResult Index()
         {
             var aplikacje = _context.AplikacjeRekrutacyjne
-                .Where(e => e.Status == Convert.ToInt32(RodzajStatusuAplikacji.ZakonczonaSukcesem) || e.Status == Convert.ToInt32(RodzajStatusuAplikacji.ZakonczonaNiepowodzeniem) || e.Status == Convert.ToInt32(RodzajStatusuAplikacji.Odrzucona))
-                .Include(e => e.Kandydat)
+/*                .Where(e => e.Status == Convert.ToInt32(RodzajStatusuAplikacji.ZakonczonaSukcesem) || e.Status == Convert.ToInt32(RodzajStatusuAplikacji.ZakonczonaNiepowodzeniem) || e.Status == Convert.ToInt32(RodzajStatusuAplikacji.Odrzucona))
+*/                .Include(e => e.Kandydat)
 /*                .Where(e => e.Kandydat.ID == 2)
 */                .Include(e => e.KierunekStudiow)
                 .Include(e => e.TuraRekrutacji)
+                    .ThenInclude(e => e.Opinie)
 /*                .Where(e => e.TuraRekrutacji.DataZakonczenia < DateTime.Now.Date)*/
                 .ToList();
             return View(aplikacje);
         }
 
 
-        public IActionResult Opinia()
+        public IActionResult Opinia(int kandydatID, int turaRekrutacjiID)
         {
-            var aplikacje = _context.AplikacjeRekrutacyjne
-                .Where(e => e.Status == 5 || e.Status == 6)
-                .Include(e => e.Kandydat)
-/*                .Where(e => e.Kandydat.ID == 2)
-*/                .Include(e => e.KierunekStudiow)
-                .ToList();
-            return View(aplikacje);
+
+            var opinia = new Opinia()
+            {
+
+                KandydatID = kandydatID,
+                TuraRekrutacjiID = turaRekrutacjiID
+
+            };
+
+            return View(opinia);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Opinia([Bind("Id,KandydatID,TuraRekrutacjiID,Tresc")] Opinia opinia)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(opinia);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(opinia);
         }
     }
 }

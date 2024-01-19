@@ -66,9 +66,18 @@
                 <a class ="btn btn-primary" href="@Url.Action("Index", "Home")" class="text-white">Szczegóły</a>
             </td>
             </td>
-            <td>
-                <a class="btn btn-primary" href="@Url.Action("Index", "Home")" class="text-white">Opinia</a>
-            </td>
+                @if (item.TuraRekrutacji.Opinie.Any(opinia => opinia.KandydatID == item.KandydatID))
+                {
+                    <td>
+                        <span class="btn btn-secondary disabled">Opinia</span>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <a class="btn btn-primary" href="@Url.Action("Opinia", "HistoriaZakonczonychAplikacji", new {item.KandydatID, item.TuraRekrutacjiID})" class="text-white">Opinia</a>
+                    </td>
+                }
         </tr>
 }
     </tbody>
