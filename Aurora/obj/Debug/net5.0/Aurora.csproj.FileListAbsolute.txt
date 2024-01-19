@@ -157,3 +157,4 @@ D:\C# Projects\aurora\Aurora\obj\Debug\net5.0\Razor\Views\Kandydaci\Index.cshtml
 D:\C# Projects\aurora\Aurora\obj\Debug\net5.0\Razor\Views\Kandydaci\PrzypiszKandydata.cshtml.g.cs
 D:\C# Projects\aurora\Aurora\obj\Debug\net5.0\Razor\Views\Kandydaci\WyslijWiadomosc.cshtml.g.cs
 D:\C# Projects\aurora\Aurora\obj\Debug\net5.0\Razor\Views\OfertaKierunkow\Index.cshtml.g.cs
+D:\C# Projects\aurora\Aurora\obj\Debug\net5.0\Razor\Views\OfertaKierunkow\WyliczWspolczynnik.cshtml.g.cs
