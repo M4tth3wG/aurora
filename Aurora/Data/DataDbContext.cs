@@ -85,11 +85,11 @@ namespace Aurora.Data
             );
 
             KierunekStudiow kierunek1 = new KierunekStudiow(
-                1, 1, 0.0, 1500.0, 0, 0, "Architektura", 0, 0, "Architektura dla ambitnych"
+                1, 1, 0.0, 1500.0, 2, 0, "Architektura", 0, 0, "Architektura dla ambitnych"
             );
 
             KierunekStudiow kierunek2 = new KierunekStudiow(
-                2, 1, 0.0, 1250.0, 0, 0, "Automatyka i Robotyka", 0, 10, "AiR dla wymagających"
+                2, 1, 0.0, 1250.0, 3, 0, "Automatyka i Robotyka", 0, 10, "AiR dla wymagających"
             );
 
             builder.Entity<KierunekStudiow>().HasData(
@@ -136,11 +136,11 @@ namespace Aurora.Data
             );
 
             WspolczynnikRekrutacyjny wspolczynnik1 = new WspolczynnikRekrutacyjny(
-                1, new Architektura1Stopien(), 1    
+                1, new StrategiaArchitektura(), 1    
             );            
             
             WspolczynnikRekrutacyjny wspolczynnik2 = new WspolczynnikRekrutacyjny(
-                2, new AiR1Stopien(), 2    
+                2, new Standard1Stopien(new() { PrzedmiotMaturalny.Fizyka}), 2    
             );
 
             builder.Entity<WspolczynnikRekrutacyjny>().HasData(

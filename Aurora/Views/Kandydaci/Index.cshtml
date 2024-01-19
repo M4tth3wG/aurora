@@ -3,77 +3,87 @@
     ViewData["Title"] = "Index";
 }
 
+<body>
+
+
 <p>Kandydaci na studia (Politechnika Wrocławska)</p>
 
-<br />
-<div class="row">
-    <div class="col-md-6">
-        <div class="form-inline pull-left">
-            @using (Html.BeginForm("Index", "Kandydaci", FormMethod.Get, new { @class = "form-group", id = "searchForm" }))
-            {
-                <input type="text" class="form-control" placeholder="Wyszukaj" id="txtSearchFilter" name="searchFilter" value="@ViewBag.SearchFilter" />
-                <button type="submit" class="btn btn-secondary">Szukaj</button>
-                @Html.Hidden("sortOption", TempData["SortOption"])
-            }
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-inline pull-right">
-            @using (Html.BeginForm("Index", "Kandydaci", FormMethod.Get, new { @class = "form-group" }))
-            {
-                <div>
-                    <label for="sortOption">Sortowanie:</label>
-                    @Html.DropDownList("sortOption", new SelectList(ViewBag.SortOptions, "Value", "Text", ViewBag.SelectedSortOption), new { onchange = "this.form.submit();", @value = ViewBag.SelectedSortOption })
-                </div>
-                <input type="hidden" name="searchFilter" value="@ViewBag.SearchFilter" />
-                <input type="hidden" name="sortOption" value="@TempData["SortOption"]" />
-            }
-        </div>
-    </div>
-    <div id="tab-kand" class="col-sm-12">
-        <table class="table">
-            <thead>
-            </thead>
-            <tbody>
-                @foreach (var kandydat in Model)
+    <br />
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-inline pull-left">
+                @using (Html.BeginForm("Index", "Kandydaci", FormMethod.Get, new { @class = "form-group", id = "searchForm" }))
                 {
-                    <tr>
-                        <td>
-                            <div style="display: flex; flex-direction: row;">
-                                <div style="flex: 1;">
-                                    <p style="margin: 0;">Nazwisko:</p>
-                                </div>
-                                <div style="flex: 2;">
-                                    <p style="margin: 0;">@kandydat.Nazwisko.PadLeft(60)</p>
-                                </div>
-                                <div style="flex: 1;">
-                                    <p style="margin: 0;">Imię:</p>
-                                </div>
-                                <div style="flex: 2;">
-                                    <p style="margin: 0;">@kandydat.Imie.PadLeft(60)</p>
-                                </div>
-                            </div>
+                    <div class="custom-dropdown">
 
+                        <input type="text" class="form-control" placeholder="Wyszukaj" id="txtSearchFilter" name="searchFilter" value="@ViewBag.SearchFilter" />
+                        <button type="submit" class="btn btn-secondary">Szukaj</button>
+                        <button type="button" class="btn btn-secondary" onclick="clearFilters()">Usuń filtry</button>
+                        @Html.Hidden("sortOption", TempData["SortOption"])
 
-
-
-                            <p>ID kandydata: @kandydat.ID</p>
-                        </td>
-                        <td class="text-right" style="white-space: nowrap;">
-                            <button class="btn btn-secondary" style="margin-right: 5px;">Dokumenty</button>
-                            <button class="btn btn-secondary" style="margin-right: 5px;">Wyślij wiadomość</button>
-                            <form asp-action="PrzypiszKandydata" asp-route-id="@kandydat.ID" method="get" style="display: inline-block;">
-                                <button type="submit" class="btn btn-secondary">Przypisz</button>
-                            </form>
-                        </td>
-
-
-                    </tr>
+                    </div>
                 }
-            </tbody>
-        </table>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-inline pull-right">
+                @using (Html.BeginForm("Index", "Kandydaci", FormMethod.Get, new { @class = "form-group", id = "filterForm" }))
+                {
+                    <div class="custom-dropdown">
+                        <label for="sortOption">Sortowanie:</label>
+                        @Html.DropDownList("sortOption", new SelectList(ViewBag.SortOptions, "Value", "Text", ViewBag.SelectedSortOption), new { @class = "form-group" , onchange = "this.form.submit();", @value = ViewBag.SelectedSortOption })
+                
+                        <input type="hidden" name="searchFilter" value="@ViewBag.SearchFilter" />
+                        <input type="hidden" name="sortOption" value="@TempData["SortOption"]" />
+                    </div>
+                }
+            </div>
+        </div>
+        <div id="tab-kand" class="col-sm-12">
+            <table class="table">
+                <thead>
+                </thead>
+                <tbody>
+                    @foreach (var kandydat in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div style="display: flex; flex-direction: row;">
+                                    <div style="flex: 1;">
+                                        <p style="margin: 0;">Nazwisko: </p>
+                                    </div>
+                                    <div style="flex: 2;">
+                                        <p style="margin: 0;">@kandydat.Nazwisko.PadLeft(60)</p>
+                                    </div>
+                                    <div style="flex: 1;">
+                                        <p style="margin: 0;">Imię:</p>
+                                    </div>
+                                    <div style="flex: 2;">
+                                        <p style="margin: 0;">@kandydat.Imie.PadLeft(60)</p>
+                                    </div>
+                                </div>
+
+
+
+
+                                <p>ID kandydata: @kandydat.ID</p>
+                            </td>
+                            <td class="text-right" style="white-space: nowrap;">
+                                <button class="btn btn-secondary" style="margin-right: 5px;">Dokumenty</button>
+                                <button class="btn btn-secondary" style="margin-right: 5px;">Wyślij wiadomość</button>
+                                <form asp-action="PrzypiszKandydata" asp-route-id="@kandydat.ID" method="get" style="display: inline-block;">
+                                    <button type="submit" class="btn btn-secondary">Przypisz</button>
+                                </form>
+                            </td>
+
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
+</body>
 
 <script>
     function submitSortForm() {
