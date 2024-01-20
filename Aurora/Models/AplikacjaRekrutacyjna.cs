@@ -56,6 +56,16 @@ namespace Aurora.Models
             KandydatID = kandydatID;
         }
 
+        public AplikacjaRekrutacyjna(int kierunekStudiowID, int turaRekrutacjiID, int oplataRekrutacyjnaID, DateTime dataZlozenia, int status, int kandydatID)
+        {
+            KierunekStudiowID = kierunekStudiowID;
+            TuraRekrutacjiID = turaRekrutacjiID;
+            OplataRekrutacyjnaID = oplataRekrutacyjnaID;
+            DataZlozenia = dataZlozenia;
+            Status = status;
+            KandydatID = kandydatID;
+        }
+
         public AplikacjaRekrutacyjna()
         {
         }

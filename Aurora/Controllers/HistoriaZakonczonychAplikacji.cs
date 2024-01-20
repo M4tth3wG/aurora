@@ -26,17 +26,17 @@ namespace Aurora.Controllers
             _hostEnvironment = hostEnvironment;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var aplikacje = _context.AplikacjeRekrutacyjne
-/*                .Where(e => e.Status == Convert.ToInt32(RodzajStatusuAplikacji.ZakonczonaSukcesem) || e.Status == Convert.ToInt32(RodzajStatusuAplikacji.ZakonczonaNiepowodzeniem) || e.Status == Convert.ToInt32(RodzajStatusuAplikacji.Odrzucona))
-*/                .Include(e => e.Kandydat)
+            var aplikacje = await _context.AplikacjeRekrutacyjne
+                .Where(e => e.Status == Convert.ToInt32(RodzajStatusuAplikacji.ZakonczonaSukcesem) || e.Status == Convert.ToInt32(RodzajStatusuAplikacji.ZakonczonaNiepowodzeniem) || e.Status == Convert.ToInt32(RodzajStatusuAplikacji.Odrzucona))
+                .Include(e => e.Kandydat)
 /*                .Where(e => e.Kandydat.ID == 2)
 */                .Include(e => e.KierunekStudiow)
                 .Include(e => e.TuraRekrutacji)
                     .ThenInclude(e => e.Opinie)
-/*                .Where(e => e.TuraRekrutacji.DataZakonczenia < DateTime.Now.Date)*/
-                .ToList();
+                .Where(e => e.TuraRekrutacji.DataZakonczenia < DateTime.Now.Date)
+                .ToListAsync();
             return View(aplikacje);
         }
 
@@ -67,6 +67,33 @@ namespace Aurora.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(opinia);
+        }
+
+
+
+
+
+        public IActionResult Szczegoly(int kandydatID, int turaRekrutacjiID)
+        {
+
+            var aplikacja = _context.AplikacjeRekrutacyjne
+                .Where(e => e.KandydatID == kandydatID)
+                .Where(e => e.TuraRekrutacjiID == turaRekrutacjiID)
+                .Include(e => e.Kandydat)
+                .Include(e => e.KierunekStudiow)
+                .Include(e => e.TuraRekrutacji)
+                    .ThenInclude(e => e.Opinie)
+                .ToList();
+
+            var wszyskieAplikacjeWTurze = _context.AplikacjeRekrutacyjne
+                .Where(e => e.TuraRekrutacjiID == turaRekrutacjiID)
+                .OrderBy(e => e.WspolczynnikRekrutacyjny)
+                .ToList();
+
+            Console.WriteLine(aplikacja);
+            Console.WriteLine(kandydatID + turaRekrutacjiID);
+
+            return View(wszyskieAplikacjeWTurze);
         }
     }
 }
