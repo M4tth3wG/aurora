@@ -1,0 +1,45 @@
+﻿@model Aurora.Models.KierunekStudiow
+
+@{
+    ViewData["Title"] = "Nowy kierunek";
+}
+
+<h1>Dodawanie nowego kierunku studiów - szczegóły</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="DodajNowyKierunekStudiowSzczegolyPost">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="NazwaKierunku" class="form-control" />
+            <input type="hidden" asp-for="FormaStudiow" class="form-control" />
+            <input type="hidden" asp-for="MiejsceStudiow" class="form-control" />
+            <input type="hidden" asp-for="JezykWykladowy" class="form-control" />
+            <input type="hidden" asp-for="PoziomStudiow" class="form-control" />
+            <div class="form-group">
+                <label asp-for="Czesne" class="control-label"></label>
+                <input asp-for="Czesne" class="form-control" />
+                <span asp-validation-for="Czesne" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CzesneDlaObcokrajowcow" class="control-label"></label>
+                <input asp-for="CzesneDlaObcokrajowcow" class="form-control" />
+                <span asp-validation-for="CzesneDlaObcokrajowcow" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Wydzial" class="control-label"></label>
+                <input asp-for="Wydzial" class="form-control" />
+                <span asp-validation-for="Wydzial" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OpisKierunku" class="control-label"></label>
+                <input asp-for="OpisKierunku" class="form-control" />
+                <span asp-validation-for="OpisKierunku" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Potwierdź" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+

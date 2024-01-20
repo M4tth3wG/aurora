@@ -51,6 +51,7 @@ namespace Aurora.Utils
             return enumerationValue.ToString();
         }
 
+        // TODO refactor
         public static IEnumerable<SelectListItem> GetWartosciEnumaJakoSelectList<TEnum>(bool sorted = true) where TEnum : Enum
         {
             var enumValues = Enum.GetValues(typeof(TEnum)).Cast<TEnum>();
@@ -66,6 +67,23 @@ namespace Aurora.Utils
             if (sorted) selectList = selectList.OrderBy(s => s.Text).ToList();
 
             selectList.Insert(0, new SelectListItem { Text = dowolnyTekst, Value = "" });
+
+            return selectList;
+        }
+
+        // TODO refactor
+        public static IEnumerable<SelectListItem> GetEnumSelectList<TEnum>(bool sorted = true) where TEnum : Enum
+        {
+            var enumValues = Enum.GetValues(typeof(TEnum)).Cast<TEnum>();
+
+
+            List<SelectListItem> selectList = enumValues.Select(e => new SelectListItem
+            {
+                Text = EnumUtils.GetDescription<TEnum>(e),
+                Value = Convert.ToInt32((Enum)e).ToString()
+            }).ToList();
+
+            if (sorted) selectList = selectList.OrderBy(s => s.Text).ToList();
 
             return selectList;
         }

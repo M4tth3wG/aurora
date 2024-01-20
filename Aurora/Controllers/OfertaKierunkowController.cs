@@ -41,7 +41,7 @@ namespace Aurora.Controllers
 
             if (!string.IsNullOrEmpty(searchFilter))
             {
-               kierunki = kierunki.Where(a => StringUtils.IsSubstring(a.NazwaKierunku, searchFilter)).ToList();
+                kierunki = kierunki.Where(a => StringUtils.IsSubstring(a.NazwaKierunku, searchFilter)).ToList();
             }
 
             ViewBag.FilterOptionsPoziom = EnumUtils.GetWartosciEnumaJakoSelectList<PoziomStudiow>();
@@ -115,12 +115,12 @@ namespace Aurora.Controllers
             {
                 ViewBag.PopUpMessage = "Brak podanego wyniku dla egzaminu z rysunku.";
             }
-            else 
+            else
             {
                 ViewBag.WartoscWR = ObliczPunktyWspolczynnika(strategia, model);
             }
 
-            return View(model); 
+            return View(model);
         }
 
 
@@ -139,14 +139,14 @@ namespace Aurora.Controllers
             var brakujacePrzedmioty = new List<string>();
             var czyWprowadzonoEgzamin = true;
 
-            foreach(var subject in strategia.przedmiotyMaturalne)
+            foreach (var subject in strategia.przedmiotyMaturalne)
             {
                 var (keyP, keyR) = Consts.SubjectFormKeys[subject];
                 if (model.wynikiMaturalne[keyP] == null && model.wynikiMaturalne[keyR] == null) brakujacePrzedmioty.Add(EnumUtils.GetDescription<PrzedmiotMaturalny>(subject));
             }
 
             if (model.wynikiMaturalne["EgzRys"] == null) czyWprowadzonoEgzamin = false;
-           
+
             return (brakujacePrzedmioty, czyWprowadzonoEgzamin);
         }
 
@@ -158,11 +158,88 @@ namespace Aurora.Controllers
         }
 
 
+        // Obsluga rzadan pracownika dziekanatu: Mateusz Gazda
+
+        public IActionResult IndexPracownik()
+        {
+            return View();
+        }
+
+        /*public IActionResult DodajNowyKierunekStudiow()
+        {
+            return View();
+        }*/
+
+        public IActionResult DodajNowyKierunekStudiow()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DodajNowyKierunekStudiow(KierunekStudiowKluczViewModel klucz)
+        {
+            
+            if (ModelState.IsValid)
+            {
+                KierunekStudiow kierunek = new KierunekStudiow()
+                {
+                    NazwaKierunku = klucz.NazwaKierunku,
+                    JezykWykladowy = (int)klucz.JezykWykladowy,
+                    MiejsceStudiow = (int)klucz.MiejsceStudiow,
+                    FormaStudiow = (int)klucz.FormaStudiow,
+                    PoziomStudiow = (int)klucz.PoziomStudiow
+                };
+
+                if (CzyKluczKierunkuUnikalny(kierunek))
+                {
+                    return RedirectToAction(nameof(DodajNowyKierunekStudiowSzczegoly), kierunek);
+                }
+
+                ViewBag.Blad = "Istnieje już kierunek o podanych danych.";
+            }
+
+            return View(klucz);
+        }
+
+        public IActionResult DodajNowyKierunekStudiowSzczegoly(KierunekStudiow kierunek)
+        {
+            return View(kierunek);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DodajNowyKierunekStudiowSzczegolyPost(KierunekStudiow kierunek)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("DodajNowyKierunekStudiowSzczegoly", kierunek);
+            }
 
 
+            //dodawanie do bazy
+            return RedirectToAction(nameof(IndexPracownik));
+            
+        }
 
+        private bool CzyKluczKierunkuUnikalny(KierunekStudiow klucz)
+        {
+            var kierunki = _context.KierunkiStudiow.ToList();
 
-
+            return !kierunki.Any(k => 
+            
+                    k.NazwaKierunku.ToLower().Trim()
+                        .Equals(klucz.NazwaKierunku.ToLower().Trim()) 
+                    &&
+                    k.JezykWykladowy == klucz.JezykWykladowy
+                    &&
+                    k.FormaStudiow == klucz.FormaStudiow
+                    &&
+                    k.MiejsceStudiow == klucz.MiejsceStudiow
+                    &&
+                    k.PoziomStudiow == klucz.PoziomStudiow
+            );
+        }
 
     }
 }

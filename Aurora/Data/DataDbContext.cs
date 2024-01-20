@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
+using Aurora.ViewModels;
 
 namespace Aurora.Data
 {
@@ -47,11 +48,11 @@ namespace Aurora.Data
         {
             base.OnModelCreating(builder);
             builder.Entity<KandydatTuraRekrutacji>()
-                .HasKey(k => new { k.KandydatID, k.TuraRekrutacjiID });            
-            
+                .HasKey(k => new { k.KandydatID, k.TuraRekrutacjiID });
+
             builder.Entity<KandydatKierunekStudiow>()
-                .HasKey(k => new { k.KandydatID, k.KierunekStudiowID });            
-            
+                .HasKey(k => new { k.KandydatID, k.KierunekStudiowID });
+
             builder.Entity<KandydatUlubionyKierunekStudiow>()
                 .HasKey(k => new { k.KandydatID, k.UlubionyKierunekStudiowID });
 
@@ -110,7 +111,7 @@ namespace Aurora.Data
             TuraRekrutacji tura1 = new TuraRekrutacji(
                 1, 1, new DateTime(2024, 1, 1), new DateTime(2024, 2, 1), new DateTime(2024, 2, 15), 0, 50, 300.0, 2, 2
             );
-            
+
             TuraRekrutacji tura2 = new TuraRekrutacji(
                 2, 2, new DateTime(2024, 1, 1), new DateTime(2024, 2, 1), new DateTime(2024, 2, 15), 0, 150, 225.0, 2, 2
             );
@@ -164,11 +165,11 @@ namespace Aurora.Data
             );
 
             AplikacjaRekrutacyjna aplikacja1 = new AplikacjaRekrutacyjna(
-                1, 1, 1, 1, new DateTime(2024, 1, 15), 8, 2   
+                1, 1, 1, 1, new DateTime(2024, 1, 15), 8, 2
             );
 
             AplikacjaRekrutacyjna aplikacja2 = new AplikacjaRekrutacyjna(
-                2, 2, 2, 2, new DateTime(2024, 1, 15), 8, 2   
+                2, 2, 2, 2, new DateTime(2024, 1, 15), 8, 2
             );
 
             AplikacjaRekrutacyjna aplikacja3 = new AplikacjaRekrutacyjna(
@@ -197,21 +198,21 @@ namespace Aurora.Data
 
             builder.Entity<AplikacjaRekrutacyjna>().HasData(
                 aplikacja1,
-                aplikacja2, 
-                aplikacja3, 
-                aplikacja4, 
-                aplikacja5, 
-                aplikacja6, 
+                aplikacja2,
+                aplikacja3,
+                aplikacja4,
+                aplikacja5,
+                aplikacja6,
                 aplikacja7,
                 aplikacja8
             );
 
             WspolczynnikRekrutacyjny wspolczynnik1 = new WspolczynnikRekrutacyjny(
-                1, new StrategiaArchitektura(), 1    
-            );            
-            
+                1, new StrategiaArchitektura(), 1
+            );
+
             WspolczynnikRekrutacyjny wspolczynnik2 = new WspolczynnikRekrutacyjny(
-                2, new Standard1Stopien(new() { PrzedmiotMaturalny.Fizyka}), 2    
+                2, new Standard1Stopien(new() { PrzedmiotMaturalny.Fizyka }), 2
             );
 
             WspolczynnikRekrutacyjny wspolczynnik3 = new WspolczynnikRekrutacyjny(
@@ -262,7 +263,7 @@ namespace Aurora.Data
             SkladowaWspRekrut skladowa8 = new SkladowaWspRekrut(8, 70, 2, 0, 1, null);
             SkladowaWspRekrut skladowa9 = new SkladowaWspRekrut(9, 70, 2, 3, 1, null);
             SkladowaWspRekrut skladowa10 = new SkladowaWspRekrut(10, 70, 2, 1, 1, null);
-            SkladowaWspRekrut skladowa11 = new SkladowaWspRekrut(11, 70, 2, 1, 0 , null);
+            SkladowaWspRekrut skladowa11 = new SkladowaWspRekrut(11, 70, 2, 1, 0, null);
             SkladowaWspRekrut skladowa12 = new SkladowaWspRekrut(12, 70, 2, 2, 0, null);
             SkladowaWspRekrut skladowa13 = new SkladowaWspRekrut(13, 70, 2, 2, 1, null);
             SkladowaWspRekrut skladowa14 = new SkladowaWspRekrut(14, 250, 2, null, 2, null);
@@ -336,8 +337,8 @@ namespace Aurora.Data
 
             PracownikDziekanatu pracownik1 = new PracownikDziekanatu(
                  1, "Natalia", "Kowalczyk", 0
-            );   
-            
+            );
+
             PracownikDziekanatu pracownik2 = new PracownikDziekanatu(
                  2, "Jakub", "Nowak", 10
             );
