@@ -209,7 +209,7 @@ namespace Aurora.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult DodajNowyKierunekStudiowSzczegolyPost(KierunekStudiow kierunek)
+        public async Task<IActionResult> DodajNowyKierunekStudiowSzczegolyPost(KierunekStudiow kierunek)
         {
             if (!ModelState.IsValid)
             {
@@ -217,9 +217,9 @@ namespace Aurora.Controllers
             }
 
 
-            //dodawanie do bazy
-            return RedirectToAction(nameof(IndexPracownik));
-            
+            _context.Add(kierunek);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(IndexPracownik));   
         }
 
         private bool CzyKluczKierunkuUnikalny(KierunekStudiow klucz)
