@@ -38,7 +38,6 @@
                     </tr>
                     <tr class="withOutBorderTopBorder"><td class="withOutBorderTopBorder"></td><td class="withOutBorderTopBorder"></td></tr>
                     <tr class="withOutBorderTopBorder"><td class="withOutBorderTopBorder"></td><td class="withOutBorderTopBorder"></td></tr>
-                    <tr class="withOutBorderTopBorder"><td class="withOutBorderTopBorder"></td><td class="withOutBorderTopBorder"></td></tr>
                     <tr withOutBorderTopBorder>
                         <td colspan="2"><h3>Dane osobowe</h3></td>
                     </tr>
@@ -104,7 +103,7 @@
                     </tr>
                     <tr>
                         <td>Data aplikacji:</td>
-                        <td>@Model.DataZlozenia</td>
+                        <td>@Html.DisplayFor(Model => Model.DataZlozenia)</td>
                     </tr>
                     <tr>
                         <td>Status aplikacji:</td>
@@ -112,17 +111,16 @@
                     </tr>
                     <tr>
                         <td>Data rozpoczecia rekrutacji:</td>
-                        <td>@Model.TuraRekrutacji.DataOtwarcia</td>
+                        <td>@Html.DisplayFor(Model => Model.TuraRekrutacji.DataOtwarcia)</td>
                     </tr>
                     <tr>
                         <td>Data zakonczenia rekrutacji:</td>
-                        <td>@Model.TuraRekrutacji.DataZakonczenia</td>
+                        <td>@Html.DisplayFor(Model => Model.TuraRekrutacji.DataZakonczenia)</td>
                     </tr>
                     <tr>
-                        <td>Data zakonczenia rekrutacji:</td>
-                        <td>@Model.OplataRekrutacyjna.Kwota</td>
+                        <td>Koszt aplikacji:</td>
+                        <td>@Model.OplataRekrutacyjna.Kwota zł</td>
                     </tr>
-                    <tr class="withOutBorderTopBorder"><td class="withOutBorderTopBorder"></td><td class="withOutBorderTopBorder"></td></tr>
                     <tr class="withOutBorderTopBorder"><td class="withOutBorderTopBorder"></td><td class="withOutBorderTopBorder"></td></tr>
                     <tr class="withOutBorderTopBorder"><td class="withOutBorderTopBorder"></td><td class="withOutBorderTopBorder"></td></tr>
                     <tr withOutBorderTopBorder>

@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Aurora.Enums;
 using Aurora.Utils;
+using Microsoft.VisualBasic;
 
 
 namespace Aurora.Controllers
@@ -90,6 +91,15 @@ namespace Aurora.Controllers
                 .Include(e => e.OplataRekrutacyjna)
                 .ToList();
 
+            if(aplikacja.Count() == 0)
+            {
+                ErrorViewModel errorViewModel = new ErrorViewModel()
+                {
+                    RequestId = "wrong Kandydatid or TuraRekrutacjiID"
+                };
+                return View("Error" , errorViewModel);
+            }
+
             var wszyskieAplikacjeWTurze = _context.AplikacjeRekrutacyjne
                 .Where(e => e.TuraRekrutacjiID == turaRekrutacjiID)
                 .Include(e => e.KierunekStudiow)
@@ -109,7 +119,7 @@ namespace Aurora.Controllers
 
                 aplikacje.WspolczynnikRekrutacyjny.strategia = UtilsRR.GetStrategiaDlaKierunku(aplikacje.KierunekStudiow);
 
-                if (aplikacje.ID == aplikacja[0].ID)
+                if (aplikacje.ID == aplikacja.FirstOrDefault().ID)
                 {
                     @ViewBag.ZajeteMiejsce = i;
                 }
@@ -124,7 +134,7 @@ namespace Aurora.Controllers
 
             @ViewBag.IloscOsobAplikujących = i;
 
-            return View(aplikacja[0]);
+            return View(aplikacja.FirstOrDefault());
         }
     }
 }
