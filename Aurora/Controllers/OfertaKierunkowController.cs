@@ -20,7 +20,7 @@ namespace Aurora.Controllers
     {
         private readonly DataDbContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
-        private readonly ISession _session;
+
 
         public OfertaKierunkowController(DataDbContext context, IWebHostEnvironment hostEnvironment)
         {
@@ -123,14 +123,27 @@ namespace Aurora.Controllers
             return View(model); 
         }
 
+
         private (List<string>, bool) CzyWprowadzonoWszystkiePotrzebneWartosci(StrategiaWspolRekrut strategia, WyliczWspolczynnikViewModel model)
+        {
+            return strategia switch
+            {
+                StrategiaWspolRekrut1Stopien st1 => CzyWprowadzonoWszystkiePotrzebneWartosciStopien1(st1, model),
+                _ => default,
+            };
+        }
+
+
+        private (List<string>, bool) CzyWprowadzonoWszystkiePotrzebneWartosciStopien1(StrategiaWspolRekrut1Stopien strategia, WyliczWspolczynnikViewModel model)
         {
             var brakujacePrzedmioty = new List<string>();
             var czyWprowadzonoEgzamin = true;
 
-            if (model.wynikiMaturalne["MatPodst"] == null && model.wynikiMaturalne["MatRoz"] == null) brakujacePrzedmioty.Add("Matemtyka");
-            if (model.wynikiMaturalne["PolPodst"] == null && model.wynikiMaturalne["PolRoz"] == null) brakujacePrzedmioty.Add("Język polski");
-            if (model.wynikiMaturalne["ObcPodst"] == null && model.wynikiMaturalne["ObcRoz"] == null) brakujacePrzedmioty.Add("Język obcy");
+            foreach(var subject in strategia.przedmiotyMaturalne)
+            {
+                var (keyP, keyR) = Consts.SubjectFormKeys[subject];
+                if (model.wynikiMaturalne[keyP] == null && model.wynikiMaturalne[keyR] == null) brakujacePrzedmioty.Add(EnumUtils.GetDescription<PrzedmiotMaturalny>(subject));
+            }
 
             if (model.wynikiMaturalne["EgzRys"] == null) czyWprowadzonoEgzamin = false;
            

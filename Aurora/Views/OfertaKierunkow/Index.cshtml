@@ -9,15 +9,15 @@
 
 
     <div class="row">
-        <div class="col-md-4" style="margin-right: 10px; margin-bottom: 20px;">
+        <div class="col-md-4 index-sort-panel">
             <div class="form-inline pull-left" >
                     @using (Html.BeginForm("Index", "OfertaKierunkow", FormMethod.Get, new { @class = "form-group", id = "searchForm" }))
                     {
                     <div class="custom-dropdown">
                         <label for="txtSearchFilter">Wyszukaj kierunek:</label>
-                        <input type="text" class="form-control" placeholder="Wyszukaj kierunek" id="txtSearchFilter" name="searchFilter" value="@ViewBag.SearchFilter" />
+                        <input type="text" class="form-control" placeholder="Szukaj..." id="txtSearchFilter" name="searchFilter" value="@ViewBag.SearchFilter" />
                         <button type="submit" class="btn btn-secondary">Szukaj</button>
-                        <button type="button" class="btn btn-secondary" onclick="clearFilters()">Usuń filtry</button>
+                        <button type="button" class="btn btn-outline-danger" onclick="clearFilters()">Usuń filtry</button>
                             @Html.Hidden("filterPoziom", TempData["FilterPoziom"])
                             @Html.Hidden("filterForma", TempData["FilterForma"])
                             @Html.Hidden("filterJezyk", TempData["FilterJezyk"])
@@ -36,23 +36,23 @@
                     <div class="custom-dropdown">
 
                         <label for="filterPoziom">Poziom studiów:</label>
-                            @Html.DropDownList("filterPoziom", new SelectList(ViewBag.FilterOptionsPoziom, "Value", "Text", ViewBag.SelectedFilterPoziom), new { onchange = "submitFilterForm();", @value = ViewBag.SelectedFilterPoziom, style = "width: 200px; margin-right: 5px;" })
+                        @Html.DropDownList("filterPoziom", new SelectList(ViewBag.FilterOptionsPoziom, "Value", "Text", ViewBag.SelectedFilterPoziom), new { onchange = "submitFilterForm();", @value = ViewBag.SelectedFilterPoziom, @class = "select-item" })
                     </div>
                     <div class="custom-dropdown">
                         <label for="filterForma">Forma studiów:</label>
-                        @Html.DropDownList("filterForma", new SelectList(ViewBag.FilterOptionsForma, "Value", "Text", ViewBag.SelectedFilterForma), new { onchange = "submitFilterForm();", @value = ViewBag.SelectedFilterForma, style = "width: 200px; margin-right: 5px;" })
+                        @Html.DropDownList("filterForma", new SelectList(ViewBag.FilterOptionsForma, "Value", "Text", ViewBag.SelectedFilterForma), new { onchange = "submitFilterForm();", @value = ViewBag.SelectedFilterForma, @class = "select-item" })
                     </div>
                     <div class="custom-dropdown">
                         <label for="filterJezyk">Język wykładowy:</label>
-                        @Html.DropDownList("filterJezyk", new SelectList(ViewBag.FilterOptionsJezyk, "Value", "Text", ViewBag.SelectedFilterJezyk), new { onchange = "submitFilterForm();", @value = ViewBag.SelectedFilterJezyk, style = "width: 200px; margin-right: 5px;" })
+                        @Html.DropDownList("filterJezyk", new SelectList(ViewBag.FilterOptionsJezyk, "Value", "Text", ViewBag.SelectedFilterJezyk), new { onchange = "submitFilterForm();", @value = ViewBag.SelectedFilterJezyk, @class = "select-item" })
                     </div>
                     <div class="custom-dropdown">
                         <label for="filterWydzial">Wydział kierunku</label>
-                        @Html.DropDownList("filterWydzial", new SelectList(ViewBag.FilterOptionsWydzial, "Value", "Text", ViewBag.SelectedFilterWydzial), new { onchange = "submitFilterForm();", @value = ViewBag.SelectedFilterWydzial, style = "width: 200px; margin-right: 5px;" })
+                        @Html.DropDownList("filterWydzial", new SelectList(ViewBag.FilterOptionsWydzial, "Value", "Text", ViewBag.SelectedFilterWydzial), new { onchange = "submitFilterForm();", @value = ViewBag.SelectedFilterWydzial, @class = "select-item" })
                     </div>
                     <div class="custom-dropdown">
                         <label for="filterOption1">Miejsce studiów:</label>
-                        @Html.DropDownList("filterMiejsce", new SelectList(ViewBag.FilterOptionsMiejsce, "Value", "Text", ViewBag.SelectedFilterMiejsce), new { onchange = "submitFilterForm();", @value = ViewBag.SelectedFilterMiejsce, style = "width: 200px; margin-right: 5px;" })
+                        @Html.DropDownList("filterMiejsce", new SelectList(ViewBag.FilterOptionsMiejsce, "Value", "Text", ViewBag.SelectedFilterMiejsce), new { onchange = "submitFilterForm();", @value = ViewBag.SelectedFilterMiejsce, @class = "select-item" })
                     </div>
 
 
@@ -71,53 +71,61 @@
     @if (Model.Any())
 
     {
-        <div class="row">
-            <table class="table">
-                <thead>
-                <th> </th>
-                </thead>
-                <tbody>
-                    @foreach (var kierunek in Model)
-                    {
-                        <tr class="application-row">
-                            <td class="my-td">Kierunek: @kierunek.NazwaKierunku</td>
-                            <td class="my-td">Forma studiów: @(EnumUtils.ConvertIDToTypeAsString<FormaStudiow>(kierunek.FormaStudiow)) </td>
-                            <td class="my-td">
-                                <form asp-action="WyliczWspolczynnik" asp-route-id="@kierunek.ID" method="get" style="display: inline-block;">
-                                    <button type="submit" class="btn btn-secondary">Wylicz współczynnik</button>
-                                </form>
-                            </td>
-                            <td class="my-td"> <button class="btn btn-secondary" style="margin-right: 5px; width: 100%">Procedury rekrutacji</button></td>
-                            <td class="my-td"> <button class="btn btn-secondary" style="margin-right: 5px; width: 100%">Aplikuj</button></td>
-                        </tr>
 
-                        <tr class="application-row">
-                            <td class="my-td">@(EnumUtils.ConvertIDToTypeAsString<NazwaWydzialu>(kierunek.Wydzial)) </td>
-                            <td class="my-td">Poziom studiów:  @(EnumUtils.ConvertIDToTypeAsString<PoziomStudiow>(kierunek.PoziomStudiow)) </td>
-                            <td class="my-td"> <button class="btn btn-secondary" style="margin-right: 5px; width: 100%">Terminy rekrutacji</button></td>
-                            <td class="my-td"> <button class="btn btn-secondary" style="margin-right: 5px; width: 100%">Progi punktowe</button></td>
-                            <td class="my-td"></td>
-                        </tr>
 
-                        <tr class="application-row">
-                            <td class="my-td">Dodaj do ulubionych</td>
-                            <td class="my-td">Język wykładowy: @(EnumUtils.ConvertIDToTypeAsString<Jezyk>(kierunek.JezykWykladowy))</td>
-                            <td class="my-td"></td>
-                            <td class="my-td"></td>
-                            <td class="my-td"></td>
-                        </tr>
+        <ul class="top-margin">
+            @foreach (var kierunek in Model)
+            {
+                 <br>
+                <li class="list-outer-border2">
+                    <table class="table" >
+                        <thead>
+                            <th> </th>
+                        </thead>
+                        <tbody>
 
-                        <tr class="application-row" style="height: 40px;"></tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+                            <tr class="application-row">
+                                <td class="my-td">Kierunek: @kierunek.NazwaKierunku</td>
+                                <td class="my-td">Forma studiów: @(EnumUtils.ConvertIDToTypeAsString<FormaStudiow>(kierunek.FormaStudiow)) </td>
+                                <td class="my-td">
+                                    <form asp-action="WyliczWspolczynnik" asp-route-id="@kierunek.ID" method="get">
+                                        <button type="submit" class="btn btn-secondary index-offers-button">Wylicz współczynnik</button>
+                                    </form>
+                                </td>
+                                <td class="my-td"> <button class="btn btn-secondary index-offers-button">Procedury rekrutacji</button></td>
+                                <td class="my-td"> <button class="btn btn-secondary index-offers-button">Aplikuj</button></td>
+                            </tr>
+
+                            <tr class="application-row">
+                                <td class="my-td">@(EnumUtils.ConvertIDToTypeAsString<NazwaWydzialu>(kierunek.Wydzial)) </td>
+                                <td class="my-td">Poziom studiów: @(EnumUtils.ConvertIDToTypeAsString<PoziomStudiow>(kierunek.PoziomStudiow)) </td>
+                                <td class="my-td"> <button class="btn btn-secondary index-offers-button">Terminy rekrutacji</button></td>
+                                <td class="my-td"> <button class="btn btn-secondary index-offers-button">Progi punktowe</button></td>
+                                <td class="my-td"></td>
+                            </tr>
+
+                            <tr class="application-row">
+                                <td class="my-td">Dodaj do ulubionych</td>
+                                <td class="my-td">Język wykładowy: @(EnumUtils.ConvertIDToTypeAsString<Jezyk>(kierunek.JezykWykladowy))</td>
+                                <td class="my-td"></td>
+                                <td class="my-td"></td>
+                                <td class="my-td"></td>
+                            </tr>
+
+                            <tr class="application-break-row"></tr>
+
+                        </tbody>
+                    </table>
+                </li>
+               
+            }
+        </ul>
 
 
     }
     else
     {
-        <p style="padding: 20px; text-align: center">@ViewBag.PopUpMessage</p>
+        <p class="center-text">@ViewBag.PopUpMessage</p>
     }
 
 
@@ -158,16 +166,19 @@
 </body>
 
 <script>
-    function submitFilterForm() {
-        document.getElementById("filterForm").submit();
-        document.getElementById("searchForm").elements["filterPoziom"].value = document.getElementById("filterPoziom").value;
-        document.getElementById("searchForm").elements["filterForma"].value = document.getElementById("filterForma").value;
-        document.getElementById("searchForm").elements["filterJezyk"].value = document.getElementById("filterJezyk").value;
-        document.getElementById("searchForm").elements["filterWydzial"].value = document.getElementById("filterWydzial").value;
-        document.getElementById("searchForm").elements["filterMiejsce"].value = document.getElementById("filterMiejsce").value;
+
+
+    $(document).ready(function () {
+        var actionUrl = "@Url.Action("Index", "OfertaKierunkow")";
+        $("#wyliczWspolczynnikBackButton").click(function () {
+            goBackFromWyliczWspolczynnik(actionUrl);
+        });
+
+    });
+
+
 
 </script>
-
 
 
 

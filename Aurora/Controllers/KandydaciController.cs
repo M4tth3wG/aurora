@@ -18,7 +18,6 @@ namespace Aurora.Controllers
     {
         private readonly DataDbContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
-        private readonly ISession _session;
 
         public KandydaciController(DataDbContext context, IWebHostEnvironment hostEnvironment)
         {
@@ -194,7 +193,7 @@ namespace Aurora.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> WyslijWiadomosc(int aplikacjaId, int pracownikId, string tresc)
+        public async Task<IActionResult> WyslijWiadomosc(int aplikacjaId, int pracownikId, string content)
         {
             var aplikacja = await _context.AplikacjeRekrutacyjne.FindAsync(aplikacjaId);
 
@@ -206,7 +205,7 @@ namespace Aurora.Controllers
 
             string Message;
 
-            if (string.IsNullOrEmpty(tresc))
+            if (string.IsNullOrEmpty(content))
             {
 
                 Message = $"Wiadomość do {kandydat.Imie} {kandydat.Nazwisko} nie została wysłana - wiadomość jest pusta.";
@@ -217,7 +216,7 @@ namespace Aurora.Controllers
                 {
                     KandydatID = aplikacja.KandydatID,
                     PracownikDziekanatuID = pracownikId,
-                    Tresc = tresc
+                    Tresc = content
                 };
                 _context.Wiadomosci.Add(wiadomosc);
                 //await _context.SaveChangesAsync();

@@ -39,24 +39,21 @@
     <p>Nadawca: @ViewBag.ImieUsera @ViewBag.NazwiskoUsera</p>
 
 
-    <input type="text" id="duzaWiadomosc" class="form-control" style="height: 200px; text-align: start" placeholder="Treść wiadomości">
+    <input type="text" id="bigMessage" class="form-control" style="height: 200px; text-align: start" placeholder="Treść wiadomości">
 
     <div style="display: flex; justify-content: space-between; max-width: 600px; margin: 0 auto; padding: 20px;">
-
-    @*     <button type="button" class="btn btn-secondary" onclick="history.back()">Powrót</button> *@
 
         <form asp-action="PrzypiszKandydata" method="get">
             <input type="hidden" name="id" value=@Model.KandydatID>
             <button type="submit" class="btn btn-secondary">Powrót</button>
         </form>
 
-
         <form asp-action="WyslijWiadomosc" method="post">
             <input type="hidden" name="aplikacjaId" value=@Model.ID> 
             <input type="hidden" name="pracownikId" value=@Convert.ToInt32(ViewBag.IDUsera)> 
-            <input type="hidden" name="tresc" id="tresc" value="">
+            <input type="hidden" name="content" id="content" value="">
 
-            <button type="submit" class="btn btn-secondary" onclick="przygotujDane()">Wyślij</button>
+            <button type="submit" class="btn btn-secondary" onclick="prepareData()">Wyślij</button>
         </form>
     </div>
 
@@ -102,9 +99,9 @@
 </body>
 
 <script>
-    function przygotujDane() {
-        var trescWiadomosci = document.getElementById('duzaWiadomosc').value;
-        document.getElementById('tresc').value = trescWiadomosci;
+    function prepareData() {
+        var trescWiadomosci = document.getElementById('bigMessage').value;
+        document.getElementById('content').value = trescWiadomosci;
     }
 </script>
 

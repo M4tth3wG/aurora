@@ -18,7 +18,7 @@
 
                         <input type="text" class="form-control" placeholder="Wyszukaj" id="txtSearchFilter" name="searchFilter" value="@ViewBag.SearchFilter" />
                         <button type="submit" class="btn btn-secondary">Szukaj</button>
-                        <button type="button" class="btn btn-secondary" onclick="clearFilters()">Usuń filtry</button>
+                        <button type="button" class="btn btn-outline-danger" onclick="clearFilters()">Usuń filtry</button>
                         @Html.Hidden("sortOption", TempData["SortOption"])
 
                     </div>
@@ -40,55 +40,42 @@
             </div>
         </div>
         <div id="tab-kand" class="col-sm-12">
-            <table class="table">
-                <thead>
-                </thead>
-                <tbody>
-                    @foreach (var kandydat in Model)
-                    {
-                        <tr>
-                            <td>
-                                <div style="display: flex; flex-direction: row;">
-                                    <div style="flex: 1;">
-                                        <p style="margin: 0;">Nazwisko: </p>
-                                    </div>
-                                    <div style="flex: 2;">
-                                        <p style="margin: 0;">@kandydat.Nazwisko.PadLeft(60)</p>
-                                    </div>
-                                    <div style="flex: 1;">
-                                        <p style="margin: 0;">Imię:</p>
-                                    </div>
-                                    <div style="flex: 2;">
-                                        <p style="margin: 0;">@kandydat.Imie.PadLeft(60)</p>
-                                    </div>
-                                </div>
+            <br />
+            <ul class="margin-top">
+                @foreach (var kandydat in Model)
+                {
+                    <li class="list-outer-border">
+                        <table class="table" style="table-layout: fixed; width: 100%">
+                            <thead>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Nazwisko: @kandydat.Nazwisko</td>
+                                    <td>Imię: @kandydat.Imie</td>
+
+                                    <td class="text-right" style="white-space: nowrap;">
+                                        <button class="btn btn-secondary" style="margin-right: 5px;">Dokumenty</button>
+                                        <button class="btn btn-secondary" style="margin-right: 5px;">Wyślij wiadomość</button>
+                                        <form asp-action="PrzypiszKandydata" asp-route-id="@kandydat.ID" method="get" style="display: inline-block;">
+                                            <button type="submit" class="btn btn-secondary">Przypisz</button>
+                                        </form>
+                                    </td>
 
 
-
-
-                                <p>ID kandydata: @kandydat.ID</p>
-                            </td>
-                            <td class="text-right" style="white-space: nowrap;">
-                                <button class="btn btn-secondary" style="margin-right: 5px;">Dokumenty</button>
-                                <button class="btn btn-secondary" style="margin-right: 5px;">Wyślij wiadomość</button>
-                                <form asp-action="PrzypiszKandydata" asp-route-id="@kandydat.ID" method="get" style="display: inline-block;">
-                                    <button type="submit" class="btn btn-secondary">Przypisz</button>
-                                </form>
-                            </td>
-
-
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                                </tr>
+                                <tr class="last-row">
+                                    <td>ID kandydata: @kandydat.ID</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </li>
+                    <br>
+                }
+            </ul>
         </div>
     </div>
 </body>
 
 <script>
-    function submitSortForm() {
-        var sortOptionValue = document.getElementById("sortOption").value;
-        document.getElementById("sortForm").submit();
-        document.getElementById("searchForm").elements["sortOption"].value = sortOptionValue;
-    }
+
 </script>

@@ -68,9 +68,18 @@ namespace Aurora.Utils
         {
             if (numbers == null || numbers.Length == 0)
             {
-                throw new ArgumentException("Brak liczb do porównania");
+                throw new ArgumentException("No numbers to compare.");
             }
             return numbers.ToList().Max();
+        }
+        
+        public static double GetMin(params double[] numbers)
+        {
+            if (numbers == null || numbers.Length == 0)
+            {
+                throw new ArgumentException("No numbers to compare.");
+            }
+            return numbers.ToList().Min();
         }
 
         public static double GetMaxPointsCombination(double P, double R)
