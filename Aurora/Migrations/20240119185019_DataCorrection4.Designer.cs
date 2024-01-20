@@ -4,14 +4,16 @@ using Aurora.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Aurora.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    partial class DataDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240119185019_DataCorrection4")]
+    partial class DataCorrection4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,22 +84,6 @@ namespace Aurora.Migrations
                             Miejscowosc = "Wrocław",
                             NumerBudynku = "4",
                             Ulica = "Plac Grunwaldzki"
-                        },
-                        new
-                        {
-                            ID = 5,
-                            KodPocztowy = "20-230",
-                            Miejscowosc = "Lublin",
-                            NumerBudynku = "67",
-                            Ulica = "Mickiewicza"
-                        },
-                        new
-                        {
-                            ID = 6,
-                            KodPocztowy = "40-042",
-                            Miejscowosc = "Katowice",
-                            NumerBudynku = "15",
-                            Ulica = "Wita Stwosza"
                         });
                 });
 
@@ -157,67 +143,7 @@ namespace Aurora.Migrations
                             KierunekStudiowID = 2,
                             OplataRekrutacyjnaID = 2,
                             Status = 8,
-                            TuraRekrutacjiID = 2
-                        },
-                        new
-                        {
-                            ID = 3,
-                            DataZlozenia = new DateTime(2023, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            KandydatID = 1,
-                            KierunekStudiowID = 2,
-                            OplataRekrutacyjnaID = 1,
-                            Status = 5,
-                            TuraRekrutacjiID = 3
-                        },
-                        new
-                        {
-                            ID = 4,
-                            DataZlozenia = new DateTime(2023, 1, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            KandydatID = 2,
-                            KierunekStudiowID = 2,
-                            OplataRekrutacyjnaID = 2,
-                            Status = 5,
-                            TuraRekrutacjiID = 3
-                        },
-                        new
-                        {
-                            ID = 5,
-                            DataZlozenia = new DateTime(2023, 1, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            KandydatID = 3,
-                            KierunekStudiowID = 2,
-                            OplataRekrutacyjnaID = 1,
-                            Status = 5,
-                            TuraRekrutacjiID = 3
-                        },
-                        new
-                        {
-                            ID = 6,
-                            DataZlozenia = new DateTime(2023, 1, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            KandydatID = 4,
-                            KierunekStudiowID = 2,
-                            OplataRekrutacyjnaID = 2,
-                            Status = 6,
-                            TuraRekrutacjiID = 3
-                        },
-                        new
-                        {
-                            ID = 7,
-                            DataZlozenia = new DateTime(2023, 1, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            KandydatID = 5,
-                            KierunekStudiowID = 2,
-                            OplataRekrutacyjnaID = 1,
-                            Status = 6,
-                            TuraRekrutacjiID = 3
-                        },
-                        new
-                        {
-                            ID = 8,
-                            DataZlozenia = new DateTime(2023, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            KandydatID = 6,
-                            KierunekStudiowID = 2,
-                            OplataRekrutacyjnaID = 2,
-                            Status = 6,
-                            TuraRekrutacjiID = 3
+                            TuraRekrutacjiID = 1
                         });
                 });
 
@@ -365,24 +291,6 @@ namespace Aurora.Migrations
                             Imie = "Adam",
                             Nazwisko = "Kowalski",
                             PESEL = "66677733212"
-                        },
-                        new
-                        {
-                            ID = 5,
-                            AdresEmail = "karolina.nowak@example.com",
-                            AdresID = 5,
-                            Imie = "Karolina",
-                            Nazwisko = "Nowak",
-                            PESEL = "12345678902"
-                        },
-                        new
-                        {
-                            ID = 6,
-                            AdresEmail = "marek.lis@example.com",
-                            AdresID = 6,
-                            Imie = "Marek",
-                            Nazwisko = "Lis",
-                            PESEL = "98765432103"
                         });
                 });
 
@@ -514,8 +422,7 @@ namespace Aurora.Migrations
 
                     b.Property<string>("Tresc")
                         .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TuraRekrutacjiID")
                         .HasColumnType("int");
@@ -559,42 +466,6 @@ namespace Aurora.Migrations
                         {
                             ID = 2,
                             KandydatID = 2,
-                            Kwota = 80.0
-                        },
-                        new
-                        {
-                            ID = 3,
-                            KandydatID = 1,
-                            Kwota = 80.0
-                        },
-                        new
-                        {
-                            ID = 4,
-                            KandydatID = 2,
-                            Kwota = 80.0
-                        },
-                        new
-                        {
-                            ID = 5,
-                            KandydatID = 3,
-                            Kwota = 80.0
-                        },
-                        new
-                        {
-                            ID = 6,
-                            KandydatID = 4,
-                            Kwota = 80.0
-                        },
-                        new
-                        {
-                            ID = 7,
-                            KandydatID = 5,
-                            Kwota = 80.0
-                        },
-                        new
-                        {
-                            ID = 8,
-                            KandydatID = 6,
                             Kwota = 80.0
                         });
                 });
@@ -763,294 +634,6 @@ namespace Aurora.Migrations
                             ID = 14,
                             RodzajSkladowejWspRekrut = 2,
                             WspolczynnikRekrutacyjnyID = 2
-                        },
-                        new
-                        {
-                            ID = 15,
-                            PrzedmiotMaturalny = 0,
-                            RodzajSkladowejWspRekrut = 1,
-                            WspolczynnikRekrutacyjnyID = 3
-                        },
-                        new
-                        {
-                            ID = 16,
-                            PrzedmiotMaturalny = 3,
-                            RodzajSkladowejWspRekrut = 1,
-                            WspolczynnikRekrutacyjnyID = 3
-                        },
-                        new
-                        {
-                            ID = 17,
-                            PrzedmiotMaturalny = 1,
-                            RodzajSkladowejWspRekrut = 1,
-                            WspolczynnikRekrutacyjnyID = 3
-                        },
-                        new
-                        {
-                            ID = 18,
-                            PrzedmiotMaturalny = 1,
-                            RodzajSkladowejWspRekrut = 0,
-                            WspolczynnikRekrutacyjnyID = 3
-                        },
-                        new
-                        {
-                            ID = 19,
-                            PrzedmiotMaturalny = 2,
-                            RodzajSkladowejWspRekrut = 0,
-                            WspolczynnikRekrutacyjnyID = 3
-                        },
-                        new
-                        {
-                            ID = 20,
-                            PrzedmiotMaturalny = 2,
-                            RodzajSkladowejWspRekrut = 1,
-                            WspolczynnikRekrutacyjnyID = 3
-                        },
-                        new
-                        {
-                            ID = 21,
-                            RodzajSkladowejWspRekrut = 2,
-                            WspolczynnikRekrutacyjnyID = 3
-                        },
-                        new
-                        {
-                            ID = 22,
-                            PrzedmiotMaturalny = 0,
-                            RodzajSkladowejWspRekrut = 1,
-                            WspolczynnikRekrutacyjnyID = 4
-                        },
-                        new
-                        {
-                            ID = 23,
-                            PrzedmiotMaturalny = 3,
-                            RodzajSkladowejWspRekrut = 1,
-                            WspolczynnikRekrutacyjnyID = 4
-                        },
-                        new
-                        {
-                            ID = 24,
-                            PrzedmiotMaturalny = 1,
-                            RodzajSkladowejWspRekrut = 1,
-                            WspolczynnikRekrutacyjnyID = 4
-                        },
-                        new
-                        {
-                            ID = 25,
-                            PrzedmiotMaturalny = 1,
-                            RodzajSkladowejWspRekrut = 0,
-                            WspolczynnikRekrutacyjnyID = 4
-                        },
-                        new
-                        {
-                            ID = 26,
-                            PrzedmiotMaturalny = 2,
-                            RodzajSkladowejWspRekrut = 0,
-                            WspolczynnikRekrutacyjnyID = 4
-                        },
-                        new
-                        {
-                            ID = 27,
-                            PrzedmiotMaturalny = 2,
-                            RodzajSkladowejWspRekrut = 1,
-                            WspolczynnikRekrutacyjnyID = 4
-                        },
-                        new
-                        {
-                            ID = 28,
-                            RodzajSkladowejWspRekrut = 2,
-                            WspolczynnikRekrutacyjnyID = 4
-                        },
-                        new
-                        {
-                            ID = 29,
-                            PrzedmiotMaturalny = 0,
-                            RodzajSkladowejWspRekrut = 1,
-                            WspolczynnikRekrutacyjnyID = 5
-                        },
-                        new
-                        {
-                            ID = 30,
-                            PrzedmiotMaturalny = 3,
-                            RodzajSkladowejWspRekrut = 1,
-                            WspolczynnikRekrutacyjnyID = 5
-                        },
-                        new
-                        {
-                            ID = 31,
-                            PrzedmiotMaturalny = 1,
-                            RodzajSkladowejWspRekrut = 1,
-                            WspolczynnikRekrutacyjnyID = 5
-                        },
-                        new
-                        {
-                            ID = 32,
-                            PrzedmiotMaturalny = 1,
-                            RodzajSkladowejWspRekrut = 0,
-                            WspolczynnikRekrutacyjnyID = 5
-                        },
-                        new
-                        {
-                            ID = 33,
-                            PrzedmiotMaturalny = 2,
-                            RodzajSkladowejWspRekrut = 0,
-                            WspolczynnikRekrutacyjnyID = 5
-                        },
-                        new
-                        {
-                            ID = 34,
-                            PrzedmiotMaturalny = 2,
-                            RodzajSkladowejWspRekrut = 1,
-                            WspolczynnikRekrutacyjnyID = 5
-                        },
-                        new
-                        {
-                            ID = 35,
-                            RodzajSkladowejWspRekrut = 2,
-                            WspolczynnikRekrutacyjnyID = 5
-                        },
-                        new
-                        {
-                            ID = 36,
-                            PrzedmiotMaturalny = 0,
-                            RodzajSkladowejWspRekrut = 1,
-                            WspolczynnikRekrutacyjnyID = 6
-                        },
-                        new
-                        {
-                            ID = 37,
-                            PrzedmiotMaturalny = 3,
-                            RodzajSkladowejWspRekrut = 1,
-                            WspolczynnikRekrutacyjnyID = 6
-                        },
-                        new
-                        {
-                            ID = 38,
-                            PrzedmiotMaturalny = 1,
-                            RodzajSkladowejWspRekrut = 1,
-                            WspolczynnikRekrutacyjnyID = 6
-                        },
-                        new
-                        {
-                            ID = 39,
-                            PrzedmiotMaturalny = 1,
-                            RodzajSkladowejWspRekrut = 0,
-                            WspolczynnikRekrutacyjnyID = 6
-                        },
-                        new
-                        {
-                            ID = 40,
-                            PrzedmiotMaturalny = 2,
-                            RodzajSkladowejWspRekrut = 0,
-                            WspolczynnikRekrutacyjnyID = 6
-                        },
-                        new
-                        {
-                            ID = 41,
-                            PrzedmiotMaturalny = 2,
-                            RodzajSkladowejWspRekrut = 1,
-                            WspolczynnikRekrutacyjnyID = 6
-                        },
-                        new
-                        {
-                            ID = 42,
-                            RodzajSkladowejWspRekrut = 2,
-                            WspolczynnikRekrutacyjnyID = 6
-                        },
-                        new
-                        {
-                            ID = 43,
-                            PrzedmiotMaturalny = 0,
-                            RodzajSkladowejWspRekrut = 1,
-                            WspolczynnikRekrutacyjnyID = 7
-                        },
-                        new
-                        {
-                            ID = 44,
-                            PrzedmiotMaturalny = 3,
-                            RodzajSkladowejWspRekrut = 1,
-                            WspolczynnikRekrutacyjnyID = 7
-                        },
-                        new
-                        {
-                            ID = 45,
-                            PrzedmiotMaturalny = 1,
-                            RodzajSkladowejWspRekrut = 1,
-                            WspolczynnikRekrutacyjnyID = 7
-                        },
-                        new
-                        {
-                            ID = 46,
-                            PrzedmiotMaturalny = 1,
-                            RodzajSkladowejWspRekrut = 0,
-                            WspolczynnikRekrutacyjnyID = 7
-                        },
-                        new
-                        {
-                            ID = 47,
-                            PrzedmiotMaturalny = 2,
-                            RodzajSkladowejWspRekrut = 0,
-                            WspolczynnikRekrutacyjnyID = 7
-                        },
-                        new
-                        {
-                            ID = 48,
-                            PrzedmiotMaturalny = 2,
-                            RodzajSkladowejWspRekrut = 1,
-                            WspolczynnikRekrutacyjnyID = 7
-                        },
-                        new
-                        {
-                            ID = 49,
-                            RodzajSkladowejWspRekrut = 2,
-                            WspolczynnikRekrutacyjnyID = 7
-                        },
-                        new
-                        {
-                            ID = 50,
-                            PrzedmiotMaturalny = 0,
-                            RodzajSkladowejWspRekrut = 1,
-                            WspolczynnikRekrutacyjnyID = 8
-                        },
-                        new
-                        {
-                            ID = 51,
-                            PrzedmiotMaturalny = 3,
-                            RodzajSkladowejWspRekrut = 1,
-                            WspolczynnikRekrutacyjnyID = 8
-                        },
-                        new
-                        {
-                            ID = 52,
-                            PrzedmiotMaturalny = 1,
-                            RodzajSkladowejWspRekrut = 1,
-                            WspolczynnikRekrutacyjnyID = 8
-                        },
-                        new
-                        {
-                            ID = 53,
-                            PrzedmiotMaturalny = 1,
-                            RodzajSkladowejWspRekrut = 0,
-                            WspolczynnikRekrutacyjnyID = 8
-                        },
-                        new
-                        {
-                            ID = 54,
-                            PrzedmiotMaturalny = 2,
-                            RodzajSkladowejWspRekrut = 0,
-                            WspolczynnikRekrutacyjnyID = 8
-                        },
-                        new
-                        {
-                            ID = 55,
-                            PrzedmiotMaturalny = 2,
-                            RodzajSkladowejWspRekrut = 1,
-                            WspolczynnikRekrutacyjnyID = 8
-                        },
-                        new
-                        {
-                            ID = 56,
-                            RodzajSkladowejWspRekrut = 2,
-                            WspolczynnikRekrutacyjnyID = 8
                         });
                 });
 
@@ -1120,19 +703,6 @@ namespace Aurora.Migrations
                             RodzajRekrutacji = 2,
                             StatusTury = 2,
                             TerminZakonczeniaPrzyjmowaniaAplikacji = new DateTime(2024, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            ID = 3,
-                            DataOtwarcia = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DataZakonczenia = new DateTime(2023, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            KierunekStudiowID = 2,
-                            LiczbaZajetychMiejsc = 0,
-                            LimitPrzyjec = 3,
-                            MinimalnyProgPunktowy = 225.0,
-                            RodzajRekrutacji = 2,
-                            StatusTury = 4,
-                            TerminZakonczeniaPrzyjmowaniaAplikacji = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -1195,36 +765,6 @@ namespace Aurora.Migrations
                         {
                             ID = 2,
                             AplikacjaRekrutacyjnaID = 2
-                        },
-                        new
-                        {
-                            ID = 3,
-                            AplikacjaRekrutacyjnaID = 3
-                        },
-                        new
-                        {
-                            ID = 4,
-                            AplikacjaRekrutacyjnaID = 4
-                        },
-                        new
-                        {
-                            ID = 5,
-                            AplikacjaRekrutacyjnaID = 5
-                        },
-                        new
-                        {
-                            ID = 6,
-                            AplikacjaRekrutacyjnaID = 6
-                        },
-                        new
-                        {
-                            ID = 7,
-                            AplikacjaRekrutacyjnaID = 7
-                        },
-                        new
-                        {
-                            ID = 8,
-                            AplikacjaRekrutacyjnaID = 8
                         });
                 });
 
