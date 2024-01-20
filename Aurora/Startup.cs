@@ -27,26 +27,12 @@ namespace Aurora
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            IServiceProvider serviceProvider = services.BuildServiceProvider();
-            IWebHostEnvironment env = serviceProvider.GetService<IWebHostEnvironment>();
-
             services.AddControllersWithViews();
 
             services.AddMvc();
 
-            string connectionString = null;
-
-            if (env.IsDevelopment())
-            {
-                connectionString = "AuroraDB";
-            }
-            else if (env.IsProduction())
-            {
-                connectionString = "AuroraDB_release";
-            }
-
             services.AddDbContext<DataDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString(connectionString))
+                options.UseSqlServer(Configuration.GetConnectionString("AuroraDB"))
             );
         }
 
