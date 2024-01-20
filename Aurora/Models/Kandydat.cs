@@ -51,6 +51,7 @@ namespace Aurora.Models
 
         public ICollection<Wiadomosc> wiadomosci { get; set; }
 
+
         public Kandydat(int iD, int adresID, string pESEL, string imie, string nazwisko, string adresEmail)
         {
             ID = iD;

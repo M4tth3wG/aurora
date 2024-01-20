@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Aurora.Enums;
+using Aurora.Utils;
 
 
 namespace Aurora.Controllers
@@ -79,23 +80,31 @@ namespace Aurora.Controllers
                 .Where(e => e.KandydatID == kandydatID)
                 .Where(e => e.TuraRekrutacjiID == turaRekrutacjiID)
                 .Include(e => e.Kandydat)
+                    .ThenInclude(e => e.Adres)
                 .Include(e => e.KierunekStudiow)
                 .Include(e => e.TuraRekrutacji)
                     .ThenInclude(e => e.Opinie)
+                .Include(e => e.TuraRekrutacji.Dokumenty)
+                    .ThenInclude(e => e.Dokument)
+                .Include(e => e.WspolczynnikRekrutacyjny)
+                .Include(e => e.OplataRekrutacyjna)
                 .ToList();
 
             var wszyskieAplikacjeWTurze = _context.AplikacjeRekrutacyjne
                 .Where(e => e.TuraRekrutacjiID == turaRekrutacjiID)
+                .Include(e => e.KierunekStudiow)
                 .Include(e => e.WspolczynnikRekrutacyjny)
                     .ThenInclude(e => e.skladowe)
                         .ThenInclude(e => e.Egzamin)
 /*                .OrderBy(e => e.WspolczynnikRekrutacyjny)*/
                 .ToList();
-/*
+
+
             foreach (var aplikacje in wszyskieAplikacjeWTurze)
             {
-                aplikacje.WspolczynnikRekrutacyjny.Wartosc = 20;
-            }*/
+                aplikacje.WspolczynnikRekrutacyjny.strategia = UtilsRR.GetStrategiaDlaKierunku(aplikacje.KierunekStudiow);
+                Console.WriteLine(aplikacje.WspolczynnikRekrutacyjny.Wartosc);
+            }
 
 
             return View(aplikacja[0]);

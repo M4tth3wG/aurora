@@ -247,3 +247,14 @@ rr-form-table-container {
     width: 200px;
     margin-right: 5px;
 }
+
+
+.withOutBorderTopBorder {
+    border-top: none !important;
+    border-bottom: none !important;
+}
+
+.blodFirstChild td:first-child {
+    font-weight: bold;
+}
+

@@ -42,9 +42,15 @@ namespace Aurora.Data
 
         public DbSet<Opinia> Opinia { get; set; }
 
+        public DbSet<Dokument> Dokument { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            base.OnModelCreating(builder);
+            builder.Entity<DokumentTura>()
+                .HasKey(k => new { k.DokumentID, k.TuraRekrutacjiID });
+
             base.OnModelCreating(builder);
             builder.Entity<KandydatTuraRekrutacji>()
                 .HasKey(k => new { k.KandydatID, k.TuraRekrutacjiID });            
@@ -116,7 +122,7 @@ namespace Aurora.Data
             );
 
             TuraRekrutacji tura3 = new TuraRekrutacji(
-                3, 2, new DateTime(2023, 1, 1), new DateTime(2023, 2, 1), new DateTime(2023, 2, 15), 0, 3, 225.0, 4, 2
+                3, 2, new DateTime(2023, 1, 1), new DateTime(2023, 2, 1), new DateTime(2023, 2, 15), 3, 3, 225.0, 4, 2
             );
 
             builder.Entity<TuraRekrutacji>().HasData(
@@ -347,6 +353,33 @@ namespace Aurora.Data
                 pracownik2
             );
 
+
+            Dokument dokuemnt1 = new Dokument(
+                 1, 1
+            );
+
+            builder.Entity<Dokument>().HasData(
+                dokuemnt1
+            );
+
+
+            DokumentTura dokumentTura1 = new DokumentTura(
+                1, 1
+            );
+
+            DokumentTura dokumentTura2 = new DokumentTura(
+                1, 2
+            );
+
+            DokumentTura dokumentTura3 = new DokumentTura(
+                1, 3
+            );
+
+            builder.Entity<DokumentTura>().HasData(
+                dokumentTura1,
+                dokumentTura2,
+                dokumentTura3
+            );
 
         }
     }

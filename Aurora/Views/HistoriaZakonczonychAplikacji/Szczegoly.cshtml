@@ -1,64 +1,144 @@
-﻿@model Aurora.Models.AplikacjaRekrutacyjna
+﻿@using Aurora.Enums
+@using Aurora.Utils
+
+@model Aurora.Models.AplikacjaRekrutacyjna
 
 @{
     ViewData["Title"] = "Szczegoly";
 }
 
-<h1>Szczegóły</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-
 <div class="container">
     <div class="row">
         <!-- Pierwsza tabela (kolumna 1) -->
         <div class="col-md-6">
-            <table class="table">
+            <table class="table blodFirstChild">
                 <tbody>
+                    <tr withOutBorderTopBorder>
+                        <td colspan="2"><h3>Ranking tury</h3></td>
+                    </tr>
                     <tr>
-                        <td>Dane 1,1</td>
-                        <td>Dane 1,2</td>
+                        <td>Zajęte miejsce:</td>
+                        <td>@Model.TuraRekrutacji.LiczbaZajetychMiejsc</td>
+                    </tr>
+                    <tr>
+                        <td>Ilość osób aplikujących:</td>
+                        <td>@ViewBag.IloscOsobAplikujących</td>
+                    </tr>
+                    <tr>
+                        <td>Ilość miejsc na kierunku:</td>
+                        <td>@Model.TuraRekrutacji.DostepneMiejsca</td>
+                    </tr>
+                    <tr>
+                        <td>Współczynik rekrutacyjny:</td>
+                        <td>@Model.WspolczynnikRekrutacyjny.Wartosc</td>
+                    </tr>
+                    <tr>
+                        <td>Minimalna ilość punktów:</td>
+                        <td>@ViewBag.MinimalnaIloscPunktow</td>
+                    </tr>
+                    <tr class="withOutBorderTopBorder"><td class="withOutBorderTopBorder"></td><td class="withOutBorderTopBorder"></td></tr>
+                    <tr class="withOutBorderTopBorder"><td class="withOutBorderTopBorder"></td><td class="withOutBorderTopBorder"></td></tr>
+                    <tr class="withOutBorderTopBorder"><td class="withOutBorderTopBorder"></td><td class="withOutBorderTopBorder"></td></tr>
+                    <tr withOutBorderTopBorder>
+                        <td colspan="2"><h3>Dane osobowe</h3></td>
+                    </tr>
+                    <tr>
+                        <td>Pesel:</td>
+                        <td>@Model.Kandydat.PESEL</td>
+                    </tr>
+                    <tr>
+                        <td>Imie:</td>
+                        <td>@Model.Kandydat.Imie</td>
+                    </tr>
+                    <tr>
+                        <td>Nazwisko:</td>
+                        <td>@Model.Kandydat.Nazwisko</td>
+                    </tr>
+                    <tr>
+                        <td>Kod pocztowy:</td>
+                        <td>@Model.Kandydat.Adres.KodPocztowy</td>
+                    </tr>
+                    <tr>
+                        <td>Miejscowość:</td>
+                        <td>@Model.Kandydat.Adres.Miejscowosc</td>
+                    </tr>
+                    <tr>
+                        <td>Ulica:</td>
+                        <td>@Model.Kandydat.Adres.Ulica</td>
+                    </tr>
+                    <tr>
+                        <td>Nr budynku:</td>
+                        <td>@Model.Kandydat.Adres.NumerBudynku</td>
+                    </tr>
+                    <tr>
+                        <td>Adres email:</td>
+                        <td>@Model.Kandydat.AdresEmail</td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        <div class="col-md-6">
-            <table class="table">
-                <tbody>
-                    <tr>
-                        <td>Dane 2,1</td>
-                        <td>Dane 2,2</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
 
-    <div class="row">
+        <!-- Druga tabela (kolumna 2) -->
         <div class="col-md-6">
-            <table class="table">
+            <table class="table blodFirstChild">
                 <tbody>
-                    <tr>
-                        <td>Dane 3,1</td>
-                        <td>Dane 3,2</td>
+                    <tr withOutBorderTopBorder>
+                        <td colspan="2"><h3>Dane Aplikacji</h3></td>
                     </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Czwarta tabela (kolumna 2) -->
-        <div class="col-md-6">
-            <table class="table">
-                <tbody>
                     <tr>
-                        <td>Dane 4,1</td>
-                        <td>Dane 4,2</td>
+                        <td>Wydział:</td>
+                        <td>@(EnumUtils.ConvertIDToTypeAsString<NazwaWydzialu>(Model.KierunekStudiow.Wydzial))</td>
                     </tr>
+                    <tr>
+                        <td>Kierunek:</td>
+                        <td>@Model.KierunekStudiow.NazwaKierunku</td>
+                    </tr>
+                    <tr>
+                        <td>Forma studiów:</td>
+                        <td>@Model.KierunekStudiow.FormaStudiow</td>
+                    </tr>
+                    <tr>
+                        <td>Język wykładowy:</td>
+                        <td>@Model.KierunekStudiow.JezykWykladowy</td>
+                    </tr>
+                    <tr>
+                        <td>Data aplikacji:</td>
+                        <td>@Model.DataZlozenia</td>
+                    </tr>
+                    <tr>
+                        <td>Status aplikacji:</td>
+                        <td>@Model.Status.</td>
+                    </tr>
+                    <tr>
+                        <td>Data rozpoczecia rekrutacji:</td>
+                        <td>@Model.TuraRekrutacji.DataOtwarcia</td>
+                    </tr>
+                    <tr>
+                        <td>Data zakonczenia rekrutacji:</td>
+                        <td>@Model.TuraRekrutacji.DataZakonczenia</td>
+                    </tr>
+                    <tr>
+                        <td>Data zakonczenia rekrutacji:</td>
+                        <td>@Model.OplataRekrutacyjna.Kwota</td>
+                    </tr>
+                    <tr class="withOutBorderTopBorder"><td class="withOutBorderTopBorder"></td><td class="withOutBorderTopBorder"></td></tr>
+                    <tr class="withOutBorderTopBorder"><td class="withOutBorderTopBorder"></td><td class="withOutBorderTopBorder"></td></tr>
+                    <tr class="withOutBorderTopBorder"><td class="withOutBorderTopBorder"></td><td class="withOutBorderTopBorder"></td></tr>
+                    <tr withOutBorderTopBorder>
+                        <td colspan="2"><h3>Wymagane Dokumenty</h3></td>
+                    </tr>
+                    @foreach (var dokument in Model.TuraRekrutacji.Dokumenty)
+                    {
+                        <tr>
+                            <td >@(EnumUtils.ConvertIDToTypeAsString<RodzajDokumentu>(dokument.Dokument.RodzajDokumentu))</td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>
     </div>
 </div>
 
+
+<a class="btn btn-primary" asp-action="Index">Powrót</a>

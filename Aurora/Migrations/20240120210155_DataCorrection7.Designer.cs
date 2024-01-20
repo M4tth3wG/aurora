@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aurora.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    [Migration("20240120174635_DataCorrection7")]
+    [Migration("20240120210155_DataCorrection7")]
     partial class DataCorrection7
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -219,6 +219,60 @@ namespace Aurora.Migrations
                             KierunekStudiowID = 2,
                             OplataRekrutacyjnaID = 8,
                             Status = 6,
+                            TuraRekrutacjiID = 3
+                        });
+                });
+
+            modelBuilder.Entity("Aurora.Models.Dokument", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("RodzajDokumentu")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Dokument");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            RodzajDokumentu = 1
+                        });
+                });
+
+            modelBuilder.Entity("Aurora.Models.DokumentTura", b =>
+                {
+                    b.Property<int>("DokumentID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TuraRekrutacjiID")
+                        .HasColumnType("int");
+
+                    b.HasKey("DokumentID", "TuraRekrutacjiID");
+
+                    b.HasIndex("TuraRekrutacjiID");
+
+                    b.ToTable("DokumentTura");
+
+                    b.HasData(
+                        new
+                        {
+                            DokumentID = 1,
+                            TuraRekrutacjiID = 1
+                        },
+                        new
+                        {
+                            DokumentID = 1,
+                            TuraRekrutacjiID = 2
+                        },
+                        new
+                        {
+                            DokumentID = 1,
                             TuraRekrutacjiID = 3
                         });
                 });
@@ -1129,7 +1183,7 @@ namespace Aurora.Migrations
                             DataOtwarcia = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DataZakonczenia = new DateTime(2023, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             KierunekStudiowID = 2,
-                            LiczbaZajetychMiejsc = 0,
+                            LiczbaZajetychMiejsc = 3,
                             LimitPrzyjec = 3,
                             MinimalnyProgPunktowy = 225.0,
                             RodzajRekrutacji = 2,
@@ -1461,6 +1515,25 @@ namespace Aurora.Migrations
                     b.Navigation("TuraRekrutacji");
                 });
 
+            modelBuilder.Entity("Aurora.Models.DokumentTura", b =>
+                {
+                    b.HasOne("Aurora.Models.Dokument", "Dokument")
+                        .WithMany("Tury")
+                        .HasForeignKey("DokumentID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Aurora.Models.TuraRekrutacji", "TuraRekrutacji")
+                        .WithMany("Dokumenty")
+                        .HasForeignKey("TuraRekrutacjiID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Dokument");
+
+                    b.Navigation("TuraRekrutacji");
+                });
+
             modelBuilder.Entity("Aurora.Models.Egzamin", b =>
                 {
                     b.HasOne("Aurora.Models.Kandydat", "Kandydat")
@@ -1699,6 +1772,11 @@ namespace Aurora.Migrations
                     b.Navigation("WspolczynnikRekrutacyjny");
                 });
 
+            modelBuilder.Entity("Aurora.Models.Dokument", b =>
+                {
+                    b.Navigation("Tury");
+                });
+
             modelBuilder.Entity("Aurora.Models.Kandydat", b =>
                 {
                     b.Navigation("Egzaminy");
@@ -1728,6 +1806,8 @@ namespace Aurora.Migrations
             modelBuilder.Entity("Aurora.Models.TuraRekrutacji", b =>
                 {
                     b.Navigation("aplikacje");
+
+                    b.Navigation("Dokumenty");
 
                     b.Navigation("egzaminy");
 
