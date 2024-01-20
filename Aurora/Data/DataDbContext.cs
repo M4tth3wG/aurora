@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
-using Aurora.ViewModels;
 
 namespace Aurora.Data
 {
@@ -43,16 +42,27 @@ namespace Aurora.Data
 
         public DbSet<Opinia> Opinia { get; set; }
 
+        public DbSet<Dokument> Dokument { get; set; }
+
+        public DbSet<AplikacjaRekrutacyjnaDokument> AplikacjaRekrutacyjnaDokument { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            builder.Entity<DokumentTura>()
+                .HasKey(k => new { k.DokumentID, k.TuraRekrutacjiID });
+
+            base.OnModelCreating(builder);
             builder.Entity<KandydatTuraRekrutacji>()
-                .HasKey(k => new { k.KandydatID, k.TuraRekrutacjiID });
-
+                .HasKey(k => new { k.KandydatID, k.TuraRekrutacjiID });            
+            
             builder.Entity<KandydatKierunekStudiow>()
-                .HasKey(k => new { k.KandydatID, k.KierunekStudiowID });
-
+                .HasKey(k => new { k.KandydatID, k.KierunekStudiowID });     
+            
+            builder.Entity<AplikacjaRekrutacyjnaDokument>()
+                .HasKey(k => new { k.DokumentID, k.AplikacjaRekrutacyjnaID });  
+            
             builder.Entity<KandydatUlubionyKierunekStudiow>()
                 .HasKey(k => new { k.KandydatID, k.UlubionyKierunekStudiowID });
 
@@ -111,13 +121,13 @@ namespace Aurora.Data
             TuraRekrutacji tura1 = new TuraRekrutacji(
                 1, 1, new DateTime(2024, 1, 1), new DateTime(2024, 2, 1), new DateTime(2024, 2, 15), 0, 50, 300.0, 2, 2
             );
-
+            
             TuraRekrutacji tura2 = new TuraRekrutacji(
                 2, 2, new DateTime(2024, 1, 1), new DateTime(2024, 2, 1), new DateTime(2024, 2, 15), 0, 150, 225.0, 2, 2
             );
 
             TuraRekrutacji tura3 = new TuraRekrutacji(
-                3, 2, new DateTime(2023, 1, 1), new DateTime(2023, 2, 1), new DateTime(2023, 2, 15), 0, 3, 225.0, 4, 2
+                3, 2, new DateTime(2023, 1, 1), new DateTime(2023, 2, 1), new DateTime(2023, 2, 15), 3, 3, 225.0, 4, 2
             );
 
             builder.Entity<TuraRekrutacji>().HasData(
@@ -165,11 +175,11 @@ namespace Aurora.Data
             );
 
             AplikacjaRekrutacyjna aplikacja1 = new AplikacjaRekrutacyjna(
-                1, 1, 1, 1, new DateTime(2024, 1, 15), 8, 2
+                1, 1, 1, 1, new DateTime(2024, 1, 15), 8, 2   
             );
 
             AplikacjaRekrutacyjna aplikacja2 = new AplikacjaRekrutacyjna(
-                2, 2, 2, 2, new DateTime(2024, 1, 15), 8, 2
+                2, 2, 2, 2, new DateTime(2024, 1, 15), 8, 2   
             );
 
             AplikacjaRekrutacyjna aplikacja3 = new AplikacjaRekrutacyjna(
@@ -198,21 +208,21 @@ namespace Aurora.Data
 
             builder.Entity<AplikacjaRekrutacyjna>().HasData(
                 aplikacja1,
-                aplikacja2,
-                aplikacja3,
-                aplikacja4,
-                aplikacja5,
-                aplikacja6,
+                aplikacja2, 
+                aplikacja3, 
+                aplikacja4, 
+                aplikacja5, 
+                aplikacja6, 
                 aplikacja7,
                 aplikacja8
             );
 
             WspolczynnikRekrutacyjny wspolczynnik1 = new WspolczynnikRekrutacyjny(
-                1, new StrategiaArchitektura(), 1
-            );
-
+                1, new StrategiaArchitektura(), 1    
+            );            
+            
             WspolczynnikRekrutacyjny wspolczynnik2 = new WspolczynnikRekrutacyjny(
-                2, new Standard1Stopien(new() { PrzedmiotMaturalny.Fizyka }), 2
+                2, new Standard1Stopien(new() { PrzedmiotMaturalny.Fizyka}), 2    
             );
 
             WspolczynnikRekrutacyjny wspolczynnik3 = new WspolczynnikRekrutacyjny(
@@ -263,7 +273,7 @@ namespace Aurora.Data
             SkladowaWspRekrut skladowa8 = new SkladowaWspRekrut(8, 70, 2, 0, 1, null);
             SkladowaWspRekrut skladowa9 = new SkladowaWspRekrut(9, 70, 2, 3, 1, null);
             SkladowaWspRekrut skladowa10 = new SkladowaWspRekrut(10, 70, 2, 1, 1, null);
-            SkladowaWspRekrut skladowa11 = new SkladowaWspRekrut(11, 70, 2, 1, 0, null);
+            SkladowaWspRekrut skladowa11 = new SkladowaWspRekrut(11, 70, 2, 1, 0 , null);
             SkladowaWspRekrut skladowa12 = new SkladowaWspRekrut(12, 70, 2, 2, 0, null);
             SkladowaWspRekrut skladowa13 = new SkladowaWspRekrut(13, 70, 2, 2, 1, null);
             SkladowaWspRekrut skladowa14 = new SkladowaWspRekrut(14, 250, 2, null, 2, null);
@@ -276,7 +286,7 @@ namespace Aurora.Data
             SkladowaWspRekrut skladowa20 = new SkladowaWspRekrut(20, 70, 3, 2, 1, null);
             SkladowaWspRekrut skladowa21 = new SkladowaWspRekrut(21, 250, 3, null, 2, null);
 
-            SkladowaWspRekrut skladowa22 = new SkladowaWspRekrut(22, 70, 4, 0, 1, null);
+            SkladowaWspRekrut skladowa22 = new SkladowaWspRekrut(22, 60, 4, 0, 1, null);
             SkladowaWspRekrut skladowa23 = new SkladowaWspRekrut(23, 70, 4, 3, 1, null);
             SkladowaWspRekrut skladowa24 = new SkladowaWspRekrut(24, 70, 4, 1, 1, null);
             SkladowaWspRekrut skladowa25 = new SkladowaWspRekrut(25, 70, 4, 1, 0, null);
@@ -284,7 +294,7 @@ namespace Aurora.Data
             SkladowaWspRekrut skladowa27 = new SkladowaWspRekrut(27, 70, 4, 2, 1, null);
             SkladowaWspRekrut skladowa28 = new SkladowaWspRekrut(28, 250, 4, null, 2, null);
 
-            SkladowaWspRekrut skladowa29 = new SkladowaWspRekrut(29, 70, 5, 0, 1, null);
+            SkladowaWspRekrut skladowa29 = new SkladowaWspRekrut(29, 50, 5, 0, 1, null);
             SkladowaWspRekrut skladowa30 = new SkladowaWspRekrut(30, 70, 5, 3, 1, null);
             SkladowaWspRekrut skladowa31 = new SkladowaWspRekrut(31, 70, 5, 1, 1, null);
             SkladowaWspRekrut skladowa32 = new SkladowaWspRekrut(32, 70, 5, 1, 0, null);
@@ -292,7 +302,7 @@ namespace Aurora.Data
             SkladowaWspRekrut skladowa34 = new SkladowaWspRekrut(34, 70, 5, 2, 1, null);
             SkladowaWspRekrut skladowa35 = new SkladowaWspRekrut(35, 250, 5, null, 2, null);
 
-            SkladowaWspRekrut skladowa36 = new SkladowaWspRekrut(36, 70, 6, 0, 1, null);
+            SkladowaWspRekrut skladowa36 = new SkladowaWspRekrut(36, 40, 6, 0, 1, null);
             SkladowaWspRekrut skladowa37 = new SkladowaWspRekrut(37, 70, 6, 3, 1, null);
             SkladowaWspRekrut skladowa38 = new SkladowaWspRekrut(38, 70, 6, 1, 1, null);
             SkladowaWspRekrut skladowa39 = new SkladowaWspRekrut(39, 70, 6, 1, 0, null);
@@ -301,7 +311,7 @@ namespace Aurora.Data
             SkladowaWspRekrut skladowa42 = new SkladowaWspRekrut(42, 250, 6, null, 2, null);
 
             SkladowaWspRekrut skladowa43 = new SkladowaWspRekrut(43, 70, 7, 0, 1, null);
-            SkladowaWspRekrut skladowa44 = new SkladowaWspRekrut(44, 70, 7, 3, 1, null);
+            SkladowaWspRekrut skladowa44 = new SkladowaWspRekrut(44, 65, 7, 3, 1, null);
             SkladowaWspRekrut skladowa45 = new SkladowaWspRekrut(45, 70, 7, 1, 1, null);
             SkladowaWspRekrut skladowa46 = new SkladowaWspRekrut(46, 70, 7, 1, 0, null);
             SkladowaWspRekrut skladowa47 = new SkladowaWspRekrut(47, 70, 7, 2, 0, null);
@@ -309,7 +319,7 @@ namespace Aurora.Data
             SkladowaWspRekrut skladowa49 = new SkladowaWspRekrut(49, 250, 7, null, 2, null);
 
             SkladowaWspRekrut skladowa50 = new SkladowaWspRekrut(50, 70, 8, 0, 1, null);
-            SkladowaWspRekrut skladowa51 = new SkladowaWspRekrut(51, 70, 8, 3, 1, null);
+            SkladowaWspRekrut skladowa51 = new SkladowaWspRekrut(51, 55, 8, 3, 1, null);
             SkladowaWspRekrut skladowa52 = new SkladowaWspRekrut(52, 70, 8, 1, 1, null);
             SkladowaWspRekrut skladowa53 = new SkladowaWspRekrut(53, 70, 8, 1, 0, null);
             SkladowaWspRekrut skladowa54 = new SkladowaWspRekrut(54, 70, 8, 2, 0, null);
@@ -337,8 +347,8 @@ namespace Aurora.Data
 
             PracownikDziekanatu pracownik1 = new PracownikDziekanatu(
                  1, "Natalia", "Kowalczyk", 0
-            );
-
+            );   
+            
             PracownikDziekanatu pracownik2 = new PracownikDziekanatu(
                  2, "Jakub", "Nowak", 10
             );
@@ -348,6 +358,142 @@ namespace Aurora.Data
                 pracownik2
             );
 
+
+            Dokument dokuemnt1 = new Dokument(
+                 1, 1
+            );
+
+            Dokument dokuemnt2 = new Dokument(
+                 2, 1
+            );
+
+            Dokument dokuemnt3 = new Dokument(
+                 3, 1
+            );
+
+            Dokument dokuemnt4 = new Dokument(
+                 4, 1
+            );
+
+            Dokument dokuemnt5 = new Dokument(
+                 5, 1
+            );
+
+            Dokument dokuemnt6 = new Dokument(
+                 6, 1
+            );
+
+            Dokument dokuemnt7 = new Dokument(
+                 7, 1
+            );
+
+            Dokument dokuemnt8 = new Dokument(
+                 8, 1
+            );
+
+            builder.Entity<Dokument>().HasData(
+                dokuemnt1,
+                dokuemnt2,
+                dokuemnt3,
+                dokuemnt4,
+                dokuemnt5,
+                dokuemnt6,
+                dokuemnt7,
+                dokuemnt8
+            );
+
+
+            DokumentTura dokumentTura1 = new DokumentTura(
+                1, 1
+            );
+
+            DokumentTura dokumentTura2 = new DokumentTura(
+                2, 2
+            );
+
+            DokumentTura dokumentTura3 = new DokumentTura(
+                3, 3
+            );
+
+            DokumentTura dokumentTura4 = new DokumentTura(
+                4, 3
+            );
+
+            DokumentTura dokumentTura5 = new DokumentTura(
+                5, 3
+            );
+
+            DokumentTura dokumentTura6 = new DokumentTura(
+                6, 3
+            );
+
+            DokumentTura dokumentTura7 = new DokumentTura(
+                7, 3
+            );
+
+            DokumentTura dokumentTura8 = new DokumentTura(
+                8, 3
+            );
+
+
+
+            builder.Entity<DokumentTura>().HasData(
+                dokumentTura1,
+                dokumentTura2,
+                dokumentTura3,
+                dokumentTura4,
+                dokumentTura5,
+                dokumentTura6,
+                dokumentTura7,
+                dokumentTura8
+            );
+
+
+
+            AplikacjaRekrutacyjnaDokument aplikacjaRekrutacyjnaDokument1 = new AplikacjaRekrutacyjnaDokument(
+                1, 1
+            );
+
+            AplikacjaRekrutacyjnaDokument aplikacjaRekrutacyjnaDokument2 = new AplikacjaRekrutacyjnaDokument(
+                2, 2
+            );
+
+            AplikacjaRekrutacyjnaDokument aplikacjaRekrutacyjnaDokument3 = new AplikacjaRekrutacyjnaDokument(
+                3, 3
+            );
+
+            AplikacjaRekrutacyjnaDokument aplikacjaRekrutacyjnaDokument4 = new AplikacjaRekrutacyjnaDokument(
+                4, 4
+            );
+
+            AplikacjaRekrutacyjnaDokument aplikacjaRekrutacyjnaDokument5 = new AplikacjaRekrutacyjnaDokument(
+                5, 5
+            );
+
+            AplikacjaRekrutacyjnaDokument aplikacjaRekrutacyjnaDokument6 = new AplikacjaRekrutacyjnaDokument(
+                6, 6
+            );
+
+            AplikacjaRekrutacyjnaDokument aplikacjaRekrutacyjnaDokument7 = new AplikacjaRekrutacyjnaDokument(
+                7, 7
+            );
+
+            AplikacjaRekrutacyjnaDokument aplikacjaRekrutacyjnaDokument8 = new AplikacjaRekrutacyjnaDokument(
+                8, 8
+            );
+
+
+
+            builder.Entity<AplikacjaRekrutacyjnaDokument>().HasData(
+                aplikacjaRekrutacyjnaDokument1,
+                aplikacjaRekrutacyjnaDokument2,
+                aplikacjaRekrutacyjnaDokument3,
+                aplikacjaRekrutacyjnaDokument4,
+                aplikacjaRekrutacyjnaDokument5,
+                aplikacjaRekrutacyjnaDokument6,
+                aplikacjaRekrutacyjnaDokument7,
+                aplikacjaRekrutacyjnaDokument8
+            );
 
         }
     }

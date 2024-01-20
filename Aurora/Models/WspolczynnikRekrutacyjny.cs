@@ -13,8 +13,10 @@ namespace Aurora.Models
         [Display(Name = "ID")]
         public int ID { get; set; }
 
+
+        //tymaczsowo public
         [NotMapped]
-        private StrategiaWspolRekrut strategia { get; set; }
+        public StrategiaWspolRekrut strategia { get; set; }
 
         public double Wartosc 
         {

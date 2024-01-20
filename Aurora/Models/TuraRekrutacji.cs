@@ -57,6 +57,9 @@ namespace Aurora.Models
 
         public ICollection<Egzamin> egzaminy { get; set; }
 
+        public ICollection<DokumentTura> Dokumenty { get; set; }
+
+
         public TuraRekrutacji(int iD, int kierunekStudiowID, DateTime dataOtwarcia, DateTime terminZakonczeniaPrzyjmowaniaAplikacji, DateTime dataZakonczenia, int liczbaZajetychMiejsc, int limitPrzyjec, double minimalnyProgPunktowy, int statusTuryID, int rodzajRekrutacjiID)
         {
             ID = iD;

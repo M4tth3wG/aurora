@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Aurora.Enums;
+using Aurora.Utils;
+using Microsoft.VisualBasic;
 
 
 namespace Aurora.Controllers
@@ -79,20 +81,60 @@ namespace Aurora.Controllers
                 .Where(e => e.KandydatID == kandydatID)
                 .Where(e => e.TuraRekrutacjiID == turaRekrutacjiID)
                 .Include(e => e.Kandydat)
+                    .ThenInclude(e => e.Adres)
                 .Include(e => e.KierunekStudiow)
                 .Include(e => e.TuraRekrutacji)
                     .ThenInclude(e => e.Opinie)
+                .Include(e => e.Dokumenty)
+                    .ThenInclude(e => e.Dokument)
+                .Include(e => e.WspolczynnikRekrutacyjny)
+                .Include(e => e.OplataRekrutacyjna)
                 .ToList();
+
+            if(aplikacja.Count() == 0)
+            {
+                ErrorViewModel errorViewModel = new ErrorViewModel()
+                {
+                    RequestId = "wrong Kandydatid or TuraRekrutacjiID"
+                };
+                return View("Error" , errorViewModel);
+            }
 
             var wszyskieAplikacjeWTurze = _context.AplikacjeRekrutacyjne
                 .Where(e => e.TuraRekrutacjiID == turaRekrutacjiID)
-                .OrderBy(e => e.WspolczynnikRekrutacyjny)
+                .Include(e => e.KierunekStudiow)
+                .Include(e => e.WspolczynnikRekrutacyjny)
+                    .ThenInclude(e => e.skladowe)
+                        .ThenInclude(e => e.Egzamin)
+                /*                .OrderBy(e => e.WspolczynnikRekrutacyjny)*/
                 .ToList();
 
-            Console.WriteLine(aplikacja);
-            Console.WriteLine(kandydatID + turaRekrutacjiID);
+            /*            wszyskieAplikacjeWTurze = wszyskieAplikacjeWTurze.OrderBy(p => p.WspolczynnikRekrutacyjny.Wartosc).ToList();
+            */
+            int i = 0;
 
-            return View(wszyskieAplikacjeWTurze);
+            foreach (var aplikacje in wszyskieAplikacjeWTurze)
+            {
+                i++;
+
+                aplikacje.WspolczynnikRekrutacyjny.strategia = UtilsRR.GetStrategiaDlaKierunku(aplikacje.KierunekStudiow);
+
+                if (aplikacje.ID == aplikacja.FirstOrDefault().ID)
+                {
+                    @ViewBag.ZajeteMiejsce = i;
+                }
+                if (aplikacje.Status == Convert.ToInt32(RodzajStatusuAplikacji.ZakonczonaSukcesem))
+                {
+                    /*                    @ViewBag.MinimalnaIloscPunktow = aplikacje.WspolczynnikRekrutacyjny.Wartosc;
+                    */
+                }
+
+            }
+
+
+            @ViewBag.IloscOsobAplikujących = i;
+
+            return View(aplikacja.FirstOrDefault());
         }
     }
 }
