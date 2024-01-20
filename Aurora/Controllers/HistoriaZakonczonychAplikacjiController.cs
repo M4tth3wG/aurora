@@ -15,12 +15,12 @@ using Aurora.Enums;
 
 namespace Aurora.Controllers
 {
-    public class HistoriaZakonczonychAplikacji : Controller
+    public class HistoriaZakonczonychAplikacjiController : Controller
     {
         private readonly DataDbContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
 
-        public HistoriaZakonczonychAplikacji(DataDbContext context, IWebHostEnvironment hostEnvironment)
+        public HistoriaZakonczonychAplikacjiController(DataDbContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
             _hostEnvironment = hostEnvironment;
@@ -30,8 +30,7 @@ namespace Aurora.Controllers
         {
             var aplikacje = await _context.AplikacjeRekrutacyjne
                 .Where(e => e.Status == Convert.ToInt32(RodzajStatusuAplikacji.ZakonczonaSukcesem) || e.Status == Convert.ToInt32(RodzajStatusuAplikacji.ZakonczonaNiepowodzeniem) || e.Status == Convert.ToInt32(RodzajStatusuAplikacji.Odrzucona))
-                .Include(e => e.Kandydat)
-/*                .Where(e => e.Kandydat.ID == 2)
+/*                .Where(e => e.KandydatID == 2)
 */                .Include(e => e.KierunekStudiow)
                 .Include(e => e.TuraRekrutacji)
                     .ThenInclude(e => e.Opinie)
