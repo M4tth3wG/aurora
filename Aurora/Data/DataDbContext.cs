@@ -172,27 +172,27 @@ namespace Aurora.Data
             );
 
             AplikacjaRekrutacyjna aplikacja3 = new AplikacjaRekrutacyjna(
-                3, 2, 3, 1, new DateTime(2023, 1, 10), 5, 1
+                3, 2, 3, 3, new DateTime(2023, 1, 10), 5, 1
             );
 
             AplikacjaRekrutacyjna aplikacja4 = new AplikacjaRekrutacyjna(
-                4, 2, 3, 2, new DateTime(2023, 1, 11), 5, 2
+                4, 2, 3, 4, new DateTime(2023, 1, 11), 5, 2
             );
 
             AplikacjaRekrutacyjna aplikacja5 = new AplikacjaRekrutacyjna(
-                5, 2, 3, 1, new DateTime(2023, 1, 12), 5, 3
+                5, 2, 3, 5, new DateTime(2023, 1, 12), 5, 3
             );
 
             AplikacjaRekrutacyjna aplikacja6 = new AplikacjaRekrutacyjna(
-                6, 2, 3, 2, new DateTime(2023, 1, 13), 6, 4
+                6, 2, 3, 6, new DateTime(2023, 1, 13), 6, 4
             );
 
             AplikacjaRekrutacyjna aplikacja7 = new AplikacjaRekrutacyjna(
-                7, 2, 3, 1, new DateTime(2023, 1, 14), 6, 5
+                7, 2, 3, 7, new DateTime(2023, 1, 14), 6, 5
             );
 
             AplikacjaRekrutacyjna aplikacja8 = new AplikacjaRekrutacyjna(
-                8, 2, 3, 2, new DateTime(2023, 1, 15), 6, 6
+                8, 2, 3, 8, new DateTime(2023, 1, 15), 6, 6
             );
 
             builder.Entity<AplikacjaRekrutacyjna>().HasData(
