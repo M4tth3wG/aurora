@@ -84,7 +84,7 @@ namespace Aurora.Controllers
                 .Include(e => e.KierunekStudiow)
                 .Include(e => e.TuraRekrutacji)
                     .ThenInclude(e => e.Opinie)
-                .Include(e => e.TuraRekrutacji.Dokumenty)
+                .Include(e => e.Dokumenty)
                     .ThenInclude(e => e.Dokument)
                 .Include(e => e.WspolczynnikRekrutacyjny)
                 .Include(e => e.OplataRekrutacyjna)

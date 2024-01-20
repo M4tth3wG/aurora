@@ -44,6 +44,8 @@ namespace Aurora.Data
 
         public DbSet<Dokument> Dokument { get; set; }
 
+        public DbSet<AplikacjaRekrutacyjnaDokument> AplikacjaRekrutacyjnaDokument { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -56,7 +58,10 @@ namespace Aurora.Data
                 .HasKey(k => new { k.KandydatID, k.TuraRekrutacjiID });            
             
             builder.Entity<KandydatKierunekStudiow>()
-                .HasKey(k => new { k.KandydatID, k.KierunekStudiowID });            
+                .HasKey(k => new { k.KandydatID, k.KierunekStudiowID });     
+            
+            builder.Entity<AplikacjaRekrutacyjnaDokument>()
+                .HasKey(k => new { k.DokumentID, k.AplikacjaRekrutacyjnaID });  
             
             builder.Entity<KandydatUlubionyKierunekStudiow>()
                 .HasKey(k => new { k.KandydatID, k.UlubionyKierunekStudiowID });
@@ -358,8 +363,43 @@ namespace Aurora.Data
                  1, 1
             );
 
+            Dokument dokuemnt2 = new Dokument(
+                 2, 1
+            );
+
+            Dokument dokuemnt3 = new Dokument(
+                 3, 1
+            );
+
+            Dokument dokuemnt4 = new Dokument(
+                 4, 1
+            );
+
+            Dokument dokuemnt5 = new Dokument(
+                 5, 1
+            );
+
+            Dokument dokuemnt6 = new Dokument(
+                 6, 1
+            );
+
+            Dokument dokuemnt7 = new Dokument(
+                 7, 1
+            );
+
+            Dokument dokuemnt8 = new Dokument(
+                 8, 1
+            );
+
             builder.Entity<Dokument>().HasData(
-                dokuemnt1
+                dokuemnt1,
+                dokuemnt2,
+                dokuemnt3,
+                dokuemnt4,
+                dokuemnt5,
+                dokuemnt6,
+                dokuemnt7,
+                dokuemnt8
             );
 
 
@@ -368,17 +408,91 @@ namespace Aurora.Data
             );
 
             DokumentTura dokumentTura2 = new DokumentTura(
-                1, 2
+                2, 2
             );
 
             DokumentTura dokumentTura3 = new DokumentTura(
-                1, 3
+                3, 3
             );
+
+            DokumentTura dokumentTura4 = new DokumentTura(
+                4, 3
+            );
+
+            DokumentTura dokumentTura5 = new DokumentTura(
+                5, 3
+            );
+
+            DokumentTura dokumentTura6 = new DokumentTura(
+                6, 3
+            );
+
+            DokumentTura dokumentTura7 = new DokumentTura(
+                7, 3
+            );
+
+            DokumentTura dokumentTura8 = new DokumentTura(
+                8, 3
+            );
+
+
 
             builder.Entity<DokumentTura>().HasData(
                 dokumentTura1,
                 dokumentTura2,
-                dokumentTura3
+                dokumentTura3,
+                dokumentTura4,
+                dokumentTura5,
+                dokumentTura6,
+                dokumentTura7,
+                dokumentTura8
+            );
+
+
+
+            AplikacjaRekrutacyjnaDokument aplikacjaRekrutacyjnaDokument1 = new AplikacjaRekrutacyjnaDokument(
+                1, 1
+            );
+
+            AplikacjaRekrutacyjnaDokument aplikacjaRekrutacyjnaDokument2 = new AplikacjaRekrutacyjnaDokument(
+                2, 2
+            );
+
+            AplikacjaRekrutacyjnaDokument aplikacjaRekrutacyjnaDokument3 = new AplikacjaRekrutacyjnaDokument(
+                3, 3
+            );
+
+            AplikacjaRekrutacyjnaDokument aplikacjaRekrutacyjnaDokument4 = new AplikacjaRekrutacyjnaDokument(
+                4, 4
+            );
+
+            AplikacjaRekrutacyjnaDokument aplikacjaRekrutacyjnaDokument5 = new AplikacjaRekrutacyjnaDokument(
+                5, 5
+            );
+
+            AplikacjaRekrutacyjnaDokument aplikacjaRekrutacyjnaDokument6 = new AplikacjaRekrutacyjnaDokument(
+                6, 6
+            );
+
+            AplikacjaRekrutacyjnaDokument aplikacjaRekrutacyjnaDokument7 = new AplikacjaRekrutacyjnaDokument(
+                7, 7
+            );
+
+            AplikacjaRekrutacyjnaDokument aplikacjaRekrutacyjnaDokument8 = new AplikacjaRekrutacyjnaDokument(
+                8, 8
+            );
+
+
+
+            builder.Entity<AplikacjaRekrutacyjnaDokument>().HasData(
+                aplikacjaRekrutacyjnaDokument1,
+                aplikacjaRekrutacyjnaDokument2,
+                aplikacjaRekrutacyjnaDokument3,
+                aplikacjaRekrutacyjnaDokument4,
+                aplikacjaRekrutacyjnaDokument5,
+                aplikacjaRekrutacyjnaDokument6,
+                aplikacjaRekrutacyjnaDokument7,
+                aplikacjaRekrutacyjnaDokument8
             );
 
         }

@@ -1,6 +1,7 @@
 ﻿using Aurora.Enums;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
@@ -44,6 +45,9 @@ namespace Aurora.Models
 
         [AllowNull]
         public virtual Kandydat Kandydat { get; set; }
+
+        public ICollection<AplikacjaRekrutacyjnaDokument> Dokumenty { get; set; }
+
 
         public AplikacjaRekrutacyjna(int iD, int kierunekStudiowID, int turaRekrutacjiID, int oplataRekrutacyjnaID, DateTime dataZlozenia, int status, int kandydatID)
         {

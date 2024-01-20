@@ -16,6 +16,8 @@ namespace Aurora.Models
 
         public ICollection<DokumentTura> Tury { get; set; }
 
+        public ICollection<AplikacjaRekrutacyjnaDokument> Aplikacje { get; set; }
+
 
         public Dokument(int iD, int rodzajDokumentu)
         {
