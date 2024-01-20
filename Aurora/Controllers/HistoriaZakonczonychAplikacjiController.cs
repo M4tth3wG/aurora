@@ -96,16 +96,33 @@ namespace Aurora.Controllers
                 .Include(e => e.WspolczynnikRekrutacyjny)
                     .ThenInclude(e => e.skladowe)
                         .ThenInclude(e => e.Egzamin)
-/*                .OrderBy(e => e.WspolczynnikRekrutacyjny)*/
+                /*                .OrderBy(e => e.WspolczynnikRekrutacyjny)*/
                 .ToList();
 
+            /*            wszyskieAplikacjeWTurze = wszyskieAplikacjeWTurze.OrderBy(p => p.WspolczynnikRekrutacyjny.Wartosc).ToList();
+            */
+            int i = 0;
 
             foreach (var aplikacje in wszyskieAplikacjeWTurze)
             {
+                i++;
+
                 aplikacje.WspolczynnikRekrutacyjny.strategia = UtilsRR.GetStrategiaDlaKierunku(aplikacje.KierunekStudiow);
-                Console.WriteLine(aplikacje.WspolczynnikRekrutacyjny.Wartosc);
+
+                if (aplikacje.ID == aplikacja[0].ID)
+                {
+                    @ViewBag.ZajeteMiejsce = i;
+                }
+                if (aplikacje.Status == Convert.ToInt32(RodzajStatusuAplikacji.ZakonczonaSukcesem))
+                {
+                    /*                    @ViewBag.MinimalnaIloscPunktow = aplikacje.WspolczynnikRekrutacyjny.Wartosc;
+                    */
+                }
+
             }
 
+
+            @ViewBag.IloscOsobAplikujących = i;
 
             return View(aplikacja[0]);
         }
