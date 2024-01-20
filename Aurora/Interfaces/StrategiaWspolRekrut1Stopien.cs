@@ -4,8 +4,26 @@ using System.Collections.Generic;
 
 namespace Aurora.Interfaces
 {
-    public interface StrategiaWspolRekrut1Stopien: StrategiaWspolRekrut
+    public abstract class StrategiaWspolRekrut1Stopien: StrategiaWspolRekrut
     {
-        new double WyliczPunkty(List<SkladowaWspRekrut> skladowe);
+        public List<PrzedmiotMaturalny> przedmiotyMaturalne { get; }
+
+        public StrategiaWspolRekrut1Stopien(List<PrzedmiotMaturalny> przedmiotyMaturalne)
+        {
+            this.przedmiotyMaturalne = przedmiotyMaturalne;
+        }
+        
+        public StrategiaWspolRekrut1Stopien()
+        {
+            this.przedmiotyMaturalne = new () 
+            {
+                PrzedmiotMaturalny.JezykPolski,
+                PrzedmiotMaturalny.Matematyka,
+                PrzedmiotMaturalny.JezykObcy,
+                PrzedmiotMaturalny.Fizyka,
+            };
+        }
+
+        public abstract override double WyliczPunkty(List<SkladowaWspRekrut> skladowe);
     }
 }

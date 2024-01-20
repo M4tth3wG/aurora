@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace Aurora.Interfaces
 {
-    public interface StrategiaWspolRekrut
+    public abstract class StrategiaWspolRekrut
     {
-        double WyliczPunkty(List<SkladowaWspRekrut> skladowe);
+        public abstract double WyliczPunkty(List<SkladowaWspRekrut> skladowe);
 
     }
 }

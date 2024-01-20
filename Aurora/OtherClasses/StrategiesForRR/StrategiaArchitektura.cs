@@ -11,7 +11,11 @@ namespace Aurora.OtherClasses.StrategiesForRR
     public class StrategiaArchitektura : StrategiaWspolRekrutJednolite
 
     {
-        public double WyliczPunkty(List<SkladowaWspRekrut> skladowe)
+        public StrategiaArchitektura(List<PrzedmiotMaturalny> przedmiotyMaturalne = null): base(Consts.defaultMaturaSubjects)
+        {
+        }
+
+        public override double WyliczPunkty(List<SkladowaWspRekrut> skladowe)
         {
             if (!UtilsRR.HasPassedMatura(skladowe, new List<PrzedmiotMaturalny>() { PrzedmiotMaturalny.Fizyka })) return 0.0;
 
@@ -21,7 +25,7 @@ namespace Aurora.OtherClasses.StrategiesForRR
             var punktyJezykPolski= UtilsRR.GetPoints2(skladowe, RodzajSkladowejWspRekrut.JP, PrzedmiotMaturalny.JezykPolski);
             var punktyEgzamin = UtilsRR.GetExamPoints(skladowe);
 
-            return WyliczPunkty(punktyMatematyka, punktyFizyka, punktyJezykObcy, punktyJezykPolski, punktyEgzamin);
+            return UtilsRR.GetMin(WyliczPunkty(punktyMatematyka, punktyFizyka, punktyJezykObcy, punktyJezykPolski, punktyEgzamin), Consts.ARCHITECTURE_DEFAULT_RR_MAX_VALUE);
         }
 
         public double WyliczPunkty(double punktyMatematyka, double punktyFizyka, double punktyJezykObcy, double punktyJezykPolski, double punktyEgzamin)
