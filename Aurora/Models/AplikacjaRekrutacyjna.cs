@@ -31,6 +31,7 @@ namespace Aurora.Models
         public OplataRekrutacyjna OplataRekrutacyjna { get; set; }
 
         [Required]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DataZlozenia { get; set; }
 
         [Required]
@@ -47,6 +48,16 @@ namespace Aurora.Models
         public AplikacjaRekrutacyjna(int iD, int kierunekStudiowID, int turaRekrutacjiID, int oplataRekrutacyjnaID, DateTime dataZlozenia, int status, int kandydatID)
         {
             ID = iD;
+            KierunekStudiowID = kierunekStudiowID;
+            TuraRekrutacjiID = turaRekrutacjiID;
+            OplataRekrutacyjnaID = oplataRekrutacyjnaID;
+            DataZlozenia = dataZlozenia;
+            Status = status;
+            KandydatID = kandydatID;
+        }
+
+        public AplikacjaRekrutacyjna(int kierunekStudiowID, int turaRekrutacjiID, int oplataRekrutacyjnaID, DateTime dataZlozenia, int status, int kandydatID)
+        {
             KierunekStudiowID = kierunekStudiowID;
             TuraRekrutacjiID = turaRekrutacjiID;
             OplataRekrutacyjnaID = oplataRekrutacyjnaID;
