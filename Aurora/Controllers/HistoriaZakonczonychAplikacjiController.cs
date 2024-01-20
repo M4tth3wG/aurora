@@ -86,13 +86,19 @@ namespace Aurora.Controllers
 
             var wszyskieAplikacjeWTurze = _context.AplikacjeRekrutacyjne
                 .Where(e => e.TuraRekrutacjiID == turaRekrutacjiID)
-                .OrderBy(e => e.WspolczynnikRekrutacyjny)
+                .Include(e => e.WspolczynnikRekrutacyjny)
+                    .ThenInclude(e => e.skladowe)
+                        .ThenInclude(e => e.Egzamin)
+/*                .OrderBy(e => e.WspolczynnikRekrutacyjny)*/
                 .ToList();
+/*
+            foreach (var aplikacje in wszyskieAplikacjeWTurze)
+            {
+                aplikacje.WspolczynnikRekrutacyjny.Wartosc = 20;
+            }*/
 
-            Console.WriteLine(aplikacja);
-            Console.WriteLine(kandydatID + turaRekrutacjiID);
 
-            return View(wszyskieAplikacjeWTurze);
+            return View(aplikacja[0]);
         }
     }
 }

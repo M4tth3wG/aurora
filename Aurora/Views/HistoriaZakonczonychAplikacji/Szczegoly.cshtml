@@ -1,59 +1,64 @@
-﻿@model IEnumerable<Aurora.Models.AplikacjaRekrutacyjna>
+﻿@model Aurora.Models.AplikacjaRekrutacyjna
 
 @{
     ViewData["Title"] = "Szczegoly";
 }
 
-<h1>Szczegoly</h1>
+<h1>Szczegóły</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.KierunekStudiow)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TuraRekrutacji)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OplataRekrutacyjna)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DataZlozenia)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Kandydat)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.KierunekStudiow.NazwaKierunku)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TuraRekrutacjiID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OplataRekrutacyjnaID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataZlozenia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.KandydatID)
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+<div class="container">
+    <div class="row">
+        <!-- Pierwsza tabela (kolumna 1) -->
+        <div class="col-md-6">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>Dane 1,1</td>
+                        <td>Dane 1,2</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-6">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>Dane 2,1</td>
+                        <td>Dane 2,2</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>Dane 3,1</td>
+                        <td>Dane 3,2</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Czwarta tabela (kolumna 2) -->
+        <div class="col-md-6">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>Dane 4,1</td>
+                        <td>Dane 4,2</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

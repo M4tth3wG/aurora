@@ -275,7 +275,7 @@ namespace Aurora.Data
             SkladowaWspRekrut skladowa20 = new SkladowaWspRekrut(20, 70, 3, 2, 1, null);
             SkladowaWspRekrut skladowa21 = new SkladowaWspRekrut(21, 250, 3, null, 2, null);
 
-            SkladowaWspRekrut skladowa22 = new SkladowaWspRekrut(22, 70, 4, 0, 1, null);
+            SkladowaWspRekrut skladowa22 = new SkladowaWspRekrut(22, 60, 4, 0, 1, null);
             SkladowaWspRekrut skladowa23 = new SkladowaWspRekrut(23, 70, 4, 3, 1, null);
             SkladowaWspRekrut skladowa24 = new SkladowaWspRekrut(24, 70, 4, 1, 1, null);
             SkladowaWspRekrut skladowa25 = new SkladowaWspRekrut(25, 70, 4, 1, 0, null);
@@ -283,7 +283,7 @@ namespace Aurora.Data
             SkladowaWspRekrut skladowa27 = new SkladowaWspRekrut(27, 70, 4, 2, 1, null);
             SkladowaWspRekrut skladowa28 = new SkladowaWspRekrut(28, 250, 4, null, 2, null);
 
-            SkladowaWspRekrut skladowa29 = new SkladowaWspRekrut(29, 70, 5, 0, 1, null);
+            SkladowaWspRekrut skladowa29 = new SkladowaWspRekrut(29, 50, 5, 0, 1, null);
             SkladowaWspRekrut skladowa30 = new SkladowaWspRekrut(30, 70, 5, 3, 1, null);
             SkladowaWspRekrut skladowa31 = new SkladowaWspRekrut(31, 70, 5, 1, 1, null);
             SkladowaWspRekrut skladowa32 = new SkladowaWspRekrut(32, 70, 5, 1, 0, null);
@@ -291,7 +291,7 @@ namespace Aurora.Data
             SkladowaWspRekrut skladowa34 = new SkladowaWspRekrut(34, 70, 5, 2, 1, null);
             SkladowaWspRekrut skladowa35 = new SkladowaWspRekrut(35, 250, 5, null, 2, null);
 
-            SkladowaWspRekrut skladowa36 = new SkladowaWspRekrut(36, 70, 6, 0, 1, null);
+            SkladowaWspRekrut skladowa36 = new SkladowaWspRekrut(36, 40, 6, 0, 1, null);
             SkladowaWspRekrut skladowa37 = new SkladowaWspRekrut(37, 70, 6, 3, 1, null);
             SkladowaWspRekrut skladowa38 = new SkladowaWspRekrut(38, 70, 6, 1, 1, null);
             SkladowaWspRekrut skladowa39 = new SkladowaWspRekrut(39, 70, 6, 1, 0, null);
@@ -300,7 +300,7 @@ namespace Aurora.Data
             SkladowaWspRekrut skladowa42 = new SkladowaWspRekrut(42, 250, 6, null, 2, null);
 
             SkladowaWspRekrut skladowa43 = new SkladowaWspRekrut(43, 70, 7, 0, 1, null);
-            SkladowaWspRekrut skladowa44 = new SkladowaWspRekrut(44, 70, 7, 3, 1, null);
+            SkladowaWspRekrut skladowa44 = new SkladowaWspRekrut(44, 65, 7, 3, 1, null);
             SkladowaWspRekrut skladowa45 = new SkladowaWspRekrut(45, 70, 7, 1, 1, null);
             SkladowaWspRekrut skladowa46 = new SkladowaWspRekrut(46, 70, 7, 1, 0, null);
             SkladowaWspRekrut skladowa47 = new SkladowaWspRekrut(47, 70, 7, 2, 0, null);
@@ -308,7 +308,7 @@ namespace Aurora.Data
             SkladowaWspRekrut skladowa49 = new SkladowaWspRekrut(49, 250, 7, null, 2, null);
 
             SkladowaWspRekrut skladowa50 = new SkladowaWspRekrut(50, 70, 8, 0, 1, null);
-            SkladowaWspRekrut skladowa51 = new SkladowaWspRekrut(51, 70, 8, 3, 1, null);
+            SkladowaWspRekrut skladowa51 = new SkladowaWspRekrut(51, 55, 8, 3, 1, null);
             SkladowaWspRekrut skladowa52 = new SkladowaWspRekrut(52, 70, 8, 1, 1, null);
             SkladowaWspRekrut skladowa53 = new SkladowaWspRekrut(53, 70, 8, 1, 0, null);
             SkladowaWspRekrut skladowa54 = new SkladowaWspRekrut(54, 70, 8, 2, 0, null);
