@@ -62,6 +62,10 @@ body {
     margin-bottom: 60px;
 }
 
+.table {
+    table-layout: fixed;
+}
+
 .footer {
     position: absolute;
     bottom: 0;
@@ -104,8 +108,8 @@ body {
 }
 
 
-.application-row {
-
+.application-break-row {
+    height: 40px;
 }
 
 .left-table {
@@ -114,6 +118,11 @@ body {
 
 .right-table {
     float: right;
+}
+
+.text-right {
+    float: right;
+    white-space: nowrap;
 }
 
 rr-form-table-container {
@@ -153,4 +162,88 @@ rr-form-table-container {
     white-space: nowrap;
 }
 
+.rr-main-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.rr-form-table h2 h5 {
+    margin-bottom: 20px;
+    text-align: center;
+}
 
+.centered-div {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.rr-title {
+    margin-bottom: 20px;
+}
+
+.center-text {
+    padding: 20px;
+    text-align: center;
+}
+
+.index-offers-button {
+    margin-right: 5px;
+    width: 100%;
+}
+
+.index-sort-panel {
+    margin-right: 10px;
+    margin-bottom: 40px;
+}
+.assignment-button {
+    padding: 8px 16px;
+}
+
+.item-separator {
+    height: 10px; /* Dowolna wysokość obramowania */
+}
+
+.last-row {
+    margin-bottom: 20px;
+}
+
+.list-outer-border {
+    border: 1px solid #000; /* Kolor i szerokość obramowania */
+    list-style: none; /* Usunięcie domyślnego punktu przed każdym elementem listy */
+    padding-block: 0px; /* Usunięcie domyślnego wewnętrznego marginesu listy */
+    padding-right: 50px; /* Usunięcie domyślnego wewnętrznego marginesu listy */
+    margin-left: -50px;
+    margin-right: 50px;
+}
+.list-outer-border2 {
+    border: 1px solid #000; /* Kolor i szerokość obramowania */
+    list-style: none; /* Usunięcie domyślnego punktu przed każdym elementem listy */
+    padding-block: 0px; /* Usunięcie domyślnego wewnętrznego marginesu listy */
+    padding-right: 0px; /* Usunięcie domyślnego wewnętrznego marginesu listy */
+    margin-left: -150px;
+    margin-right: -150px;
+}
+
+.list-item {
+    margin-bottom: 10px; /* Domyślny margines poniżej elementu listy */
+}
+
+.list-item:last-child {
+    margin-bottom: 0; /* Usunięcie marginesu dla ostatniego elementu listy */
+}
+
+.button-container {
+    white-space: nowrap;
+}
+
+.button-container button {
+    margin-right: 5px;
+}
+
+.top-margin {
+    margin-top: 20px;
+}
+
+.select-item {
+    width: 200px;
+    margin-right: 5px;
+}

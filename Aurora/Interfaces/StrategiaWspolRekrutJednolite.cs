@@ -1,10 +1,16 @@
-﻿using Aurora.Models;
+﻿using Aurora.Enums;
+using Aurora.Models;
 using System.Collections.Generic;
 
 namespace Aurora.Interfaces
 {
-    public interface StrategiaWspolRekrutJednolite: StrategiaWspolRekrut
+    public abstract class StrategiaWspolRekrutJednolite: StrategiaWspolRekrut1Stopien
     {
-        new double WyliczPunkty(List<SkladowaWspRekrut> skladowe);
+        public abstract override double WyliczPunkty(List<SkladowaWspRekrut> skladowe);
+
+        public StrategiaWspolRekrutJednolite(List<PrzedmiotMaturalny> przedmiotyMaturalne): base(przedmiotyMaturalne)
+        {
+            
+        }
     }
 }

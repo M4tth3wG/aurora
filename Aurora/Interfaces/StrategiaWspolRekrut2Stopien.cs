@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace Aurora.Interfaces
 {
-    public interface StrategiaWspolRekrut2Stopien: StrategiaWspolRekrut
+    public abstract class StrategiaWspolRekrut2Stopien: StrategiaWspolRekrut
     {
-        new double WyliczPunkty(List<SkladowaWspRekrut> skladowe);
+        public abstract override double WyliczPunkty(List<SkladowaWspRekrut> skladowe);
     }
 }

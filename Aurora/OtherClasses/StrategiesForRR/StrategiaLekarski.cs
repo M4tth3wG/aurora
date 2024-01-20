@@ -10,15 +10,25 @@ namespace Aurora.OtherClasses.StrategiesForRR
 {
     public class StrategiaLekarski: StrategiaWspolRekrutJednolite
     {
-        public double WyliczPunkty(List<SkladowaWspRekrut> skladowe)
+        public StrategiaLekarski(List<PrzedmiotMaturalny> przedmiotyMaturalne = null) : base(Consts.defaultMaturaSubjectsMed)
+        {
+        }
+
+        public override double WyliczPunkty(List<SkladowaWspRekrut> skladowe)
         {
             if (!HasPassedMatura(skladowe)) return 0.0;
 
             var punktyFizyka = UtilsRR.GetPoints(skladowe, RodzajSkladowejWspRekrut.PD, PrzedmiotMaturalny.Fizyka);
             var punktyBiologia = GetBiologyPoints(skladowe);
             var (punktyMatematyka, punktyJezykObcy, punktyJezykPolski) = UtilsRR.GetBasicPoints(skladowe);
+            if (punktyFizyka == 0 && punktyMatematyka == 0) 
+            {
+                punktyJezykObcy = 0;
+                punktyJezykPolski = 0;
+                punktyBiologia = 0;
+            }
 
-            return WyliczPunkty(punktyMatematyka, punktyFizyka, punktyBiologia, punktyJezykObcy, punktyJezykPolski);
+            return UtilsRR.GetMin(WyliczPunkty(punktyMatematyka, punktyFizyka, punktyBiologia, punktyJezykObcy, punktyJezykPolski), Consts.DEFAULT_RR_MAX_VALUE);
         }
 
         public double WyliczPunkty(double punktyMatematyka, double punktyFizyka, double punktyBiologia, double punktyJezykObcy, double punktyJezykPolski)
