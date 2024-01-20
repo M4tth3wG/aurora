@@ -4,14 +4,16 @@ using Aurora.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Aurora.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    partial class DataDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240120210155_DataCorrection7")]
+    partial class DataCorrection7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -221,63 +223,6 @@ namespace Aurora.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Aurora.Models.AplikacjaRekrutacyjnaDokument", b =>
-                {
-                    b.Property<int>("DokumentID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AplikacjaRekrutacyjnaID")
-                        .HasColumnType("int");
-
-                    b.HasKey("DokumentID", "AplikacjaRekrutacyjnaID");
-
-                    b.HasIndex("AplikacjaRekrutacyjnaID");
-
-                    b.ToTable("AplikacjaRekrutacyjnaDokument");
-
-                    b.HasData(
-                        new
-                        {
-                            DokumentID = 1,
-                            AplikacjaRekrutacyjnaID = 1
-                        },
-                        new
-                        {
-                            DokumentID = 2,
-                            AplikacjaRekrutacyjnaID = 2
-                        },
-                        new
-                        {
-                            DokumentID = 3,
-                            AplikacjaRekrutacyjnaID = 3
-                        },
-                        new
-                        {
-                            DokumentID = 4,
-                            AplikacjaRekrutacyjnaID = 4
-                        },
-                        new
-                        {
-                            DokumentID = 5,
-                            AplikacjaRekrutacyjnaID = 5
-                        },
-                        new
-                        {
-                            DokumentID = 6,
-                            AplikacjaRekrutacyjnaID = 6
-                        },
-                        new
-                        {
-                            DokumentID = 7,
-                            AplikacjaRekrutacyjnaID = 7
-                        },
-                        new
-                        {
-                            DokumentID = 8,
-                            AplikacjaRekrutacyjnaID = 8
-                        });
-                });
-
             modelBuilder.Entity("Aurora.Models.Dokument", b =>
                 {
                     b.Property<int>("ID")
@@ -296,41 +241,6 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 1,
-                            RodzajDokumentu = 1
-                        },
-                        new
-                        {
-                            ID = 2,
-                            RodzajDokumentu = 1
-                        },
-                        new
-                        {
-                            ID = 3,
-                            RodzajDokumentu = 1
-                        },
-                        new
-                        {
-                            ID = 4,
-                            RodzajDokumentu = 1
-                        },
-                        new
-                        {
-                            ID = 5,
-                            RodzajDokumentu = 1
-                        },
-                        new
-                        {
-                            ID = 6,
-                            RodzajDokumentu = 1
-                        },
-                        new
-                        {
-                            ID = 7,
-                            RodzajDokumentu = 1
-                        },
-                        new
-                        {
-                            ID = 8,
                             RodzajDokumentu = 1
                         });
                 });
@@ -357,37 +267,12 @@ namespace Aurora.Migrations
                         },
                         new
                         {
-                            DokumentID = 2,
+                            DokumentID = 1,
                             TuraRekrutacjiID = 2
                         },
                         new
                         {
-                            DokumentID = 3,
-                            TuraRekrutacjiID = 3
-                        },
-                        new
-                        {
-                            DokumentID = 4,
-                            TuraRekrutacjiID = 3
-                        },
-                        new
-                        {
-                            DokumentID = 5,
-                            TuraRekrutacjiID = 3
-                        },
-                        new
-                        {
-                            DokumentID = 6,
-                            TuraRekrutacjiID = 3
-                        },
-                        new
-                        {
-                            DokumentID = 7,
-                            TuraRekrutacjiID = 3
-                        },
-                        new
-                        {
-                            DokumentID = 8,
+                            DokumentID = 1,
                             TuraRekrutacjiID = 3
                         });
                 });
@@ -1630,25 +1515,6 @@ namespace Aurora.Migrations
                     b.Navigation("TuraRekrutacji");
                 });
 
-            modelBuilder.Entity("Aurora.Models.AplikacjaRekrutacyjnaDokument", b =>
-                {
-                    b.HasOne("Aurora.Models.AplikacjaRekrutacyjna", "AplikacjaRekrutacyjna")
-                        .WithMany("Dokumenty")
-                        .HasForeignKey("AplikacjaRekrutacyjnaID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Aurora.Models.Dokument", "Dokument")
-                        .WithMany("Aplikacje")
-                        .HasForeignKey("DokumentID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("AplikacjaRekrutacyjna");
-
-                    b.Navigation("Dokument");
-                });
-
             modelBuilder.Entity("Aurora.Models.DokumentTura", b =>
                 {
                     b.HasOne("Aurora.Models.Dokument", "Dokument")
@@ -1903,15 +1769,11 @@ namespace Aurora.Migrations
 
             modelBuilder.Entity("Aurora.Models.AplikacjaRekrutacyjna", b =>
                 {
-                    b.Navigation("Dokumenty");
-
                     b.Navigation("WspolczynnikRekrutacyjny");
                 });
 
             modelBuilder.Entity("Aurora.Models.Dokument", b =>
                 {
-                    b.Navigation("Aplikacje");
-
                     b.Navigation("Tury");
                 });
 
