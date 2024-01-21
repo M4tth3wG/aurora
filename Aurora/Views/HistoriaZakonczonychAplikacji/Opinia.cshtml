@@ -17,7 +17,7 @@
             <input type="hidden" asp-for="KandydatID" />
             <input type="hidden" asp-for="TuraRekrutacjiID" />
             <div class="form-group">
-                <textarea asp-for="Tresc" class="form-control" rows="14" style="resize: none;"></textarea>
+                <textarea asp-for="Tresc" class="form-control" rows="7" style="resize: none;"></textarea>
                 <span asp-validation-for="Tresc" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -28,6 +28,32 @@
     </div>
 </div>
 
+@if (ViewBag.PopUpMessage != null)
+{
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h3 style="text-align: center">@ViewBag.PopUpMessage</h3>
+                    <button style="float: right" type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Index")'">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+            var popUpMessage = '@Html.Raw(ViewBag.PopUpMessage)';
+
+            if (popUpMessage.trim() !== '') {
+                $('#myModal').modal({ backdrop: 'static', keyboard: false });
+                $('#myModal').modal('show');
+            }
+        });
+    </script>
 }
