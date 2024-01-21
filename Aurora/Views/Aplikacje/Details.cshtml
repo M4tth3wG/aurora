@@ -36,6 +36,23 @@
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.OplataRekrutacyjna.Kwota)
             </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Dokumenty.FirstOrDefault().Dokument)
+            </dt>
+            <dd class="col-sm-10">
+                @if (Model.Dokumenty.Any())
+                {
+                    <ul>
+                        @foreach (var item in Model.Dokumenty)
+                        {
+                            <li>
+                                @{var rodzaj = ConvertIDToTypeAsString<RodzajDokumentu>(item.Dokument.RodzajDokumentu);}
+                                @rodzaj
+                            </li>
+                        }
+                    </ul>
+                }
+            </dd>
         </dl>
     </div>
 
