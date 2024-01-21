@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
@@ -18,12 +19,17 @@ namespace Aurora.Models
         [AllowNull]
         public virtual KierunekStudiow KierunekStudiow { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+
         [Required]
         public DateTime DataOtwarcia { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
 
         [Required]
         public DateTime TerminZakonczeniaPrzyjmowaniaAplikacji { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         [Required]
         public DateTime DataZakonczenia { get; set; }
 

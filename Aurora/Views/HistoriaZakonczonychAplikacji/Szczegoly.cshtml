@@ -26,7 +26,7 @@
                     </tr>
                     <tr>
                         <td>Ilość miejsc na kierunku:</td>
-                        <td>@Model.TuraRekrutacji.DostepneMiejsca</td>
+                        <td>@Model.TuraRekrutacji.LiczbaZajetychMiejsc</td>
                     </tr>
                     <tr>
                         <td>Współczynik rekrutacyjny:</td>
@@ -95,11 +95,11 @@
                     </tr>
                     <tr>
                         <td>Forma studiów:</td>
-                        <td>@Model.KierunekStudiow.FormaStudiow</td>
+                        <td>@(EnumUtils.ConvertIDToTypeAsString<FormaStudiow>(Model.KierunekStudiow.FormaStudiow))</td>
                     </tr>
                     <tr>
                         <td>Język wykładowy:</td>
-                        <td>@Model.KierunekStudiow.JezykWykladowy</td>
+                        <td>@(EnumUtils.ConvertIDToTypeAsString<Jezyk>(Model.KierunekStudiow.JezykWykladowy))</td>
                     </tr>
                     <tr>
                         <td>Data aplikacji:</td>
@@ -107,7 +107,7 @@
                     </tr>
                     <tr>
                         <td>Status aplikacji:</td>
-                        <td>@Model.Status.</td>
+                        <td>@(EnumUtils.ConvertIDToTypeAsString<RodzajStatusuAplikacji>(Model.Status))</td>
                     </tr>
                     <tr>
                         <td>Data rozpoczecia rekrutacji:</td>
