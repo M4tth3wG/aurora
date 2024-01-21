@@ -29,12 +29,18 @@ namespace Aurora.Models
         [Required]
         public int Wydzial {  get; set; }
 
-        public PracownikDziekanatu(int iD, string imie, string nazwisko, int wydzial)
+        [EmailAddress]
+        [Required]
+        [MaxLength(255)]
+        public string AdresEmail { get; set; }
+
+        public PracownikDziekanatu(int iD, string imie, string nazwisko, int wydzial, string email)
         {
             ID = iD;
             Imie = imie;
             Nazwisko = nazwisko;
             Wydzial = wydzial;
+            AdresEmail = email;
         }
     }
 }

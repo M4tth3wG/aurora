@@ -1,14 +1,17 @@
 ﻿using Aurora.Data;
 using Aurora.Enums;
 using Aurora.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace Aurora.Controllers
 {
+    [Authorize(Roles = "Kandydat")]
     public class AplikacjeController : Controller
     {
         private readonly DataDbContext _context;
@@ -20,12 +23,12 @@ namespace Aurora.Controllers
 
         public async Task<IActionResult> Index()
         {
-            // TODO aplikacje dla zalogowanego kandydata
+            var kandydatEmail = HttpContext.User.Identity.Name;     
 
             var aplikacje = _context.AplikacjeRekrutacyjne
                 .Include(a => a.KierunekStudiow)
                 .Include(a => a.Kandydat)
-                .Where(a => true) /*dodac wyszukiwanie po emailu zalogowanego kanydata*/
+                .Where(a => a.Kandydat.AdresEmail.Equals(kandydatEmail))
                 .Include(a => a.TuraRekrutacji)
                 .Where(a =>
                     a.TuraRekrutacji.StatusTury != (int)Enums.RodzajStatusuTury.anulowana
@@ -40,7 +43,7 @@ namespace Aurora.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            var aplikacja = _context.AplikacjeRekrutacyjne
+            var aplikacja = await _context.AplikacjeRekrutacyjne
                 .Where(a => a.ID == id)
                 .Include(a => a.Kandydat)
                 .Include(a => a.OplataRekrutacyjna)
@@ -51,14 +54,12 @@ namespace Aurora.Controllers
                 .FirstAsync();
             // potrzebne jeszcze egazminy dostepne i na ktore zapisany
 
-
-            // TODO zabezpieczyć przed przeglądaniem nie swoich aplikacji
-            /*if (aplikacja.Kandydat.ID != zalogowanyKandydat.ID)
+            if (!CzyKandydatZalogowany(aplikacja.Kandydat))
             {
                 return BadRequest();
-            }*/
+            }
 
-            return View(await aplikacja);
+            return View(aplikacja);
         }
 
         public async Task<IActionResult> AnulujAplikacje(int id)
@@ -72,10 +73,10 @@ namespace Aurora.Controllers
                 .Include(a => a.Dokumenty) /*jakie to dokumenty*/
                 .FirstAsync();
 
-            /*if (aplikacja.Kandydat.ID != zalogowanyKandydat.ID)
+            if (!CzyKandydatZalogowany(aplikacja.Kandydat))
             {
                 return BadRequest();
-            }*/
+            }
 
             int status = aplikacja.Status;
 
@@ -105,14 +106,21 @@ namespace Aurora.Controllers
                                 .Include(a => a.Kandydat)
                                 .FirstAsync();
 
-            /*if (aplikacja.Kandydat.ID != zalogowanyKandydat.ID)
+            if (!CzyKandydatZalogowany(aplikacja.Kandydat))
             {
                 return BadRequest();
-            }*/
+            }
 
             aplikacja.Status = (int)RodzajStatusuAplikacji.Anulowana;
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Details), new { id });
+        }
+
+        public bool CzyKandydatZalogowany(Kandydat kandydat)
+        {
+            var kandydatEmail = HttpContext.User.Identity.Name;
+
+            return kandydat.AdresEmail.Equals(kandydatEmail);
         }
     }
 }
