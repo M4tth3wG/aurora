@@ -13,10 +13,12 @@ using Microsoft.EntityFrameworkCore;
 using Aurora.Enums;
 using Aurora.Utils;
 using Microsoft.VisualBasic;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace Aurora.Controllers
 {
+    [Authorize(Roles="Kandydat")]
     public class HistoriaZakonczonychAplikacjiController : Controller
     {
         private readonly DataDbContext _context;
@@ -32,8 +34,9 @@ namespace Aurora.Controllers
         {
             var aplikacje = await _context.AplikacjeRekrutacyjne
                 .Where(e => e.Status == Convert.ToInt32(RodzajStatusuAplikacji.ZakonczonaSukcesem) || e.Status == Convert.ToInt32(RodzajStatusuAplikacji.ZakonczonaNiepowodzeniem) || e.Status == Convert.ToInt32(RodzajStatusuAplikacji.Odrzucona))
-/*                .Where(e => e.KandydatID == 2)
-*/                .Include(e => e.KierunekStudiow)
+                .Include(e => e.Kandydat)
+                .Where(e => e.Kandydat.AdresEmail == HttpContext.User.Identity.Name)
+                .Include(e => e.KierunekStudiow)
                 .Include(e => e.TuraRekrutacji)
                     .ThenInclude(e => e.Opinie)
                 .Where(e => e.TuraRekrutacji.DataZakonczenia < DateTime.Now.Date)
@@ -42,21 +45,33 @@ namespace Aurora.Controllers
         }
 
 
-        public IActionResult Opinia(int kandydatID, int turaRekrutacjiID)
+        public IActionResult Opinia(int turaRekrutacjiID)
         {
             var kandydaci = _context.Kandydaci
-                .Where(e => e.ID == kandydatID).ToList();
+                .Where(e => e.AdresEmail == HttpContext.User.Identity.Name)
+                .ToList();
 
-            if(kandydaci.Count() == 0)
+            var tura = _context.AplikacjeRekrutacyjne
+                .Where(e => e.TuraRekrutacjiID == turaRekrutacjiID)
+                .Where(e => e.Kandydat.ID == kandydaci.FirstOrDefault().ID)
+                .Include(e => e.TuraRekrutacji)
+                .Where(e => e.TuraRekrutacji.StatusTury == 4)
+                .ToList();
+
+            var opinie = _context.Opinia
+                .Where(e => e.TuraRekrutacjiID == turaRekrutacjiID)
+                .Where(e => e.KandydatID == kandydaci.FirstOrDefault().ID)
+                .ToList();
+
+            if (tura.Count != 1 || opinie.Count != 0)
             {
-
                 return BadRequest();
             }
 
             var opinia = new Opinia()
             {
 
-                KandydatID = kandydatID,
+                KandydatID = kandydaci.FirstOrDefault().ID,
                 TuraRekrutacjiID = turaRekrutacjiID
 
             };
@@ -85,14 +100,15 @@ namespace Aurora.Controllers
 
 
 
-        public IActionResult Szczegoly(int kandydatID, int turaRekrutacjiID)
+        public IActionResult Szczegoly(int turaRekrutacjiID)
         {
 
             var aplikacja = _context.AplikacjeRekrutacyjne
-                .Where(e => e.KandydatID == kandydatID)
                 .Where(e => e.TuraRekrutacjiID == turaRekrutacjiID)
                 .Include(e => e.Kandydat)
                     .ThenInclude(e => e.Adres)
+                .Where(e => e.Kandydat.AdresEmail == HttpContext.User.Identity.Name)
+                .Include(e => e.Kandydat.Adres)
                 .Include(e => e.KierunekStudiow)
                 .Include(e => e.TuraRekrutacji)
                     .ThenInclude(e => e.Opinie)
