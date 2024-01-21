@@ -71,10 +71,13 @@ namespace Aurora.Controllers
         {
             if (ModelState.IsValid)
             {
+                ViewBag.PopUpMessage = "Pomyślnie dodano opinie";
                 _context.Add(opinia);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return View(opinia);
             }
+
+
             return View(opinia);
         }
 
