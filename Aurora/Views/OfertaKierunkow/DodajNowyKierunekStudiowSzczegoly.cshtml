@@ -1,4 +1,6 @@
 ﻿@model Aurora.Models.KierunekStudiow
+@using static Aurora.Utils.EnumUtils
+@using Aurora.Enums
 
 @{
     ViewData["Title"] = "Nowy kierunek";
@@ -8,7 +10,7 @@
 
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-5">
         <form asp-action="DodajNowyKierunekStudiowSzczegolyPost">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="NazwaKierunku" class="form-control" />
@@ -28,7 +30,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Wydzial" class="control-label"></label>
-                <input asp-for="Wydzial" class="form-control" />
+                <select asp-for="Wydzial" class="form-control" asp-items="@GetEnumSelectList<NazwaWydzialu>()"></select>
                 <span asp-validation-for="Wydzial" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -43,3 +45,32 @@
     </div>
 </div>
 
+@if (ViewBag.PopUpMessage != null)
+{
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h3 style="text-align: center">@ViewBag.PopUpMessage</h3>
+                    <button style="float: right" type="button" class="btn btn-primary" onclick="location.href='@Url.Action("IndexPracownik")'">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+            var popUpMessage = '@Html.Raw(ViewBag.PopUpMessage)';
+
+            if (popUpMessage.trim() !== '') {
+                $('#myModal').modal({ backdrop: 'static', keyboard: false });
+                $('#myModal').modal('show');
+            }
+        });
+    </script>
+}

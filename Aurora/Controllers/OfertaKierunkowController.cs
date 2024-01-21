@@ -165,11 +165,6 @@ namespace Aurora.Controllers
             return View();
         }
 
-        /*public IActionResult DodajNowyKierunekStudiow()
-        {
-            return View();
-        }*/
-
         public IActionResult DodajNowyKierunekStudiow()
         {
             return View();
@@ -198,7 +193,7 @@ namespace Aurora.Controllers
 
                 ViewBag.Blad = "Istnieje już kierunek o podanych danych.";
             }
-
+            
             return View(klucz);
         }
 
@@ -216,10 +211,12 @@ namespace Aurora.Controllers
                 return View("DodajNowyKierunekStudiowSzczegoly", kierunek);
             }
 
-
             _context.Add(kierunek);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(IndexPracownik));   
+
+            ViewBag.PopUpMessage = "Pomyślnie dodano nowy kierunek studiów.";
+
+            return View("DodajNowyKierunekStudiowSzczegoly", kierunek);
         }
 
         private bool CzyKluczKierunkuUnikalny(KierunekStudiow klucz)
