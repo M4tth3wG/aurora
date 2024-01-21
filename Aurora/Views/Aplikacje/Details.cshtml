@@ -71,3 +71,37 @@
         <a class="btn btn-primary" asp-action="AnulujAplikacje" asp-route-id="@Model.ID">Anuluj aplikację</a>
     }
 </div>
+
+
+@if (ViewBag.PopUpMessage != null)
+{
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h3 style="text-align: center">@ViewBag.PopUpMessage</h3>
+                    <div class="float-right">
+                        <a class="btn btn-primary" asp-action="AnulujAplikacjePotwierdz" asp-route-id="@Model.ID">Tak</a>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Nie</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+            var popUpMessage = '@Html.Raw(ViewBag.PopUpMessage)';
+
+            if (popUpMessage.trim() !== '') {
+                $('#myModal').modal({ backdrop: 'static', keyboard: false });
+                $('#myModal').modal('show');
+            }
+        });
+    </script>
+}

@@ -1,6 +1,8 @@
 ﻿using Aurora.Data;
+using Aurora.Enums;
 using Aurora.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
@@ -38,26 +40,79 @@ namespace Aurora.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            // TODO zabezpieczyć przed przeglądaniem nie swoich aplikacji
-
             var aplikacja = _context.AplikacjeRekrutacyjne
                 .Where(a => a.ID == id)
+                .Include(a => a.Kandydat)
                 .Include(a => a.OplataRekrutacyjna)
                 .Include(a => a.KierunekStudiow)
                 .Include(a => a.WspolczynnikRekrutacyjny)
+                .Include(a => a.TuraRekrutacji)
                 .Include(a => a.Dokumenty) /*jakie to dokumenty*/
                 .FirstAsync();
-
             // potrzebne jeszcze egazminy dostepne i na ktore zapisany
+
+
+            // TODO zabezpieczyć przed przeglądaniem nie swoich aplikacji
+            /*if (aplikacja.Kandydat.ID != zalogowanyKandydat.ID)
+            {
+                return BadRequest();
+            }*/
 
             return View(await aplikacja);
         }
 
-        /*[HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult AnulujAplikacje(int id) { 
-        
-            
-        }*/
+        public async Task<IActionResult> AnulujAplikacje(int id)
+        {
+            var aplikacja = await _context.AplikacjeRekrutacyjne
+                .Where(a => a.ID == id)
+                .Include(a => a.OplataRekrutacyjna)
+                .Include(a => a.KierunekStudiow)
+                .Include(a => a.WspolczynnikRekrutacyjny)
+                .Include(a => a.TuraRekrutacji)
+                .Include(a => a.Dokumenty) /*jakie to dokumenty*/
+                .FirstAsync();
+
+            /*if (aplikacja.Kandydat.ID != zalogowanyKandydat.ID)
+            {
+                return BadRequest();
+            }*/
+
+            int status = aplikacja.Status;
+
+            // TODO jakie warunki
+            if (
+                status != (int)RodzajStatusuAplikacji.Anulowana
+                &&
+                status != (int)RodzajStatusuAplikacji.ZakonczonaNiepowodzeniem
+                &&
+                status != (int)RodzajStatusuAplikacji.ZakonczonaSukcesem
+                &&
+                aplikacja.TuraRekrutacji.StatusTury != (int)RodzajStatusuTury.anulowana
+                &&
+                aplikacja.TuraRekrutacji.StatusTury != (int)RodzajStatusuTury.zakonczona
+            )
+            {
+                ViewBag.PopUpMessage = "Czy na pewno chcesz anulować aplikację?";
+            }
+
+            return View("Details", aplikacja);
+        }
+
+        public async Task<IActionResult> AnulujAplikacjePotwierdz(int id)
+        {
+            var aplikacja = await _context.AplikacjeRekrutacyjne
+                                .Where(a => a.ID == id)
+                                .Include(a => a.Kandydat)
+                                .FirstAsync();
+
+            /*if (aplikacja.Kandydat.ID != zalogowanyKandydat.ID)
+            {
+                return BadRequest();
+            }*/
+
+            aplikacja.Status = (int)RodzajStatusuAplikacji.Anulowana;
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Details), new { id });
+        }
     }
 }
