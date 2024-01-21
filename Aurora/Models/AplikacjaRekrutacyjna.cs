@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
@@ -11,6 +12,7 @@ namespace Aurora.Models
     public class AplikacjaRekrutacyjna
     {
         [Key]
+        [DisplayName("Numer")]
         public int ID { get; set; }
 
         [Required]
@@ -33,6 +35,7 @@ namespace Aurora.Models
 
         [Required]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        [DisplayName("Data zlożenia")]
         public DateTime DataZlozenia { get; set; }
 
         [Required]
