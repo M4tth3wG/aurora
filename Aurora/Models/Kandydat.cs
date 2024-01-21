@@ -38,6 +38,9 @@ namespace Aurora.Models
         [MaxLength(255)]
         public string AdresEmail { get; set; }
 
+
+        public ICollection<Opinia> Opinie { get; set; }
+
         public ICollection<KandydatKierunekStudiow> ListaUlubionychKierunkow { get; set; }
 
         public ICollection<KandydatUlubionyKierunekStudiow> WybraneKierunki { get; set; }
@@ -47,6 +50,7 @@ namespace Aurora.Models
         public ICollection<OplataRekrutacyjna> Oplaty { get; set; }
 
         public ICollection<Wiadomosc> wiadomosci { get; set; }
+
 
         public Kandydat(int iD, int adresID, string pESEL, string imie, string nazwisko, string adresEmail)
         {

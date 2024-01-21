@@ -15,16 +15,16 @@ namespace Aurora.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.1");
+                .HasAnnotation("ProductVersion", "5.0.17")
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Aurora.Models.Adres", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("KodPocztowy")
                         .IsRequired()
@@ -82,6 +82,22 @@ namespace Aurora.Migrations
                             Miejscowosc = "Wrocław",
                             NumerBudynku = "4",
                             Ulica = "Plac Grunwaldzki"
+                        },
+                        new
+                        {
+                            ID = 5,
+                            KodPocztowy = "20-230",
+                            Miejscowosc = "Lublin",
+                            NumerBudynku = "67",
+                            Ulica = "Mickiewicza"
+                        },
+                        new
+                        {
+                            ID = 6,
+                            KodPocztowy = "40-042",
+                            Miejscowosc = "Katowice",
+                            NumerBudynku = "15",
+                            Ulica = "Wita Stwosza"
                         });
                 });
 
@@ -90,7 +106,7 @@ namespace Aurora.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("DataZlozenia")
                         .HasColumnType("datetime2");
@@ -141,7 +157,238 @@ namespace Aurora.Migrations
                             KierunekStudiowID = 2,
                             OplataRekrutacyjnaID = 2,
                             Status = 8,
+                            TuraRekrutacjiID = 2
+                        },
+                        new
+                        {
+                            ID = 3,
+                            DataZlozenia = new DateTime(2023, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            KandydatID = 1,
+                            KierunekStudiowID = 2,
+                            OplataRekrutacyjnaID = 3,
+                            Status = 5,
+                            TuraRekrutacjiID = 3
+                        },
+                        new
+                        {
+                            ID = 4,
+                            DataZlozenia = new DateTime(2023, 1, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            KandydatID = 2,
+                            KierunekStudiowID = 2,
+                            OplataRekrutacyjnaID = 4,
+                            Status = 5,
+                            TuraRekrutacjiID = 3
+                        },
+                        new
+                        {
+                            ID = 5,
+                            DataZlozenia = new DateTime(2023, 1, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            KandydatID = 3,
+                            KierunekStudiowID = 2,
+                            OplataRekrutacyjnaID = 5,
+                            Status = 5,
+                            TuraRekrutacjiID = 3
+                        },
+                        new
+                        {
+                            ID = 6,
+                            DataZlozenia = new DateTime(2023, 1, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            KandydatID = 4,
+                            KierunekStudiowID = 2,
+                            OplataRekrutacyjnaID = 6,
+                            Status = 6,
+                            TuraRekrutacjiID = 3
+                        },
+                        new
+                        {
+                            ID = 7,
+                            DataZlozenia = new DateTime(2023, 1, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            KandydatID = 5,
+                            KierunekStudiowID = 2,
+                            OplataRekrutacyjnaID = 7,
+                            Status = 6,
+                            TuraRekrutacjiID = 3
+                        },
+                        new
+                        {
+                            ID = 8,
+                            DataZlozenia = new DateTime(2023, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            KandydatID = 6,
+                            KierunekStudiowID = 2,
+                            OplataRekrutacyjnaID = 8,
+                            Status = 6,
+                            TuraRekrutacjiID = 3
+                        });
+                });
+
+            modelBuilder.Entity("Aurora.Models.AplikacjaRekrutacyjnaDokument", b =>
+                {
+                    b.Property<int>("DokumentID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AplikacjaRekrutacyjnaID")
+                        .HasColumnType("int");
+
+                    b.HasKey("DokumentID", "AplikacjaRekrutacyjnaID");
+
+                    b.HasIndex("AplikacjaRekrutacyjnaID");
+
+                    b.ToTable("AplikacjaRekrutacyjnaDokument");
+
+                    b.HasData(
+                        new
+                        {
+                            DokumentID = 1,
+                            AplikacjaRekrutacyjnaID = 1
+                        },
+                        new
+                        {
+                            DokumentID = 2,
+                            AplikacjaRekrutacyjnaID = 2
+                        },
+                        new
+                        {
+                            DokumentID = 3,
+                            AplikacjaRekrutacyjnaID = 3
+                        },
+                        new
+                        {
+                            DokumentID = 4,
+                            AplikacjaRekrutacyjnaID = 4
+                        },
+                        new
+                        {
+                            DokumentID = 5,
+                            AplikacjaRekrutacyjnaID = 5
+                        },
+                        new
+                        {
+                            DokumentID = 6,
+                            AplikacjaRekrutacyjnaID = 6
+                        },
+                        new
+                        {
+                            DokumentID = 7,
+                            AplikacjaRekrutacyjnaID = 7
+                        },
+                        new
+                        {
+                            DokumentID = 8,
+                            AplikacjaRekrutacyjnaID = 8
+                        });
+                });
+
+            modelBuilder.Entity("Aurora.Models.Dokument", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("RodzajDokumentu")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Dokument");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            RodzajDokumentu = 1
+                        },
+                        new
+                        {
+                            ID = 2,
+                            RodzajDokumentu = 1
+                        },
+                        new
+                        {
+                            ID = 3,
+                            RodzajDokumentu = 1
+                        },
+                        new
+                        {
+                            ID = 4,
+                            RodzajDokumentu = 1
+                        },
+                        new
+                        {
+                            ID = 5,
+                            RodzajDokumentu = 1
+                        },
+                        new
+                        {
+                            ID = 6,
+                            RodzajDokumentu = 1
+                        },
+                        new
+                        {
+                            ID = 7,
+                            RodzajDokumentu = 1
+                        },
+                        new
+                        {
+                            ID = 8,
+                            RodzajDokumentu = 1
+                        });
+                });
+
+            modelBuilder.Entity("Aurora.Models.DokumentTura", b =>
+                {
+                    b.Property<int>("DokumentID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TuraRekrutacjiID")
+                        .HasColumnType("int");
+
+                    b.HasKey("DokumentID", "TuraRekrutacjiID");
+
+                    b.HasIndex("TuraRekrutacjiID");
+
+                    b.ToTable("DokumentTura");
+
+                    b.HasData(
+                        new
+                        {
+                            DokumentID = 1,
                             TuraRekrutacjiID = 1
+                        },
+                        new
+                        {
+                            DokumentID = 2,
+                            TuraRekrutacjiID = 2
+                        },
+                        new
+                        {
+                            DokumentID = 3,
+                            TuraRekrutacjiID = 3
+                        },
+                        new
+                        {
+                            DokumentID = 4,
+                            TuraRekrutacjiID = 3
+                        },
+                        new
+                        {
+                            DokumentID = 5,
+                            TuraRekrutacjiID = 3
+                        },
+                        new
+                        {
+                            DokumentID = 6,
+                            TuraRekrutacjiID = 3
+                        },
+                        new
+                        {
+                            DokumentID = 7,
+                            TuraRekrutacjiID = 3
+                        },
+                        new
+                        {
+                            DokumentID = 8,
+                            TuraRekrutacjiID = 3
                         });
                 });
 
@@ -150,7 +397,7 @@ namespace Aurora.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Dziedzina")
                         .HasMaxLength(255)
@@ -219,7 +466,7 @@ namespace Aurora.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AdresEmail")
                         .IsRequired()
@@ -289,6 +536,24 @@ namespace Aurora.Migrations
                             Imie = "Adam",
                             Nazwisko = "Kowalski",
                             PESEL = "66677733212"
+                        },
+                        new
+                        {
+                            ID = 5,
+                            AdresEmail = "karolina.nowak@example.com",
+                            AdresID = 5,
+                            Imie = "Karolina",
+                            Nazwisko = "Nowak",
+                            PESEL = "12345678902"
+                        },
+                        new
+                        {
+                            ID = 6,
+                            AdresEmail = "marek.lis@example.com",
+                            AdresID = 6,
+                            Imie = "Marek",
+                            Nazwisko = "Lis",
+                            PESEL = "98765432103"
                         });
                 });
 
@@ -342,7 +607,7 @@ namespace Aurora.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<double>("Czesne")
                         .HasColumnType("float");
@@ -366,8 +631,8 @@ namespace Aurora.Migrations
 
                     b.Property<string>("OpisKierunku")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasMaxLength(1023)
+                        .HasColumnType("nvarchar(1023)");
 
                     b.Property<int>("PoziomStudiow")
                         .HasColumnType("int");
@@ -390,7 +655,7 @@ namespace Aurora.Migrations
                             MiejsceStudiow = 0,
                             NazwaKierunku = "Architektura",
                             OpisKierunku = "Architektura dla ambitnych",
-                            PoziomStudiow = 0,
+                            PoziomStudiow = 2,
                             Wydzial = 0
                         },
                         new
@@ -403,9 +668,36 @@ namespace Aurora.Migrations
                             MiejsceStudiow = 0,
                             NazwaKierunku = "Automatyka i Robotyka",
                             OpisKierunku = "AiR dla wymagających",
-                            PoziomStudiow = 0,
+                            PoziomStudiow = 3,
                             Wydzial = 10
                         });
+                });
+
+            modelBuilder.Entity("Aurora.Models.Opinia", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("KandydatID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Tresc")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("TuraRekrutacjiID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("KandydatID");
+
+                    b.HasIndex("TuraRekrutacjiID");
+
+                    b.ToTable("Opinia");
                 });
 
             modelBuilder.Entity("Aurora.Models.OplataRekrutacyjna", b =>
@@ -413,7 +705,7 @@ namespace Aurora.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("KandydatID")
                         .HasColumnType("int");
@@ -439,6 +731,42 @@ namespace Aurora.Migrations
                             ID = 2,
                             KandydatID = 2,
                             Kwota = 80.0
+                        },
+                        new
+                        {
+                            ID = 3,
+                            KandydatID = 1,
+                            Kwota = 80.0
+                        },
+                        new
+                        {
+                            ID = 4,
+                            KandydatID = 2,
+                            Kwota = 80.0
+                        },
+                        new
+                        {
+                            ID = 5,
+                            KandydatID = 3,
+                            Kwota = 80.0
+                        },
+                        new
+                        {
+                            ID = 6,
+                            KandydatID = 4,
+                            Kwota = 80.0
+                        },
+                        new
+                        {
+                            ID = 7,
+                            KandydatID = 5,
+                            Kwota = 80.0
+                        },
+                        new
+                        {
+                            ID = 8,
+                            KandydatID = 6,
+                            Kwota = 80.0
                         });
                 });
 
@@ -447,7 +775,7 @@ namespace Aurora.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Imie")
                         .IsRequired()
@@ -488,7 +816,7 @@ namespace Aurora.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("EgzaminID")
                         .HasColumnType("int");
@@ -606,6 +934,294 @@ namespace Aurora.Migrations
                             ID = 14,
                             RodzajSkladowejWspRekrut = 2,
                             WspolczynnikRekrutacyjnyID = 2
+                        },
+                        new
+                        {
+                            ID = 15,
+                            PrzedmiotMaturalny = 0,
+                            RodzajSkladowejWspRekrut = 1,
+                            WspolczynnikRekrutacyjnyID = 3
+                        },
+                        new
+                        {
+                            ID = 16,
+                            PrzedmiotMaturalny = 3,
+                            RodzajSkladowejWspRekrut = 1,
+                            WspolczynnikRekrutacyjnyID = 3
+                        },
+                        new
+                        {
+                            ID = 17,
+                            PrzedmiotMaturalny = 1,
+                            RodzajSkladowejWspRekrut = 1,
+                            WspolczynnikRekrutacyjnyID = 3
+                        },
+                        new
+                        {
+                            ID = 18,
+                            PrzedmiotMaturalny = 1,
+                            RodzajSkladowejWspRekrut = 0,
+                            WspolczynnikRekrutacyjnyID = 3
+                        },
+                        new
+                        {
+                            ID = 19,
+                            PrzedmiotMaturalny = 2,
+                            RodzajSkladowejWspRekrut = 0,
+                            WspolczynnikRekrutacyjnyID = 3
+                        },
+                        new
+                        {
+                            ID = 20,
+                            PrzedmiotMaturalny = 2,
+                            RodzajSkladowejWspRekrut = 1,
+                            WspolczynnikRekrutacyjnyID = 3
+                        },
+                        new
+                        {
+                            ID = 21,
+                            RodzajSkladowejWspRekrut = 2,
+                            WspolczynnikRekrutacyjnyID = 3
+                        },
+                        new
+                        {
+                            ID = 22,
+                            PrzedmiotMaturalny = 0,
+                            RodzajSkladowejWspRekrut = 1,
+                            WspolczynnikRekrutacyjnyID = 4
+                        },
+                        new
+                        {
+                            ID = 23,
+                            PrzedmiotMaturalny = 3,
+                            RodzajSkladowejWspRekrut = 1,
+                            WspolczynnikRekrutacyjnyID = 4
+                        },
+                        new
+                        {
+                            ID = 24,
+                            PrzedmiotMaturalny = 1,
+                            RodzajSkladowejWspRekrut = 1,
+                            WspolczynnikRekrutacyjnyID = 4
+                        },
+                        new
+                        {
+                            ID = 25,
+                            PrzedmiotMaturalny = 1,
+                            RodzajSkladowejWspRekrut = 0,
+                            WspolczynnikRekrutacyjnyID = 4
+                        },
+                        new
+                        {
+                            ID = 26,
+                            PrzedmiotMaturalny = 2,
+                            RodzajSkladowejWspRekrut = 0,
+                            WspolczynnikRekrutacyjnyID = 4
+                        },
+                        new
+                        {
+                            ID = 27,
+                            PrzedmiotMaturalny = 2,
+                            RodzajSkladowejWspRekrut = 1,
+                            WspolczynnikRekrutacyjnyID = 4
+                        },
+                        new
+                        {
+                            ID = 28,
+                            RodzajSkladowejWspRekrut = 2,
+                            WspolczynnikRekrutacyjnyID = 4
+                        },
+                        new
+                        {
+                            ID = 29,
+                            PrzedmiotMaturalny = 0,
+                            RodzajSkladowejWspRekrut = 1,
+                            WspolczynnikRekrutacyjnyID = 5
+                        },
+                        new
+                        {
+                            ID = 30,
+                            PrzedmiotMaturalny = 3,
+                            RodzajSkladowejWspRekrut = 1,
+                            WspolczynnikRekrutacyjnyID = 5
+                        },
+                        new
+                        {
+                            ID = 31,
+                            PrzedmiotMaturalny = 1,
+                            RodzajSkladowejWspRekrut = 1,
+                            WspolczynnikRekrutacyjnyID = 5
+                        },
+                        new
+                        {
+                            ID = 32,
+                            PrzedmiotMaturalny = 1,
+                            RodzajSkladowejWspRekrut = 0,
+                            WspolczynnikRekrutacyjnyID = 5
+                        },
+                        new
+                        {
+                            ID = 33,
+                            PrzedmiotMaturalny = 2,
+                            RodzajSkladowejWspRekrut = 0,
+                            WspolczynnikRekrutacyjnyID = 5
+                        },
+                        new
+                        {
+                            ID = 34,
+                            PrzedmiotMaturalny = 2,
+                            RodzajSkladowejWspRekrut = 1,
+                            WspolczynnikRekrutacyjnyID = 5
+                        },
+                        new
+                        {
+                            ID = 35,
+                            RodzajSkladowejWspRekrut = 2,
+                            WspolczynnikRekrutacyjnyID = 5
+                        },
+                        new
+                        {
+                            ID = 36,
+                            PrzedmiotMaturalny = 0,
+                            RodzajSkladowejWspRekrut = 1,
+                            WspolczynnikRekrutacyjnyID = 6
+                        },
+                        new
+                        {
+                            ID = 37,
+                            PrzedmiotMaturalny = 3,
+                            RodzajSkladowejWspRekrut = 1,
+                            WspolczynnikRekrutacyjnyID = 6
+                        },
+                        new
+                        {
+                            ID = 38,
+                            PrzedmiotMaturalny = 1,
+                            RodzajSkladowejWspRekrut = 1,
+                            WspolczynnikRekrutacyjnyID = 6
+                        },
+                        new
+                        {
+                            ID = 39,
+                            PrzedmiotMaturalny = 1,
+                            RodzajSkladowejWspRekrut = 0,
+                            WspolczynnikRekrutacyjnyID = 6
+                        },
+                        new
+                        {
+                            ID = 40,
+                            PrzedmiotMaturalny = 2,
+                            RodzajSkladowejWspRekrut = 0,
+                            WspolczynnikRekrutacyjnyID = 6
+                        },
+                        new
+                        {
+                            ID = 41,
+                            PrzedmiotMaturalny = 2,
+                            RodzajSkladowejWspRekrut = 1,
+                            WspolczynnikRekrutacyjnyID = 6
+                        },
+                        new
+                        {
+                            ID = 42,
+                            RodzajSkladowejWspRekrut = 2,
+                            WspolczynnikRekrutacyjnyID = 6
+                        },
+                        new
+                        {
+                            ID = 43,
+                            PrzedmiotMaturalny = 0,
+                            RodzajSkladowejWspRekrut = 1,
+                            WspolczynnikRekrutacyjnyID = 7
+                        },
+                        new
+                        {
+                            ID = 44,
+                            PrzedmiotMaturalny = 3,
+                            RodzajSkladowejWspRekrut = 1,
+                            WspolczynnikRekrutacyjnyID = 7
+                        },
+                        new
+                        {
+                            ID = 45,
+                            PrzedmiotMaturalny = 1,
+                            RodzajSkladowejWspRekrut = 1,
+                            WspolczynnikRekrutacyjnyID = 7
+                        },
+                        new
+                        {
+                            ID = 46,
+                            PrzedmiotMaturalny = 1,
+                            RodzajSkladowejWspRekrut = 0,
+                            WspolczynnikRekrutacyjnyID = 7
+                        },
+                        new
+                        {
+                            ID = 47,
+                            PrzedmiotMaturalny = 2,
+                            RodzajSkladowejWspRekrut = 0,
+                            WspolczynnikRekrutacyjnyID = 7
+                        },
+                        new
+                        {
+                            ID = 48,
+                            PrzedmiotMaturalny = 2,
+                            RodzajSkladowejWspRekrut = 1,
+                            WspolczynnikRekrutacyjnyID = 7
+                        },
+                        new
+                        {
+                            ID = 49,
+                            RodzajSkladowejWspRekrut = 2,
+                            WspolczynnikRekrutacyjnyID = 7
+                        },
+                        new
+                        {
+                            ID = 50,
+                            PrzedmiotMaturalny = 0,
+                            RodzajSkladowejWspRekrut = 1,
+                            WspolczynnikRekrutacyjnyID = 8
+                        },
+                        new
+                        {
+                            ID = 51,
+                            PrzedmiotMaturalny = 3,
+                            RodzajSkladowejWspRekrut = 1,
+                            WspolczynnikRekrutacyjnyID = 8
+                        },
+                        new
+                        {
+                            ID = 52,
+                            PrzedmiotMaturalny = 1,
+                            RodzajSkladowejWspRekrut = 1,
+                            WspolczynnikRekrutacyjnyID = 8
+                        },
+                        new
+                        {
+                            ID = 53,
+                            PrzedmiotMaturalny = 1,
+                            RodzajSkladowejWspRekrut = 0,
+                            WspolczynnikRekrutacyjnyID = 8
+                        },
+                        new
+                        {
+                            ID = 54,
+                            PrzedmiotMaturalny = 2,
+                            RodzajSkladowejWspRekrut = 0,
+                            WspolczynnikRekrutacyjnyID = 8
+                        },
+                        new
+                        {
+                            ID = 55,
+                            PrzedmiotMaturalny = 2,
+                            RodzajSkladowejWspRekrut = 1,
+                            WspolczynnikRekrutacyjnyID = 8
+                        },
+                        new
+                        {
+                            ID = 56,
+                            RodzajSkladowejWspRekrut = 2,
+                            WspolczynnikRekrutacyjnyID = 8
                         });
                 });
 
@@ -614,7 +1230,7 @@ namespace Aurora.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("DataOtwarcia")
                         .HasColumnType("datetime2");
@@ -675,6 +1291,19 @@ namespace Aurora.Migrations
                             RodzajRekrutacji = 2,
                             StatusTury = 2,
                             TerminZakonczeniaPrzyjmowaniaAplikacji = new DateTime(2024, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ID = 3,
+                            DataOtwarcia = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DataZakonczenia = new DateTime(2023, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            KierunekStudiowID = 2,
+                            LiczbaZajetychMiejsc = 3,
+                            LimitPrzyjec = 3,
+                            MinimalnyProgPunktowy = 225.0,
+                            RodzajRekrutacji = 2,
+                            StatusTury = 4,
+                            TerminZakonczeniaPrzyjmowaniaAplikacji = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -683,7 +1312,7 @@ namespace Aurora.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("KandydatID")
                         .HasColumnType("int");
@@ -710,7 +1339,7 @@ namespace Aurora.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("AplikacjaRekrutacyjnaID")
                         .HasColumnType("int");
@@ -737,6 +1366,36 @@ namespace Aurora.Migrations
                         {
                             ID = 2,
                             AplikacjaRekrutacyjnaID = 2
+                        },
+                        new
+                        {
+                            ID = 3,
+                            AplikacjaRekrutacyjnaID = 3
+                        },
+                        new
+                        {
+                            ID = 4,
+                            AplikacjaRekrutacyjnaID = 4
+                        },
+                        new
+                        {
+                            ID = 5,
+                            AplikacjaRekrutacyjnaID = 5
+                        },
+                        new
+                        {
+                            ID = 6,
+                            AplikacjaRekrutacyjnaID = 6
+                        },
+                        new
+                        {
+                            ID = 7,
+                            AplikacjaRekrutacyjnaID = 7
+                        },
+                        new
+                        {
+                            ID = 8,
+                            AplikacjaRekrutacyjnaID = 8
                         });
                 });
 
@@ -772,7 +1431,7 @@ namespace Aurora.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -861,7 +1520,7 @@ namespace Aurora.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -971,6 +1630,44 @@ namespace Aurora.Migrations
                     b.Navigation("TuraRekrutacji");
                 });
 
+            modelBuilder.Entity("Aurora.Models.AplikacjaRekrutacyjnaDokument", b =>
+                {
+                    b.HasOne("Aurora.Models.AplikacjaRekrutacyjna", "AplikacjaRekrutacyjna")
+                        .WithMany("Dokumenty")
+                        .HasForeignKey("AplikacjaRekrutacyjnaID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Aurora.Models.Dokument", "Dokument")
+                        .WithMany("Aplikacje")
+                        .HasForeignKey("DokumentID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("AplikacjaRekrutacyjna");
+
+                    b.Navigation("Dokument");
+                });
+
+            modelBuilder.Entity("Aurora.Models.DokumentTura", b =>
+                {
+                    b.HasOne("Aurora.Models.Dokument", "Dokument")
+                        .WithMany("Tury")
+                        .HasForeignKey("DokumentID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Aurora.Models.TuraRekrutacji", "TuraRekrutacji")
+                        .WithMany("Dokumenty")
+                        .HasForeignKey("TuraRekrutacjiID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Dokument");
+
+                    b.Navigation("TuraRekrutacji");
+                });
+
             modelBuilder.Entity("Aurora.Models.Egzamin", b =>
                 {
                     b.HasOne("Aurora.Models.Kandydat", "Kandydat")
@@ -1055,6 +1752,25 @@ namespace Aurora.Migrations
                     b.Navigation("Kandydat");
 
                     b.Navigation("UlubionyKierunekStudiow");
+                });
+
+            modelBuilder.Entity("Aurora.Models.Opinia", b =>
+                {
+                    b.HasOne("Aurora.Models.Kandydat", "Kandydat")
+                        .WithMany("Opinie")
+                        .HasForeignKey("KandydatID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Aurora.Models.TuraRekrutacji", "TuraRekrutacji")
+                        .WithMany("Opinie")
+                        .HasForeignKey("TuraRekrutacjiID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Kandydat");
+
+                    b.Navigation("TuraRekrutacji");
                 });
 
             modelBuilder.Entity("Aurora.Models.OplataRekrutacyjna", b =>
@@ -1187,7 +1903,16 @@ namespace Aurora.Migrations
 
             modelBuilder.Entity("Aurora.Models.AplikacjaRekrutacyjna", b =>
                 {
+                    b.Navigation("Dokumenty");
+
                     b.Navigation("WspolczynnikRekrutacyjny");
+                });
+
+            modelBuilder.Entity("Aurora.Models.Dokument", b =>
+                {
+                    b.Navigation("Aplikacje");
+
+                    b.Navigation("Tury");
                 });
 
             modelBuilder.Entity("Aurora.Models.Kandydat", b =>
@@ -1195,6 +1920,8 @@ namespace Aurora.Migrations
                     b.Navigation("Egzaminy");
 
                     b.Navigation("ListaUlubionychKierunkow");
+
+                    b.Navigation("Opinie");
 
                     b.Navigation("Oplaty");
 
@@ -1218,7 +1945,11 @@ namespace Aurora.Migrations
                 {
                     b.Navigation("aplikacje");
 
+                    b.Navigation("Dokumenty");
+
                     b.Navigation("egzaminy");
+
+                    b.Navigation("Opinie");
                 });
 
             modelBuilder.Entity("Aurora.Models.WspolczynnikRekrutacyjny", b =>

@@ -20,13 +20,13 @@ namespace Aurora.Models
 
         [Required]
         [Display(Name = "Czesne")]
-        [Range(0.0d, double.MaxValue, ErrorMessage = "Value must be greater than or equal to 0.0")]
+        [Range(0.0d, double.MaxValue, ErrorMessage = "Czesne musi być dodatnią liczbą rzeczywistą.")]
         [DisplayFormat(DataFormatString = "{0:F1}", ApplyFormatInEditMode = true)]
         public double Czesne { get; set; }
 
         [Required]
         [Display(Name = "Czesne dla obcokrajowców")]
-        [Range(0.0d, double.MaxValue, ErrorMessage = "Value must be greater than or equal to 0.0")]
+        [Range(0.0d, double.MaxValue, ErrorMessage = "Czesne dla obcokrajowców musi być dodatnią liczbą rzeczywistą.")]
         [DisplayFormat(DataFormatString = "{0:F1}", ApplyFormatInEditMode = true)]
         public double CzesneDlaObcokrajowcow { get; set; }
 
@@ -55,9 +55,9 @@ namespace Aurora.Models
         [Required]
         public int Wydzial { get; set; }
 
-        [Required]
+        [Required()]
         [Display(Name = "Opis kierunku")]
-        [MaxLength(255)]
+        [MaxLength(1023, ErrorMessage = "Opis może zawierać do 1023 znaków.")]
         public string OpisKierunku { get; set; }
 
         public ICollection<TuraRekrutacji> turyRekrutacji { get; set; }

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Aurora.Models.AplikacjaRekrutacyjna>
+@using static Aurora.Utils.EnumUtils
+@using Aurora.Enums
+
+@{
+    ViewData["Title"] = "Moje aplikacje";
+}
+
+<h1>Moje aplikacje</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataZlozenia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KierunekStudiow.NazwaKierunku)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataZlozenia)
+            </td>
+            <td>
+                @{var nazwaStatusu = ConvertIDToTypeAsString<RodzajStatusuAplikacji>(item.Status);}
+                @nazwaStatusu
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KierunekStudiow.NazwaKierunku)
+            </td>   
+            <td>
+                <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.ID">Szczegóły</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,107 @@
+﻿@model Aurora.Models.AplikacjaRekrutacyjna
+@using static Aurora.Utils.EnumUtils
+@using Aurora.Enums
+
+@{
+    ViewData["Title"] = "Dane aplikacji";
+}
+
+<h1>Dane aplikacji</h1>
+<hr />
+
+<div class="row">
+    <div class="col-lg-5">
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ID)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ID)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.DataZlozenia)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DataZlozenia)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.OplataRekrutacyjna.ID) opłaty
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.OplataRekrutacyjna.ID)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.OplataRekrutacyjna.Kwota) opłaty
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.OplataRekrutacyjna.Kwota)
+            </dd>
+        </dl>
+    </div>
+
+    <div class="col-lg-5">
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Status)
+            </dt>
+            <dd class="col-sm-10">
+                @{
+                    var nazwaStatusu = ConvertIDToTypeAsString<RodzajStatusuAplikacji>(Model.Status);
+                }
+                @nazwaStatusu
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.KierunekStudiow.NazwaKierunku)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.KierunekStudiow.NazwaKierunku)
+            </dd>
+            @* <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.WspolczynnikRekrutacyjny.Wartosc)
+            </dt>
+            <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.WspolczynnikRekrutacyjny.Wartosc)
+            </dd> *@
+        </dl>
+    </div>
+</div>
+<div class="float-right">
+    <a class="btn btn-primary" asp-action="ZapiszNaEgzaminy" asp-route-id="@Model.ID">Zapisz na egzaminy</a>
+    @if (Model.Status != (int)RodzajStatusuAplikacji.Anulowana){
+        <a class="btn btn-primary" asp-action="AnulujAplikacje" asp-route-id="@Model.ID">Anuluj aplikację</a>
+    }
+</div>
+
+
+@if (ViewBag.PopUpMessage != null)
+{
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h3 style="text-align: center">@ViewBag.PopUpMessage</h3>
+                    <div class="float-right">
+                        <a class="btn btn-primary" asp-action="AnulujAplikacjePotwierdz" asp-route-id="@Model.ID">Tak</a>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Nie</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+            var popUpMessage = '@Html.Raw(ViewBag.PopUpMessage)';
+
+            if (popUpMessage.trim() !== '') {
+                $('#myModal').modal({ backdrop: 'static', keyboard: false });
+                $('#myModal').modal('show');
+            }
+        });
+    </script>
+}
