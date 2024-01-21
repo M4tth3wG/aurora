@@ -19,7 +19,7 @@ namespace Aurora.Test
        
 
         [Theory]
-        [InlineData(2, 10, "Error")]
+        [InlineData(2, 10, "BadRequestResult")]
         [InlineData(1,1, null)]
         public void SzczegolyErrorTestList(int kandydatID, int turaID, string resultView)
         {
@@ -45,14 +45,16 @@ namespace Aurora.Test
 
 
                 // Assert
-                var viewResult = Assert.IsType<ViewResult>(result);
-                Assert.Equal(resultView, viewResult.ViewName);
-
-                if (resultView == "Error")
+                if (resultView == null)
                 {
-                    var model = Assert.IsType<ErrorViewModel>(viewResult.Model);
-                    Assert.Equal("wrong Kandydatid or TuraRekrutacjiID", model.RequestId);
+                    var viewResult = Assert.IsType<ViewResult>(result);
+                    Assert.Equal(resultView, viewResult.ViewName);
                 }
+                else
+                {
+                    Assert.IsType<BadRequestResult>(result);
+                }
+
             }
         }
 

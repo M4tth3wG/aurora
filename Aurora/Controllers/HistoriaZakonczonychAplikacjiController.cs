@@ -49,11 +49,8 @@ namespace Aurora.Controllers
 
             if(kandydaci.Count() == 0)
             {
-                ErrorViewModel errorViewModel = new ErrorViewModel()
-                {
-                    RequestId = "wrong Kandydatid or TuraRekrutacjiID"
-                };
-                return View("Error", errorViewModel);
+
+                return BadRequest();
             }
 
             var opinia = new Opinia()
@@ -104,11 +101,8 @@ namespace Aurora.Controllers
 
             if (aplikacja.Count() == 0)
             {
-                ErrorViewModel errorViewModel = new ErrorViewModel()
-                {
-                    RequestId = "wrong Kandydatid or TuraRekrutacjiID"
-                };
-                return View("Error" , errorViewModel);
+
+                return BadRequest();
             }
 
             var wszyskieAplikacjeWTurze = _context.AplikacjeRekrutacyjne
