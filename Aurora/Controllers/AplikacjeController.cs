@@ -25,7 +25,7 @@ namespace Aurora.Controllers
         {
             var kandydatEmail = HttpContext.User.Identity.Name;     
 
-            var aplikacje = _context.AplikacjeRekrutacyjne
+            var aplikacje = await _context.AplikacjeRekrutacyjne
                 .Include(a => a.KierunekStudiow)
                 .Include(a => a.Kandydat)
                 .Where(a => a.Kandydat.AdresEmail.Equals(kandydatEmail))
@@ -37,8 +37,13 @@ namespace Aurora.Controllers
                 )
                 .ToListAsync();
 
+            if (!aplikacje.Any())
+            {
+                return View("BrakAplikacji");
+            }
 
-            return View(await aplikacje);
+
+            return View(aplikacje);
         }
 
         public async Task<IActionResult> Details(int id)
@@ -50,7 +55,8 @@ namespace Aurora.Controllers
                 .Include(a => a.KierunekStudiow)
                 .Include(a => a.WspolczynnikRekrutacyjny)
                 .Include(a => a.TuraRekrutacji)
-                .Include(a => a.Dokumenty) /*jakie to dokumenty*/
+                .Include(a => a.Dokumenty)
+                    .ThenInclude(d => d.Dokument)
                 .FirstAsync();
             // potrzebne jeszcze egazminy dostepne i na ktore zapisany
 
@@ -66,11 +72,13 @@ namespace Aurora.Controllers
         {
             var aplikacja = await _context.AplikacjeRekrutacyjne
                 .Where(a => a.ID == id)
+                .Include (a => a.Kandydat)
                 .Include(a => a.OplataRekrutacyjna)
                 .Include(a => a.KierunekStudiow)
                 .Include(a => a.WspolczynnikRekrutacyjny)
                 .Include(a => a.TuraRekrutacji)
-                .Include(a => a.Dokumenty) /*jakie to dokumenty*/
+                .Include(a => a.Dokumenty)
+                    .ThenInclude(d => d.Dokument)
                 .FirstAsync();
 
             if (!CzyKandydatZalogowany(aplikacja.Kandydat))
@@ -102,9 +110,9 @@ namespace Aurora.Controllers
         public async Task<IActionResult> AnulujAplikacjePotwierdz(int id)
         {
             var aplikacja = await _context.AplikacjeRekrutacyjne
-                                .Where(a => a.ID == id)
-                                .Include(a => a.Kandydat)
-                                .FirstAsync();
+                                    .Where(a => a.ID == id)
+                                    .Include(a => a.Kandydat)
+                                    .FirstAsync();
 
             if (!CzyKandydatZalogowany(aplikacja.Kandydat))
             {
