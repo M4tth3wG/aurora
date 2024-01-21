@@ -5,6 +5,7 @@ using Aurora.Models;
 using Aurora.OtherClasses.StrategiesForRR;
 using Aurora.Utils;
 using Aurora.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -160,11 +161,13 @@ namespace Aurora.Controllers
 
         // Obsluga rzadan pracownika dziekanatu: Mateusz Gazda
 
+        [Authorize(Roles ="PracownikDziekanatu")]
         public IActionResult IndexPracownik()
         {
             return View();
         }
 
+        [Authorize(Roles = "PracownikDziekanatu")]
         public IActionResult DodajNowyKierunekStudiow()
         {
             return View();
@@ -172,6 +175,7 @@ namespace Aurora.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "PracownikDziekanatu")]
         public IActionResult DodajNowyKierunekStudiow(KierunekStudiowKluczViewModel klucz)
         {
             
@@ -197,6 +201,7 @@ namespace Aurora.Controllers
             return View(klucz);
         }
 
+        [Authorize(Roles = "PracownikDziekanatu")]
         public IActionResult DodajNowyKierunekStudiowSzczegoly(KierunekStudiow kierunek)
         {
             return View(kierunek);
@@ -204,6 +209,7 @@ namespace Aurora.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "PracownikDziekanatu")]
         public async Task<IActionResult> DodajNowyKierunekStudiowSzczegolyPost(KierunekStudiow kierunek)
         {
             if (!ModelState.IsValid)
