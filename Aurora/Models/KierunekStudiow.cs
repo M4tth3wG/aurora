@@ -55,7 +55,6 @@ namespace Aurora.Models
         [Required]
         public int Wydzial { get; set; }
 
-        [Required()]
         [Display(Name = "Opis kierunku")]
         [MaxLength(1023, ErrorMessage = "Opis może zawierać do 1023 znaków.")]
         public string OpisKierunku { get; set; }
