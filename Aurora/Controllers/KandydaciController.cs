@@ -2,6 +2,7 @@
 using Aurora.Enums;
 using Aurora.Models;
 using Aurora.Utils;
+using Aurora.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -63,83 +64,68 @@ namespace Aurora.Controllers
         }
 
         
-        public async Task<IActionResult> PrzypiszKandydata(int? id, string searchFilter = "",
-            string filterPoziom = "dowolny", string filterForma = "dowolna", string filterJezyk = "dowolny",
-            string filterWydzial = "dowolny", string filterMiejsce = "dowolne", string PostMessage = "")
+        public async Task<IActionResult> PrzypiszKandydata(int? id, PrzypiszKandydataViewModel model, string PostMessage = "")
+
         { 
             var kandydat = await _context.Kandydaci.FindAsync(id);
             if (kandydat != null)
             {
+                if (model == null) 
+                {
+                    model = new PrzypiszKandydataViewModel();
+                }
                 var aplikacje = GetAktualneAplikacje(id);
 
-                ViewBag.searchFilter = searchFilter;
-                ViewBag.Imie = kandydat.Imie;
-                ViewBag.Nazwisko = kandydat.Nazwisko;
-                ViewBag.ID = kandydat.ID;
+                model.Kandydat = kandydat;
 
                 int liczbaAplikacjiPrzedFiltrowaniem = aplikacje.Count;
 
-                if (!string.IsNullOrEmpty(searchFilter)) 
+                if (!string.IsNullOrEmpty(model.SearchFilter)) 
                 { 
-                    aplikacje = aplikacje.Where(a => a.KierunekStudiow.NazwaKierunku.Contains(searchFilter)).ToList();
+                    aplikacje = aplikacje.Where(a => a.KierunekStudiow.NazwaKierunku.Contains(model.SearchFilter)).ToList();
                 }
 
-                ViewBag.FilterOptionsPoziom = EnumUtils.GetWartosciEnumaJakoSelectList<PoziomStudiow>();
-                TempData["FilterPoziom"] = filterPoziom;
-                if (!string.IsNullOrEmpty(filterPoziom) && filterPoziom != "dowolny") aplikacje = aplikacje.Where(a => a.KierunekStudiow.PoziomStudiow == Convert.ToInt32(filterPoziom)).ToList();
-                ViewBag.SelectedFilterPoziom = filterPoziom;
+                if (!string.IsNullOrEmpty(model.FilterPoziom) && model.FilterPoziom != "dowolny") aplikacje = aplikacje.Where(a => a.KierunekStudiow.PoziomStudiow == Convert.ToInt32(model.FilterPoziom)).ToList();
 
-                ViewBag.FilterOptionsForma = EnumUtils.GetWartosciEnumaJakoSelectList<FormaStudiow>();
-                TempData["FilterForma"] = filterForma;
-                if (!string.IsNullOrEmpty(filterForma) && filterForma != "dowolna") aplikacje = aplikacje.Where(a => a.KierunekStudiow.FormaStudiow == Convert.ToInt32(filterForma)).ToList();
-                ViewBag.SelectedFilterForma = filterForma;
+                if (!string.IsNullOrEmpty(model.FilterForma) && model.FilterForma != "dowolna") aplikacje = aplikacje.Where(a => a.KierunekStudiow.FormaStudiow == Convert.ToInt32(model.FilterForma)).ToList();
 
-                ViewBag.FilterOptionsJezyk = EnumUtils.GetWartosciEnumaJakoSelectList<Jezyk>();
-                TempData["FilterJezyk"] = filterJezyk;
-                if (!string.IsNullOrEmpty(filterJezyk) && filterJezyk != "dowolny") aplikacje = aplikacje.Where(a => a.KierunekStudiow.JezykWykladowy == Convert.ToInt32(filterJezyk)).ToList();
-                ViewBag.SelectedFilterJezyk = filterJezyk;
+                if (!string.IsNullOrEmpty(model.FilterJezyk) && model.FilterJezyk != "dowolny") aplikacje = aplikacje.Where(a => a.KierunekStudiow.JezykWykladowy == Convert.ToInt32(model.FilterJezyk)).ToList();
 
-                ViewBag.FilterOptionsWydzial = EnumUtils.GetWartosciEnumaJakoSelectList<NazwaWydzialu>();
-                TempData["FilterWydzial"] = filterWydzial;
-                if (!string.IsNullOrEmpty(filterWydzial) && filterWydzial != "dowolny") aplikacje = aplikacje.Where(a => a.KierunekStudiow.Wydzial == Convert.ToInt32(filterWydzial)).ToList();
-                ViewBag.SelectedFilterWydzial = filterWydzial;
+                if (!string.IsNullOrEmpty(model.FilterWydzial) && model.FilterWydzial != "dowolny") aplikacje = aplikacje.Where(a => a.KierunekStudiow.Wydzial == Convert.ToInt32(model.FilterWydzial)).ToList();
 
-                ViewBag.FilterOptionsMiejsce = EnumUtils.GetWartosciEnumaJakoSelectList<MiejsceStudiow>();
-                TempData["FilterMiejsce"] = filterMiejsce;
-                if (!string.IsNullOrEmpty(filterMiejsce) && filterMiejsce != "dowolne") aplikacje = aplikacje.Where(a => a.KierunekStudiow.MiejsceStudiow == Convert.ToInt32(filterMiejsce)).ToList();
-                ViewBag.SelectedFilterMiejsce = filterMiejsce;
+                if (!string.IsNullOrEmpty(model.FilterMiejsce) && model.FilterMiejsce != "dowolne") aplikacje = aplikacje.Where(a => a.KierunekStudiow.MiejsceStudiow == Convert.ToInt32(model.FilterMiejsce)).ToList();
 
                 ViewBag.PopUpMessage = PostMessage;
+                model.FilterAplikacje = aplikacje;
 
                 if (aplikacje.Count == 0) {
                     if (liczbaAplikacjiPrzedFiltrowaniem != 0)
                     {
                         ViewBag.PopUpMessage = "Nie znaleziono pasujących wyników do podanych kryteriów wyszukiwania.";
                     }
+
+                    // czy zrobić osobne komunikaty dla przypadku gdy kandydat nie ma żadnych aplikacji
+                    // oraz dla przypadku gdy nie ma aplikacji, które nie spełniają kryteriów wyszukiwania
+
                     ViewBag.NoResultMessage = $"Kandydat {kandydat.Imie} {kandydat.Nazwisko} nie posiada w aktualnej turze rekrutacji aplikacji spełniające podane kryteria wyszukiwania.";
 
                 }
 
-                return View(aplikacje);
+                return View(model);
             }
             return View("Error");
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> PrzypiszKandydata(int id, string searchFilter,
-            string filterPoziom, string filterForma, string filterJezyk,
-            string filterWydzial, string filterMiejsce)
+        public async Task<IActionResult> PrzypiszKandydata(int id)
         {
             var aplikacja = await _context.AplikacjeRekrutacyjne.Include(a => a.KierunekStudiow).Where(a => a.ID == id).FirstOrDefaultAsync();
-            if (aplikacja == null) return View("Error");
+            if (aplikacja == null) return NotFound();
 
             var tura = await _context.TuryRekrutacji.FindAsync(aplikacja.TuraRekrutacjiID);
 
-            if (tura == null)
-            {
-                return View("Error");
-            }
+            if (tura == null) return NotFound();
 
             string PostMessage = "";
 
@@ -155,12 +141,9 @@ namespace Aurora.Controllers
 
                 var kandydat = await _context.Kandydaci.FindAsync(aplikacja.KandydatID);
 
-                if (kandydat == null) return View("Error");
-
                 PostMessage = $"Kandydat {kandydat.Imie} {kandydat.Nazwisko} został pomyślnie przypisany do kierunku {aplikacja.KierunekStudiow.NazwaKierunku}.";
 
                 //await _context.SaveChangesAsync();
-                
             }
             else 
             {
@@ -168,9 +151,9 @@ namespace Aurora.Controllers
             }
 
 
-
             return RedirectToAction("PrzypiszKandydata", new {
-                aplikacja.KandydatID, searchFilter, filterPoziom, filterForma, filterJezyk, filterWydzial, filterMiejsce, PostMessage
+                aplikacja.KandydatID,
+                PostMessage
 
             });
          }

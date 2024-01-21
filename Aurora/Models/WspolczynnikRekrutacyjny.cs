@@ -1,4 +1,5 @@
 ﻿using Aurora.Interfaces;
+using Aurora.Utils;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -20,6 +21,7 @@ namespace Aurora.Models
         {
             get
             {
+                if (strategia == null) { return -1.0; }
                 return strategia.WyliczPunkty(skladowe.ToList());
             }
         }
@@ -41,10 +43,11 @@ namespace Aurora.Models
         public WspolczynnikRekrutacyjny()
         {
         }
-        public WspolczynnikRekrutacyjny(int iD, int aplikacjaRekrutacyjnaID)
+        public WspolczynnikRekrutacyjny(int iD, int aplikacjaRekrutacyjnaID, KierunekStudiow kierunek)
         {
             ID = iD;
             AplikacjaRekrutacyjnaID = aplikacjaRekrutacyjnaID;
+            strategia = UtilsRR.GetStrategiaDlaKierunku(kierunek);
         }
 
         public WspolczynnikRekrutacyjny(int iD, StrategiaWspolRekrut strategia, int aplikacjaRekrutacyjnaID)

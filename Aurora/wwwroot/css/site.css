@@ -247,3 +247,11 @@ rr-form-table-container {
     width: 200px;
     margin-right: 5px;
 }
+
+.send-msg-btn-container {
+    display: flex; 
+    justify-content: space-between;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
