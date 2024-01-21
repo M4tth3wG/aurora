@@ -44,6 +44,17 @@ namespace Aurora.Controllers
 
         public IActionResult Opinia(int kandydatID, int turaRekrutacjiID)
         {
+            var kandydaci = _context.Kandydaci
+                .Where(e => e.ID == kandydatID).ToList();
+
+            if(kandydaci.Count() == 0)
+            {
+                ErrorViewModel errorViewModel = new ErrorViewModel()
+                {
+                    RequestId = "wrong Kandydatid or TuraRekrutacjiID"
+                };
+                return View("Error", errorViewModel);
+            }
 
             var opinia = new Opinia()
             {
@@ -91,7 +102,7 @@ namespace Aurora.Controllers
                 .Include(e => e.OplataRekrutacyjna)
                 .ToList();
 
-            if(aplikacja.Count() == 0)
+            if (aplikacja.Count() == 0)
             {
                 ErrorViewModel errorViewModel = new ErrorViewModel()
                 {
@@ -117,7 +128,7 @@ namespace Aurora.Controllers
             {
                 i++;
 
-                aplikacje.WspolczynnikRekrutacyjny.strategia = UtilsRR.GetStrategiaDlaKierunku(aplikacje.KierunekStudiow);
+/*                aplikacje.WspolczynnikRekrutacyjny.strategia = UtilsRR.GetStrategiaDlaKierunku(aplikacje.KierunekStudiow);*/
 
                 if (aplikacje.ID == aplikacja.FirstOrDefault().ID)
                 {
@@ -125,8 +136,8 @@ namespace Aurora.Controllers
                 }
                 if (aplikacje.Status == Convert.ToInt32(RodzajStatusuAplikacji.ZakonczonaSukcesem))
                 {
-                    /*                    @ViewBag.MinimalnaIloscPunktow = aplikacje.WspolczynnikRekrutacyjny.Wartosc;
-                    */
+/*                    @ViewBag.MinimalnaIloscPunktow = aplikacje.WspolczynnikRekrutacyjny.Wartosc;*/
+
                 }
 
             }
