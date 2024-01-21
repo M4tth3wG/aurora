@@ -7,10 +7,12 @@ using Aurora.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Aurora
 {
@@ -32,10 +34,22 @@ namespace Aurora
             services.AddDbContext<DataDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("AuroraDB"))
             );
+            services.AddDefaultIdentity<IdentityUser>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 3;
+            })
+                     .AddRoles<IdentityRole>()
+                     .AddEntityFrameworkStores<DataDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
+            UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, DataDbContext dbContext)
         {
             CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
             if (env.IsDevelopment())
@@ -55,13 +69,17 @@ namespace Aurora
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+
+            IdentityDataInitializer.SeedData(userManager, roleManager, dbContext);
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }
