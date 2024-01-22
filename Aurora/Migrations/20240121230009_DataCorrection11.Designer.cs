@@ -4,35 +4,22 @@ using Aurora.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Aurora.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    partial class DataDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240121230009_DataCorrection11")]
+    partial class DataCorrection11
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("AplikacjaRekrutacyjnaDziedzinaEgzaminuWstepnego", b =>
-                {
-                    b.Property<int>("AplikacjeRekrutacyjneID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EgzaminyWstepneID")
-                        .HasColumnType("int");
-
-                    b.HasKey("AplikacjeRekrutacyjneID", "EgzaminyWstepneID");
-
-                    b.HasIndex("EgzaminyWstepneID");
-
-                    b.ToTable("AplikacjaRekrutacyjnaDziedzinaEgzaminuWstepnego");
-                });
 
             modelBuilder.Entity("Aurora.Models.Adres", b =>
                 {
@@ -407,47 +394,6 @@ namespace Aurora.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Aurora.Models.DziedzinaEgzaminuWstepnego", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Dziedzina")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("Dziedzina")
-                        .IsUnique();
-
-                    b.ToTable("DziedzinaEgzaminuWstepnego");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            Dziedzina = "Matematyka"
-                        },
-                        new
-                        {
-                            ID = 2,
-                            Dziedzina = "Język polski"
-                        },
-                        new
-                        {
-                            ID = 3,
-                            Dziedzina = "Chemia"
-                        },
-                        new
-                        {
-                            ID = 4,
-                            Dziedzina = "Biologia"
-                        });
-                });
-
             modelBuilder.Entity("Aurora.Models.Egzamin", b =>
                 {
                     b.Property<int>("ID")
@@ -735,19 +681,11 @@ namespace Aurora.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("InformowanieOStatusie")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IntuicyjnoscSystemu")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("JakoscPomocy")
-                        .HasColumnType("int");
-
                     b.Property<int>("KandydatID")
                         .HasColumnType("int");
 
                     b.Property<string>("Tresc")
+                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
@@ -1469,21 +1407,6 @@ namespace Aurora.Migrations
                         });
                 });
 
-            modelBuilder.Entity("DziedzinaEgzaminuWstepnegoKierunekStudiow", b =>
-                {
-                    b.Property<int>("DostepneEgzaminyWstepneID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("KierunkiStudiowID")
-                        .HasColumnType("int");
-
-                    b.HasKey("DostepneEgzaminyWstepneID", "KierunkiStudiowID");
-
-                    b.HasIndex("KierunkiStudiowID");
-
-                    b.ToTable("DziedzinaEgzaminuWstepnegoKierunekStudiow");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -1682,21 +1605,6 @@ namespace Aurora.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("AplikacjaRekrutacyjnaDziedzinaEgzaminuWstepnego", b =>
-                {
-                    b.HasOne("Aurora.Models.AplikacjaRekrutacyjna", null)
-                        .WithMany()
-                        .HasForeignKey("AplikacjeRekrutacyjneID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Aurora.Models.DziedzinaEgzaminuWstepnego", null)
-                        .WithMany()
-                        .HasForeignKey("EgzaminyWstepneID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Aurora.Models.AplikacjaRekrutacyjna", b =>
@@ -1952,21 +1860,6 @@ namespace Aurora.Migrations
                     b.Navigation("AplikacjaRekrutacyjna");
 
                     b.Navigation("egzamin");
-                });
-
-            modelBuilder.Entity("DziedzinaEgzaminuWstepnegoKierunekStudiow", b =>
-                {
-                    b.HasOne("Aurora.Models.DziedzinaEgzaminuWstepnego", null)
-                        .WithMany()
-                        .HasForeignKey("DostepneEgzaminyWstepneID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Aurora.Models.KierunekStudiow", null)
-                        .WithMany()
-                        .HasForeignKey("KierunkiStudiowID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

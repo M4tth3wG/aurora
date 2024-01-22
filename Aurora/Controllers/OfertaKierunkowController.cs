@@ -5,6 +5,7 @@ using Aurora.Models;
 using Aurora.OtherClasses.StrategiesForRR;
 using Aurora.Utils;
 using Aurora.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -95,48 +96,62 @@ namespace Aurora.Controllers
         [HttpPost]
         public async Task<IActionResult> WyliczWspolczynnik(WyliczWspolczynnikViewModel model)
         {
+
             if (model == null) return View("Error");
 
             var kierunek = await _context.KierunkiStudiow.FindAsync(model.KierunekID);
-            
-            if (kierunek == null) return View("Error");
+            if (kierunek == null)
+            {
+                return View("Error");
+            }
 
-            var (listaBrakujacychPrzedmiotow, czyWprowadzonoEgzaminZRysunku) = CzyWprowadzonoWszystkiePotrzebneWartosci(kierunek.Strategia, model);
-            
-            if (listaBrakujacychPrzedmiotow.Count > 0) ViewBag.PopUpMessage = $"Brak podanego przynajmniej jednego wyniku dla przedmiotu {StringUtils.ConvertListToTupleFormat(listaBrakujacychPrzedmiotow)}.";
-            
-            else if (kierunek.Strategia is StrategiaArchitektura && !czyWprowadzonoEgzaminZRysunku) ViewBag.PopUpMessage = "Brak podanego wyniku dla egzaminu z rysunku.";
-            
-            else ViewBag.WartoscWR = ObliczPunktyWspolczynnika(kierunek.Strategia, model);
+            var strategia = UtilsRR.GetStrategiaDlaKierunku(kierunek);
+
+            var (listaBrakujacychPrzedmiotow, czyWprowadzonoEgzaminZRysunku) = CzyWprowadzonoWszystkiePotrzebneWartosci(strategia, model);
+            if (listaBrakujacychPrzedmiotow.Count > 0)
+            {
+                ViewBag.PopUpMessage = $"Brak podanego przynajmniej jednego wyniku dla przedmiotu {StringUtils.ConvertListToTupleFormat(listaBrakujacychPrzedmiotow)}.";
+            }
+            else if (strategia is StrategiaArchitektura && !czyWprowadzonoEgzaminZRysunku)
+            {
+                ViewBag.PopUpMessage = "Brak podanego wyniku dla egzaminu z rysunku.";
+            }
+            else
+            {
+                ViewBag.WartoscWR = ObliczPunktyWspolczynnika(strategia, model);
+            }
 
             return View(model);
         }
 
 
-        private (List<string>, bool) CzyWprowadzonoWszystkiePotrzebneWartosci(IStrategiaWspolRekrut strategia, WyliczWspolczynnikViewModel model)
+        private (List<string>, bool) CzyWprowadzonoWszystkiePotrzebneWartosci(StrategiaWspolRekrut strategia, WyliczWspolczynnikViewModel model)
         {
             return strategia switch
             {
-                StrategiaWspolRekrut1Stopien st1 => GetPotrzebneWartosciInfo(st1.przedmiotyMaturalneDodatkowe, model),
+                StrategiaWspolRekrut1Stopien st1 => CzyWprowadzonoWszystkiePotrzebneWartosciStopien1(st1, model),
                 _ => default,
             };
         }
 
 
-        private (List<string>, bool) GetPotrzebneWartosciInfo(List<PrzedmiotMaturalny> przedmiotyMaturalne, WyliczWspolczynnikViewModel model)
+        private (List<string>, bool) CzyWprowadzonoWszystkiePotrzebneWartosciStopien1(StrategiaWspolRekrut1Stopien strategia, WyliczWspolczynnikViewModel model)
         {
             var brakujacePrzedmioty = new List<string>();
+            var czyWprowadzonoEgzamin = true;
 
-            foreach (var subject in przedmiotyMaturalne.Union(Consts.defaultMaturaSubjects))
+            foreach (var subject in strategia.przedmiotyMaturalne)
             {
                 var (keyP, keyR) = Consts.SubjectFormKeys[subject];
-                if (model.wynikiMaturalne[keyP] == null && model.wynikiMaturalne[keyR] == null) brakujacePrzedmioty.Add(EnumUtils.GetDescription(subject));
+                if (model.wynikiMaturalne[keyP] == null && model.wynikiMaturalne[keyR] == null) brakujacePrzedmioty.Add(EnumUtils.GetDescription<PrzedmiotMaturalny>(subject));
             }
 
-            return (brakujacePrzedmioty, model.wynikiMaturalne["EgzRys"] != null);
+            if (model.wynikiMaturalne["EgzRys"] == null) czyWprowadzonoEgzamin = false;
+
+            return (brakujacePrzedmioty, czyWprowadzonoEgzamin);
         }
 
-        private double? ObliczPunktyWspolczynnika(IStrategiaWspolRekrut strategia, WyliczWspolczynnikViewModel model)
+        private double? ObliczPunktyWspolczynnika(StrategiaWspolRekrut strategia, WyliczWspolczynnikViewModel model)
         {
             if (strategia == null || model == null) return null;
             var components = UtilsRR.ConvertFormPointsToComponents(model);
@@ -144,13 +159,15 @@ namespace Aurora.Controllers
         }
 
 
-        // Obsluga zadan pracownika dziekanatu: Mateusz Gazda
+        // Obsluga funkconalnosci pracownika dziekanatu: Mateusz Gazda
 
+        [Authorize(Roles ="PracownikDziekanatu")]
         public IActionResult IndexPracownik()
         {
             return View();
         }
 
+        [Authorize(Roles = "PracownikDziekanatu")]
         public IActionResult DodajNowyKierunekStudiow()
         {
             return View();
@@ -158,6 +175,7 @@ namespace Aurora.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "PracownikDziekanatu")]
         public IActionResult DodajNowyKierunekStudiow(KierunekStudiowKluczViewModel klucz)
         {
             
@@ -183,6 +201,7 @@ namespace Aurora.Controllers
             return View(klucz);
         }
 
+        [Authorize(Roles = "PracownikDziekanatu")]
         public IActionResult DodajNowyKierunekStudiowSzczegoly(KierunekStudiow kierunek)
         {
             return View(kierunek);
@@ -190,6 +209,7 @@ namespace Aurora.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "PracownikDziekanatu")]
         public async Task<IActionResult> DodajNowyKierunekStudiowSzczegolyPost(KierunekStudiow kierunek)
         {
             if (!ModelState.IsValid)

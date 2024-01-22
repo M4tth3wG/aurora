@@ -4,14 +4,16 @@ using Aurora.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Aurora.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    partial class DataDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240122191357_DataCorrection15")]
+    partial class DataCorrection15
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1469,19 +1471,19 @@ namespace Aurora.Migrations
                         });
                 });
 
-            modelBuilder.Entity("DziedzinaEgzaminuWstepnegoKierunekStudiow", b =>
+            modelBuilder.Entity("DziedzinaEgzaminuWstepnegoTuraRekrutacji", b =>
                 {
                     b.Property<int>("DostepneEgzaminyWstepneID")
                         .HasColumnType("int");
 
-                    b.Property<int>("KierunkiStudiowID")
+                    b.Property<int>("TuryID")
                         .HasColumnType("int");
 
-                    b.HasKey("DostepneEgzaminyWstepneID", "KierunkiStudiowID");
+                    b.HasKey("DostepneEgzaminyWstepneID", "TuryID");
 
-                    b.HasIndex("KierunkiStudiowID");
+                    b.HasIndex("TuryID");
 
-                    b.ToTable("DziedzinaEgzaminuWstepnegoKierunekStudiow");
+                    b.ToTable("DziedzinaEgzaminuWstepnegoTuraRekrutacji");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -1954,7 +1956,7 @@ namespace Aurora.Migrations
                     b.Navigation("egzamin");
                 });
 
-            modelBuilder.Entity("DziedzinaEgzaminuWstepnegoKierunekStudiow", b =>
+            modelBuilder.Entity("DziedzinaEgzaminuWstepnegoTuraRekrutacji", b =>
                 {
                     b.HasOne("Aurora.Models.DziedzinaEgzaminuWstepnego", null)
                         .WithMany()
@@ -1962,9 +1964,9 @@ namespace Aurora.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Aurora.Models.KierunekStudiow", null)
+                    b.HasOne("Aurora.Models.TuraRekrutacji", null)
                         .WithMany()
-                        .HasForeignKey("KierunkiStudiowID")
+                        .HasForeignKey("TuryID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
