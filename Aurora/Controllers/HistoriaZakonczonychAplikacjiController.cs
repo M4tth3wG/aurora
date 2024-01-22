@@ -45,22 +45,19 @@ namespace Aurora.Controllers
         }
 
 
-        public IActionResult Opinia(int turaRekrutacjiID)
+        public IActionResult Opinia(int kandydatID, int turaRekrutacjiID)
         {
-            var kandydaci = _context.Kandydaci
-                .Where(e => e.AdresEmail == HttpContext.User.Identity.Name)
-                .ToList();
 
             var tura = _context.AplikacjeRekrutacyjne
                 .Where(e => e.TuraRekrutacjiID == turaRekrutacjiID)
-                .Where(e => e.Kandydat.ID == kandydaci.FirstOrDefault().ID)
+                .Where(e => e.KandydatID == kandydatID)
                 .Include(e => e.TuraRekrutacji)
                 .Where(e => e.TuraRekrutacji.StatusTury == 4)
                 .ToList();
 
             var opinie = _context.Opinia
                 .Where(e => e.TuraRekrutacjiID == turaRekrutacjiID)
-                .Where(e => e.KandydatID == kandydaci.FirstOrDefault().ID)
+                .Where(e => e.KandydatID == kandydatID)
                 .ToList();
 
             if (tura.Count != 1 || opinie.Count != 0)
@@ -71,7 +68,7 @@ namespace Aurora.Controllers
             var opinia = new Opinia()
             {
 
-                KandydatID = kandydaci.FirstOrDefault().ID,
+                KandydatID = kandydatID,
                 TuraRekrutacjiID = turaRekrutacjiID
 
             };
@@ -82,8 +79,9 @@ namespace Aurora.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Opinia([Bind("Id,KandydatID,TuraRekrutacjiID,Tresc")] Opinia opinia)
+        public async Task<IActionResult> Opinia([Bind("Id,KandydatID,TuraRekrutacjiID,Tresc,JakoscPomocy,IntuicyjnoscSystemu,InformowanieOStatusie")] Opinia opinia)
         {
+
             if (ModelState.IsValid)
             {
                 ViewBag.PopUpMessage = "Pomyślnie dodano opinie";
@@ -100,14 +98,14 @@ namespace Aurora.Controllers
 
 
 
-        public IActionResult Szczegoly(int turaRekrutacjiID)
+        public IActionResult Szczegoly(int kandydatID,int turaRekrutacjiID)
         {
 
             var aplikacja = _context.AplikacjeRekrutacyjne
                 .Where(e => e.TuraRekrutacjiID == turaRekrutacjiID)
+                .Where(e => e.KandydatID == kandydatID)
                 .Include(e => e.Kandydat)
                     .ThenInclude(e => e.Adres)
-                .Where(e => e.Kandydat.AdresEmail == HttpContext.User.Identity.Name)
                 .Include(e => e.Kandydat.Adres)
                 .Include(e => e.KierunekStudiow)
                 .Include(e => e.TuraRekrutacji)
