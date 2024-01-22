@@ -59,6 +59,8 @@ namespace Aurora.Models
         [MaxLength(1023, ErrorMessage = "Opis może zawierać do 1023 znaków.")]
         public string OpisKierunku { get; set; }
 
+        public ICollection<DziedzinaEgzaminuWstepnego> DostepneEgzaminyWstepne { get; set; }
+
         public ICollection<TuraRekrutacji> turyRekrutacji { get; set; }
         public ICollection<AplikacjaRekrutacyjna> aplikacje { get; set; }
 

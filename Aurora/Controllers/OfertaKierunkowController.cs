@@ -159,7 +159,7 @@ namespace Aurora.Controllers
         }
 
 
-        // Obsluga rzadan pracownika dziekanatu: Mateusz Gazda
+        // Obsluga funkconalnosci pracownika dziekanatu: Mateusz Gazda
 
         [Authorize(Roles ="PracownikDziekanatu")]
         public IActionResult IndexPracownik()
