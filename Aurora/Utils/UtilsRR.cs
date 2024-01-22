@@ -16,54 +16,6 @@ namespace Aurora.Utils
         private static readonly int R = Convert.ToInt32(RodzajSkladowejWspRekrut.R);
         private static readonly int E = Convert.ToInt32(RodzajSkladowejWspRekrut.E);
 
-
-        private static readonly List<string> kierunkiBiologiaMatura = new()
-        {
-            "inżynieria biomedyczna",
-            "gospodarka o obiegu zamkniętym i ochrona klimatu"
-        };
-
-        private static readonly List<string> kierunkiChemiaMatura = new()
-        {
-           "biotechnologia",
-           "chemia i analityka przemysłowa",
-           "chemia i inżynieria materiałów",
-           "gospodarka o obiegu zamkniętym i ochrona klimatu",
-           "górnictwo i geologia",
-           "inżynieria biomedyczna",
-           "inżynieria chemiczna i procesowa",
-           "inżynieria surowców mineralnych",
-           "technologia chemiczna"
-        };
-
-        private static readonly List<string> kierunkiGeografiaMatura = new()
-        {
-            "geodezja i kartografia",
-            "geoenergetyka",
-            "geoinformatyka",
-            "górnictwo i geologia",
-            "inżynieria surowców mineralnych"
-        };
-
-        private static readonly List<string> kierunkiInformatykaMatura = new()
-         {
-            "cyberbezpieczeństwo",
-            "geodezja i kartografia",
-            "geoenergetyka",
-            "geoinformatyka",
-            "informatyczne systemy automatyki",
-            "informatyka algorytmiczna",
-            "informatyka stosowana",
-            "informatyka techniczna",
-            "inżynieria systemów",
-            "inżynieria zarządzania",
-            "matematyka",
-            "matematyka stosowana",
-            "teleinformatyka",
-            "telekomunikacja",
-            "zarządzanie"
-        };
-
         public static double GetMax(params double[] numbers)
         {
             if (numbers == null || numbers.Length == 0)
@@ -123,6 +75,13 @@ namespace Aurora.Utils
                 var subjectComponents = components.Where(s => s.PrzedmiotMaturalny == subjectInt);
                 var PPoints = subjectComponents.Where(s => s.RodzajSkladowejWspRekrut == P).FirstOrDefault()?.LiczbaPunktow ?? 0.0;
                 var RPoints = subjectComponents.Where(s => s.RodzajSkladowejWspRekrut == R).FirstOrDefault()?.LiczbaPunktow ?? 0.0;
+                var newComp = new SkladowaWspRekrut()
+                {
+                    LiczbaPunktow = GetMax(PPoints, RPoints),
+                    RodzajSkladowejWspRekrut = Convert.ToInt32(comp),
+                    PrzedmiotMaturalny = subjectInt,
+                };
+                components.Add(newComp);
                 return GetMax(PPoints, RPoints);
             }
             return searchComponent.LiczbaPunktow;
@@ -166,70 +125,6 @@ namespace Aurora.Utils
             }
 
             return true;
-        }
-
-        public static double GetExamPoints(List<SkladowaWspRekrut> components)
-        {
-            var examComponent = components.Where(c => c.RodzajSkladowejWspRekrut == E).FirstOrDefault();
-            if (examComponent != null) return examComponent.LiczbaPunktow;
-            return 0.0;
-        }
-
-        public static double WyliczPunktyKlasycznie(double punktyMatematyka, double punktyPD, double punktyJezykObcy, double punktyJezykPolski)
-        {
-            return punktyMatematyka + punktyPD + 0.1 * punktyJezykObcy + 0.1 * punktyJezykPolski;
-        }
-
-
-
-
-        public static StrategiaWspolRekrut GetStrategiaDlaKierunku(KierunekStudiow kierunek)
-        {
-            var poziom = EnumUtils.ConvertIDToType<PoziomStudiow>(kierunek.PoziomStudiow);
-            switch (poziom)
-            {
-                case PoziomStudiow.drugiegoStopnia:
-                    return GetStrategiaDlaKierunku2Stopien(kierunek);
-
-                case PoziomStudiow.jednoliteMagisterskie:
-                    return GetStrategiaDlaKierunkuJednolite(kierunek);
-
-                case PoziomStudiow.pierwszegoStopniaLicencjackie:
-                case PoziomStudiow.pierwszegoStopniaInzynierskie:
-                    return GetStrategiaDlaKierunku1Stopien(kierunek);
-
-                default:
-                    return null;
-
-            }
-
-        }
-
-
-        private static StrategiaWspolRekrut1Stopien GetStrategiaDlaKierunku1Stopien(KierunekStudiow kierunek)
-        {
-            var maturaSubjectList = new List<PrzedmiotMaturalny> { PrzedmiotMaturalny.Fizyka };
-            var kierunekNameLowerCase = kierunek.NazwaKierunku.ToLower().Trim();
-            if (kierunkiBiologiaMatura.Contains(kierunekNameLowerCase)) maturaSubjectList.Add(PrzedmiotMaturalny.Biologia);
-            if (kierunkiChemiaMatura.Contains(kierunekNameLowerCase)) maturaSubjectList.Add(PrzedmiotMaturalny.Chemia);
-            if (kierunkiGeografiaMatura.Contains(kierunekNameLowerCase)) maturaSubjectList.Add(PrzedmiotMaturalny.Geografia);
-            if (kierunkiInformatykaMatura.Contains(kierunekNameLowerCase)) maturaSubjectList.Add(PrzedmiotMaturalny.Informatyka);
-            return new Standard1Stopien(maturaSubjectList);
-        }
-
-        private static StrategiaWspolRekrut2Stopien GetStrategiaDlaKierunku2Stopien(KierunekStudiow kierunek)
-        {
-            return default;
-        }
-
-        private static StrategiaWspolRekrutJednolite GetStrategiaDlaKierunkuJednolite(KierunekStudiow kierunek)
-        {
-            return kierunek.NazwaKierunku.ToLower() switch
-            {
-                "lekarski" => new StrategiaLekarski(),
-                "architektura" => new StrategiaArchitektura(),
-                _ => default
-            };
         }
 
 

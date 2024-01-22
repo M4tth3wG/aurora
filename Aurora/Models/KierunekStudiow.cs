@@ -1,8 +1,11 @@
 ﻿using Aurora.Enums;
+using Aurora.Interfaces;
+using Aurora.OtherClasses.StrategiesForRR;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Aurora.Models
@@ -18,6 +21,10 @@ namespace Aurora.Models
         [Required]
         public int JezykWykladowy { get; set; }
 
+        [NotMapped]
+        public IStrategiaWspolRekrut Strategia { get; set; }
+
+        
         [Required]
         [Display(Name = "Czesne")]
         [Range(0.0d, double.MaxValue, ErrorMessage = "Czesne musi być dodatnią liczbą rzeczywistą.")]
@@ -65,9 +72,25 @@ namespace Aurora.Models
 
         public ICollection<KandydatKierunekStudiow> kandydaci { get; set; }
         public ICollection<KandydatUlubionyKierunekStudiow> ulubioneKandydat { get; set; }
+        public ICollection<WspolczynnikRekrutacyjny> WspolczynnikiRekrut { get; set; }
 
 
 
+        public KierunekStudiow(int iD, int jezykWykladowyID, double czesne, double czesneDlaObcokrajowcow, int poziomStudiowID, int miejsceStudiowID, string nazwaKierunku, int formaStudiowID, int wydzialID, string opisKierunku, IStrategiaWspolRekrut strategia)
+        {
+            ID = iD;
+            JezykWykladowy = jezykWykladowyID;
+            Czesne = czesne;
+            CzesneDlaObcokrajowcow = czesneDlaObcokrajowcow;
+            PoziomStudiow = poziomStudiowID;
+            MiejsceStudiow = miejsceStudiowID;
+            NazwaKierunku = nazwaKierunku;
+            FormaStudiow = formaStudiowID;
+            Wydzial = wydzialID;
+            OpisKierunku = opisKierunku;
+            Strategia = strategia;
+        }        
+        
         public KierunekStudiow(int iD, int jezykWykladowyID, double czesne, double czesneDlaObcokrajowcow, int poziomStudiowID, int miejsceStudiowID, string nazwaKierunku, int formaStudiowID, int wydzialID, string opisKierunku)
         {
             ID = iD;
@@ -80,6 +103,7 @@ namespace Aurora.Models
             FormaStudiow = formaStudiowID;
             Wydzial = wydzialID;
             OpisKierunku = opisKierunku;
+            Strategia = new Standard1Stopien();
         }
 
         public KierunekStudiow(int iD, Jezyk jezykWykladowy, double czesne, double czesneDlaObcokrajowcow, int poziomStudiow, int miejsceStudiow, string nazwaKierunku, int formaStudiow, int wydzial, string opisKierunku)
@@ -94,6 +118,22 @@ namespace Aurora.Models
             FormaStudiow = Convert.ToInt32(formaStudiow);
             Wydzial = Convert.ToInt32(wydzial); ;
             OpisKierunku = opisKierunku;
+            Strategia = new Standard1Stopien();
+        }  
+        
+        public KierunekStudiow(int iD, Jezyk jezykWykladowy, double czesne, double czesneDlaObcokrajowcow, int poziomStudiow, int miejsceStudiow, string nazwaKierunku, int formaStudiow, int wydzial, string opisKierunku, IStrategiaWspolRekrut strategia)
+        {
+            ID = iD;
+            JezykWykladowy = Convert.ToInt32(jezykWykladowy);
+            Czesne = czesne;
+            CzesneDlaObcokrajowcow = czesneDlaObcokrajowcow;
+            PoziomStudiow = Convert.ToInt32(poziomStudiow);
+            MiejsceStudiow = Convert.ToInt32(miejsceStudiow);
+            NazwaKierunku = nazwaKierunku;
+            FormaStudiow = Convert.ToInt32(formaStudiow);
+            Wydzial = Convert.ToInt32(wydzial); ;
+            OpisKierunku = opisKierunku;
+            Strategia = strategia;
         }
 
     }

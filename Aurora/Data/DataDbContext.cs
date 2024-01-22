@@ -106,11 +106,11 @@ namespace Aurora.Data
             );
 
             KierunekStudiow kierunek1 = new KierunekStudiow(
-                1, 1, 0.0, 1500.0, 2, 0, "Architektura", 0, 0, "Architektura dla ambitnych"
+                1, 1, 0.0, 1500.0, 2, 0, "Architektura", 0, 0, "Architektura dla ambitnych", new StrategiaArchitektura()
             );
 
             KierunekStudiow kierunek2 = new KierunekStudiow(
-                2, 1, 0.0, 1250.0, 3, 0, "Automatyka i Robotyka", 0, 10, "AiR dla wymagających"
+                2, 1, 0.0, 1250.0, 3, 0, "Automatyka i Robotyka", 0, 10, "AiR dla wymagających", new Standard1Stopien()
             );
 
             builder.Entity<KierunekStudiow>().HasData(
@@ -218,36 +218,36 @@ namespace Aurora.Data
             );
 
             WspolczynnikRekrutacyjny wspolczynnik1 = new WspolczynnikRekrutacyjny(
-                1, new StrategiaArchitektura(), 1    
-            );            
+                1, 1, null
+            ) ;            
             
             WspolczynnikRekrutacyjny wspolczynnik2 = new WspolczynnikRekrutacyjny(
-                2, new Standard1Stopien(new() { PrzedmiotMaturalny.Fizyka}), 2    
+                2, 2 , null
             );
 
             WspolczynnikRekrutacyjny wspolczynnik3 = new WspolczynnikRekrutacyjny(
-                3, new Standard1Stopien(new() { PrzedmiotMaturalny.Fizyka }), 3
+                3, 3, null
             );
 
             WspolczynnikRekrutacyjny wspolczynnik4 = new WspolczynnikRekrutacyjny(
-                4, new Standard1Stopien(new() { PrzedmiotMaturalny.Fizyka }), 4
+                4,  4, null
             );
 
 
             WspolczynnikRekrutacyjny wspolczynnik5 = new WspolczynnikRekrutacyjny(
-                5, new Standard1Stopien(new() { PrzedmiotMaturalny.Fizyka }), 5
+                5,  5, null
             );
 
             WspolczynnikRekrutacyjny wspolczynnik6 = new WspolczynnikRekrutacyjny(
-                6, new Standard1Stopien(new() { PrzedmiotMaturalny.Fizyka }), 6
+                6, 6, null
             );
 
             WspolczynnikRekrutacyjny wspolczynnik7 = new WspolczynnikRekrutacyjny(
-                7, new Standard1Stopien(new() { PrzedmiotMaturalny.Fizyka }), 7
+                7,  7 , null
             );
 
             WspolczynnikRekrutacyjny wspolczynnik8 = new WspolczynnikRekrutacyjny(
-                8, new Standard1Stopien(new() { PrzedmiotMaturalny.Fizyka }), 8
+                8,  8 , null
             );
 
 

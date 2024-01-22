@@ -6,8 +6,9 @@ namespace Aurora.Utils
     public static class Consts
     {
 
-        public readonly static List<PrzedmiotMaturalny> defaultMaturaSubjects = new() { PrzedmiotMaturalny.Matematyka, PrzedmiotMaturalny.JezykPolski, PrzedmiotMaturalny.JezykObcy, PrzedmiotMaturalny.Fizyka } ;
-        public readonly static List<PrzedmiotMaturalny> defaultMaturaSubjectsMed = new() { PrzedmiotMaturalny.Biologia,PrzedmiotMaturalny.Fizyka, PrzedmiotMaturalny.Matematyka, PrzedmiotMaturalny.JezykPolski, PrzedmiotMaturalny.JezykObcy } ;
+        public readonly static List<PrzedmiotMaturalny> defaultMaturaSubjects = new() { PrzedmiotMaturalny.Matematyka, PrzedmiotMaturalny.JezykPolski, PrzedmiotMaturalny.JezykObcy } ;
+        public readonly static List<PrzedmiotMaturalny> defaultExtraMaturaSubjects = new() { PrzedmiotMaturalny.Fizyka } ;
+        public readonly static List<PrzedmiotMaturalny> defaultExtraMaturaSubjectsMed = new() { PrzedmiotMaturalny.Biologia,PrzedmiotMaturalny.Fizyka } ;
         
         
         public readonly static Dictionary<PrzedmiotMaturalny, (string, string)> SubjectFormKeys = new()
