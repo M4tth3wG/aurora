@@ -49,6 +49,8 @@ namespace Aurora.Models
         [AllowNull]
         public virtual Kandydat Kandydat { get; set; }
 
+        public ICollection<DziedzinaEgzaminuWstepnego> EgzaminyWstepne { get; set; }
+
         public ICollection<AplikacjaRekrutacyjnaDokument> Dokumenty { get; set; }
 
 

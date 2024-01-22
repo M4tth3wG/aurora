@@ -46,6 +46,7 @@ namespace Aurora.Data
 
         public DbSet<AplikacjaRekrutacyjnaDokument> AplikacjaRekrutacyjnaDokument { get; set; }
 
+        public DbSet<DziedzinaEgzaminuWstepnego> DziedzinaEgzaminuWstepnego { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

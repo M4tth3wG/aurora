@@ -57,6 +57,8 @@ namespace Aurora.Models
         [Required]
         public int RodzajRekrutacji { get; set; }
 
+        public ICollection<DziedzinaEgzaminuWstepnego> DostepneEgzaminyWstepne { get; set; }
+
         public ICollection<Opinia> Opinie { get; set; }
 
         public ICollection<AplikacjaRekrutacyjna> aplikacje { get; set; }

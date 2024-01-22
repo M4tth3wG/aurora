@@ -460,6 +460,32 @@ namespace Aurora.Data
                 aplikacjaRekrutacyjnaDokument7,
                 aplikacjaRekrutacyjnaDokument8
             );
+
+            var dziedzinyEgzaminuWstepnego = new List<DziedzinaEgzaminuWstepnego>()
+            {
+                new DziedzinaEgzaminuWstepnego()
+                {
+                    ID = 1,
+                    Dziedzina = "Matematyka"
+                },
+                new DziedzinaEgzaminuWstepnego()
+                {
+                    ID = 2,
+                    Dziedzina = "Język polski"
+                },
+                new DziedzinaEgzaminuWstepnego()
+                {
+                    ID = 3,
+                    Dziedzina = "Chemia"
+                },
+                new DziedzinaEgzaminuWstepnego()
+                {
+                    ID = 4,
+                    Dziedzina = "Biologia"
+                }
+            };
+
+            builder.Entity<DziedzinaEgzaminuWstepnego>().HasData(dziedzinyEgzaminuWstepnego);
         }
     }
 }
