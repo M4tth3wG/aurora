@@ -29,9 +29,9 @@ namespace Aurora.Models
         [StringLength(500, MinimumLength = 10, ErrorMessage = "Długość pola Treści powinna być od 10 do 500 znaków.")]
         public string Tresc { get; set; }
 
-        [Required(ErrorMessage = "Podanie opinii o intuicynjości systemu jest wymagane")]
+        [Required(ErrorMessage = "Podanie opinii o intuicyjności systemu jest wymagane")]
         [DisplayName("Intuicyjność systemu rekrutacyjnego")]
-        [Range(1, 5,ErrorMessage = "Podanie opinii o intuicynjości systemu jest wymagane")]
+        [Range(1, 5,ErrorMessage = "Podanie opinii o intuicyjności systemu jest wymagane")]
         public int IntuicyjnoscSystemu {  get; set; }
 
         [Required(ErrorMessage = "Podanie opinii o informowaniu o statusie przez system jest wymagane")]
