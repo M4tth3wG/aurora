@@ -45,22 +45,19 @@ namespace Aurora.Controllers
         }
 
 
-        public IActionResult Opinia(int turaRekrutacjiID)
+        public IActionResult Opinia(int kandydatID, int turaRekrutacjiID)
         {
-            var kandydaci = _context.Kandydaci
-                .Where(e => e.AdresEmail == HttpContext.User.Identity.Name)
-                .ToList();
 
             var tura = _context.AplikacjeRekrutacyjne
                 .Where(e => e.TuraRekrutacjiID == turaRekrutacjiID)
-                .Where(e => e.Kandydat.ID == kandydaci.FirstOrDefault().ID)
+                .Where(e => e.KandydatID == kandydatID)
                 .Include(e => e.TuraRekrutacji)
                 .Where(e => e.TuraRekrutacji.StatusTury == 4)
                 .ToList();
 
             var opinie = _context.Opinia
                 .Where(e => e.TuraRekrutacjiID == turaRekrutacjiID)
-                .Where(e => e.KandydatID == kandydaci.FirstOrDefault().ID)
+                .Where(e => e.KandydatID == kandydatID)
                 .ToList();
 
             if (tura.Count != 1 || opinie.Count != 0)
@@ -71,7 +68,7 @@ namespace Aurora.Controllers
             var opinia = new Opinia()
             {
 
-                KandydatID = kandydaci.FirstOrDefault().ID,
+                KandydatID = kandydatID,
                 TuraRekrutacjiID = turaRekrutacjiID
 
             };

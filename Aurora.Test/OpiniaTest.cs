@@ -1,4 +1,4 @@
-using Aurora.Controllers;
+﻿using Aurora.Controllers;
 using Aurora.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
@@ -14,15 +14,15 @@ using System.Data;
 
 namespace Aurora.Test
 {
-    public class SzczegolyTest
+    public class OpiniaTest
     {
-       
 
-        //Sprawdzanie czy inny uzytkownik mo�e wejsc do szczegolow mojej aplikacji
+
+        //Sprawdzanie czy inny uzytkownik może wejsc do szczegolow mojej aplikacji
         [Theory]
-        [InlineData(2, 1, "BadRequestResult")]
-        [InlineData(1,1, null)]
-        public void SzczegolyErrorTestList(int kandydatID, int turaID, string resultView)
+        [InlineData(2, 1, null)]
+        [InlineData(1, 1, "BadRequestResult")]
+        public void OpiniaTestErrorWhenOpiniaWasAdded(int kandydatID, int turaID, string resultView)
         {
             // Arrange
 
@@ -32,7 +32,7 @@ namespace Aurora.Test
 
             using (var dbContext = new DataDbContext(dbContextOptions))
             {
-                if(dbContext.Kandydaci.Count() == 0)
+                if (dbContext.Opinia.Count() == 0)
                 {
                     PrepareDB(dbContext);
                 }
@@ -42,7 +42,7 @@ namespace Aurora.Test
 
 
                 // Act
-                var result = controller.Szczegoly(kandydatID, turaID);
+                var result = controller.Opinia(kandydatID, turaID);
 
 
                 // Assert
@@ -63,18 +63,36 @@ namespace Aurora.Test
 
         private void PrepareDB(DataDbContext dbContext)
         {
-            dbContext.KierunkiStudiow.Add( new KierunekStudiow(
-                1, 1, 0.0, 1500.0, 2, 0, "Architektura", 0, 0, "Architektura dla ambitnych"
-            ));
-            dbContext.Adresy.Add(new Adres(1, "Aleje Jerozolimskie", "123", "00-001", "Warszawa"));
-            dbContext.AplikacjeRekrutacyjne.Add(new AplikacjaRekrutacyjna(1, 1, 1, 1, new DateTime(2023, 1, 15), 4, 1));
-            dbContext.Kandydaci.Add(new Kandydat(1, 1, "12345678901", "Jan", "Kowalski", "jan.kowalski@example.com"));
-            dbContext.TuryRekrutacji.Add(new TuraRekrutacji(
-                1, 1, new DateTime(2024, 1, 1), new DateTime(2023, 2, 1), new DateTime(2023, 2, 15), 50, 50, 300.0, 4, 2
-            ));
-            dbContext.OplatyRekrutacyjne.Add(new OplataRekrutacyjna(
-                1, 1, 80.0
-            ));
+
+            dbContext.Opinia.Add(new Opinia()
+            {
+                KandydatID = 1,
+                TuraRekrutacjiID = 1,
+                IntuicyjnoscSystemu = 5,
+                InformowanieOStatusie = 5
+            });
+
+
+            dbContext.AplikacjeRekrutacyjne.Add(new AplikacjaRekrutacyjna()
+            {
+                KandydatID = 1,
+                TuraRekrutacjiID = 1,
+            }
+            );
+
+            dbContext.AplikacjeRekrutacyjne.Add(new AplikacjaRekrutacyjna()
+            {
+                KandydatID = 2,
+                TuraRekrutacjiID = 1,
+            });
+
+            dbContext.TuryRekrutacji.Add(new TuraRekrutacji()
+            {
+                ID = 1,
+                StatusTury = 4
+            });
+
+
 
             dbContext.SaveChanges();
         }
