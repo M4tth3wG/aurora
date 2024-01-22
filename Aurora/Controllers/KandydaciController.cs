@@ -66,7 +66,8 @@ namespace Aurora.Controllers
         
         public async Task<IActionResult> PrzypiszKandydata(int? id, PrzypiszKandydataViewModel model, string PostMessage = "")
 
-        { 
+        {
+            if (id == null) return NotFound();
             var kandydat = await _context.Kandydaci.FindAsync(id);
             if (kandydat != null)
             {
@@ -80,10 +81,7 @@ namespace Aurora.Controllers
 
                 int liczbaAplikacjiPrzedFiltrowaniem = aplikacje.Count;
 
-                if (!string.IsNullOrEmpty(model.SearchFilter)) 
-                { 
-                    aplikacje = aplikacje.Where(a => a.KierunekStudiow.NazwaKierunku.Contains(model.SearchFilter)).ToList();
-                }
+                if (!string.IsNullOrEmpty(model.SearchFilter)) aplikacje = aplikacje.Where(a => a.KierunekStudiow.NazwaKierunku.Contains(model.SearchFilter)).ToList();
 
                 if (!string.IsNullOrEmpty(model.FilterPoziom) && model.FilterPoziom != "dowolny") aplikacje = aplikacje.Where(a => a.KierunekStudiow.PoziomStudiow == Convert.ToInt32(model.FilterPoziom)).ToList();
 
@@ -113,7 +111,7 @@ namespace Aurora.Controllers
 
                 return View(model);
             }
-            return View("Error");
+            return NotFound();
         }
 
 
@@ -139,11 +137,11 @@ namespace Aurora.Controllers
 
                 _context.AplikacjeRekrutacyjne.Update(aplikacja);
 
+                //await _context.SaveChangesAsync();
+
                 var kandydat = await _context.Kandydaci.FindAsync(aplikacja.KandydatID);
 
                 PostMessage = $"Kandydat {kandydat.Imie} {kandydat.Nazwisko} został pomyślnie przypisany do kierunku {aplikacja.KierunekStudiow.NazwaKierunku}.";
-
-                //await _context.SaveChangesAsync();
             }
             else 
             {
@@ -165,7 +163,7 @@ namespace Aurora.Controllers
                                                                  .Where(a => a.ID == id)
                                                                  .FirstOrDefaultAsync();
 
-            if (aplikacja == null) return View("Error");
+            if (aplikacja == null) return NotFound();
 
             if (!string.IsNullOrEmpty(PostMessage)) ViewBag.Message = PostMessage;
 
@@ -180,18 +178,18 @@ namespace Aurora.Controllers
         {
             var aplikacja = await _context.AplikacjeRekrutacyjne.FindAsync(aplikacjaId);
 
-            if (aplikacja == null) return View("Error");
+            if (aplikacja == null) return NotFound();
 
             var kandydat = await _context.Kandydaci.FindAsync(aplikacja.KandydatID);
 
-            if (kandydat == null) return View("Error");
+            if (kandydat == null) return NotFound();
 
-            string Message;
+            string PopUpMessage;
 
             if (string.IsNullOrEmpty(content))
             {
 
-                Message = $"Wiadomość do {kandydat.Imie} {kandydat.Nazwisko} nie została wysłana - wiadomość jest pusta.";
+                PopUpMessage = $"Wiadomość do {kandydat.Imie} {kandydat.Nazwisko} nie została wysłana - wiadomość jest pusta.";
             }
             else
             {
@@ -204,10 +202,10 @@ namespace Aurora.Controllers
                 _context.Wiadomosci.Add(wiadomosc);
                 //await _context.SaveChangesAsync();
 
-                Message = $"Wiadomość do {kandydat.Imie} {kandydat.Nazwisko} została pomyślnie wysłana.";
+                PopUpMessage = $"Wiadomość do {kandydat.Imie} {kandydat.Nazwisko} została pomyślnie wysłana.";
             }
 
-            return RedirectToAction("WyslijWiadomosc", new { aplikacjaId, PostMessage = Message });
+            return RedirectToAction("WyslijWiadomosc", new { aplikacjaId, PostMessage = PopUpMessage });
         }
 
 
