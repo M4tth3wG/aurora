@@ -82,8 +82,9 @@ namespace Aurora.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Opinia([Bind("Id,KandydatID,TuraRekrutacjiID,Tresc")] Opinia opinia)
+        public async Task<IActionResult> Opinia([Bind("Id,KandydatID,TuraRekrutacjiID,Tresc,JakoscPomocy,IntuicyjnoscSystemu,InformowanieOStatusie")] Opinia opinia)
         {
+
             if (ModelState.IsValid)
             {
                 ViewBag.PopUpMessage = "Pomyślnie dodano opinie";
@@ -100,14 +101,14 @@ namespace Aurora.Controllers
 
 
 
-        public IActionResult Szczegoly(int turaRekrutacjiID)
+        public IActionResult Szczegoly(int kandydatID,int turaRekrutacjiID)
         {
 
             var aplikacja = _context.AplikacjeRekrutacyjne
                 .Where(e => e.TuraRekrutacjiID == turaRekrutacjiID)
+                .Where(e => e.KandydatID == kandydatID)
                 .Include(e => e.Kandydat)
                     .ThenInclude(e => e.Adres)
-                .Where(e => e.Kandydat.AdresEmail == HttpContext.User.Identity.Name)
                 .Include(e => e.Kandydat.Adres)
                 .Include(e => e.KierunekStudiow)
                 .Include(e => e.TuraRekrutacji)

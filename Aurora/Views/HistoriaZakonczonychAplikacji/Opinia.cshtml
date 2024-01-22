@@ -10,13 +10,53 @@
 <hr />
 
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-6">
         <form asp-action="Opinia">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
             <input type="hidden" asp-for="KandydatID" />
             <input type="hidden" asp-for="TuraRekrutacjiID" />
             <div class="form-group">
+                <label asp-for="IntuicyjnoscSystemu"></label>
+                <select asp-for="IntuicyjnoscSystemu" class="form-control">
+                    <option value=>Wybierz opcje</option>
+                    <option value=1>Bardzo mała</option>
+                    <option value=2>Mała</option>
+                    <option value=3>Średnia</option>
+                    <option value=4>Dobra</option>
+                    <option value=5>Bardzo dobra</option>
+                </select>
+                <span asp-validation-for="IntuicyjnoscSystemu" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="InformowanieOStatusie"></label>
+                <select asp-for="InformowanieOStatusie" class="form-control">
+                    <option value=>Wybierz opcje</option>
+                    <option value=1>Bardzo małe</option>
+                    <option value=2>Małe</option>
+                    <option value=3>Średnie</option>
+                    <option value=4>Dobre</option>
+                    <option value=5>Bardzo dobre</option>
+                </select>
+                <span asp-validation-for="InformowanieOStatusie" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="JakoscPomocy"></label>
+                <select asp-for="JakoscPomocy" class="form-control">
+                    <option value=>Wybierz opcje</option>
+                    <option value=1>Bardzo mała</option>
+                    <option value=2>Mała</option>
+                    <option value=3>Średnia</option>
+                    <option value=4>Dobra</option>
+                    <option value=5>Bardzo dobra</option>
+                </select>
+                <span asp-validation-for="JakoscPomocy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tresc"></label>
                 <textarea asp-for="Tresc" class="form-control" rows="7" style="resize: none;"></textarea>
                 <span asp-validation-for="Tresc" class="text-danger"></span>
             </div>

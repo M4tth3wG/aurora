@@ -63,7 +63,7 @@
             </td>
             <td>
             <td>
-                    <a class="btn btn-primary" href="@Url.Action("Szczegoly", "HistoriaZakonczonychAplikacji",new {item.TuraRekrutacjiID})" class="text-white">Szczegóły</a>
+                    <a class="btn btn-primary" href="@Url.Action("Szczegoly", "HistoriaZakonczonychAplikacji",new {item.TuraRekrutacjiID, item.KandydatID})" class="text-white">Szczegóły</a>
             </td>
             </td>
                 @if (item.TuraRekrutacji.Opinie.Any(opinia => opinia.KandydatID == item.KandydatID))
