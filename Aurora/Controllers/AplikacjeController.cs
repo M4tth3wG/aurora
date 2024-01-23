@@ -68,6 +68,8 @@ namespace Aurora.Controllers
                 return BadRequest();
             }
 
+            ViewBag.PopUpMessage = TempData["PopUpMessage"];
+
             return View(aplikacja);
         }
 
@@ -82,6 +84,7 @@ namespace Aurora.Controllers
                     .ThenInclude(k => k.DostepneEgzaminyWstepne)
                         .ThenInclude(d => d.Dziedzina)
                 .Include(a => a.WspolczynnikRekrutacyjny)
+                    .ThenInclude(w => w.skladowe)
                 .Include(a => a.TuraRekrutacji)
                 .Include(a => a.Dokumenty)
                     .ThenInclude(d => d.Dokument)
@@ -127,6 +130,9 @@ namespace Aurora.Controllers
 
             aplikacja.Status = (int)RodzajStatusuAplikacji.Anulowana;
             await _context.SaveChangesAsync();
+
+            TempData["PopUpMessage"] = "Pomyślnie anulowano aplikacje.";
+
             return RedirectToAction(nameof(Details), new { id });
         }
 

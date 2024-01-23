@@ -142,7 +142,7 @@ namespace Aurora.Controllers
         [Authorize(Roles = "PracownikDziekanatu")]
         public IActionResult DodajNowyKierunekStudiow(KierunekStudiowKluczViewModel klucz)
         {
-            
+
             if (ModelState.IsValid)
             {
                 KierunekStudiow kierunek = new KierunekStudiow()
@@ -159,10 +159,16 @@ namespace Aurora.Controllers
                     return RedirectToAction(nameof(DodajNowyKierunekStudiowSzczegoly), kierunek);
                 }
 
-                ViewBag.Blad = "Istnieje już kierunek o podanych danych.";
+                return RedirectToAction(nameof(ZduplikowanyKierunek), klucz);
             }
             
             return View(klucz);
+        }
+
+        public IActionResult ZduplikowanyKierunek(KierunekStudiowKluczViewModel klucz)
+        {
+            ViewBag.PopUpMessage = "Istnieje już kierunek o podanych danych.";
+            return View("DodajNowyKierunekStudiow", klucz);
         }
 
         [Authorize(Roles = "PracownikDziekanatu")]
