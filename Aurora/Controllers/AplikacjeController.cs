@@ -82,6 +82,7 @@ namespace Aurora.Controllers
                     .ThenInclude(k => k.DostepneEgzaminyWstepne)
                         .ThenInclude(d => d.Dziedzina)
                 .Include(a => a.WspolczynnikRekrutacyjny)
+                    .ThenInclude(w => w.skladowe)
                 .Include(a => a.TuraRekrutacji)
                 .Include(a => a.Dokumenty)
                     .ThenInclude(d => d.Dokument)
