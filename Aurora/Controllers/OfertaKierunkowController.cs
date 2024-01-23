@@ -100,63 +100,27 @@ namespace Aurora.Controllers
             if (model == null) return View("Error");
 
             var kierunek = await _context.KierunkiStudiow.FindAsync(model.KierunekID);
-            if (kierunek == null)
-            {
-                return View("Error");
-            }
 
-            var strategia = UtilsRR.GetStrategiaDlaKierunku(kierunek);
+            if (kierunek == null) return NotFound();
 
-            var (listaBrakujacychPrzedmiotow, czyWprowadzonoEgzaminZRysunku) = CzyWprowadzonoWszystkiePotrzebneWartosci(strategia, model);
-            if (listaBrakujacychPrzedmiotow.Count > 0)
-            {
-                ViewBag.PopUpMessage = $"Brak podanego przynajmniej jednego wyniku dla przedmiotu {StringUtils.ConvertListToTupleFormat(listaBrakujacychPrzedmiotow)}.";
-            }
-            else if (strategia is StrategiaArchitektura && !czyWprowadzonoEgzaminZRysunku)
-            {
-                ViewBag.PopUpMessage = "Brak podanego wyniku dla egzaminu z rysunku.";
-            }
-            else
-            {
-                ViewBag.WartoscWR = ObliczPunktyWspolczynnika(strategia, model);
-            }
+            var strategia = kierunek.Strategia;
+
+            var skladowe = UtilsRR.ConvertModelToComponents(model);
+
+            var listaBrakujacychPrzedmiotow = strategia.GetMissingSubjects(skladowe);
+
+            var czyWprowadzonoEgzaminZRysunku = model.wynikiMaturalne["EgzRys"] != null;
+
+            if (listaBrakujacychPrzedmiotow.Count > 0) ViewBag.PopUpMessage = $"Brak podanego przynajmniej jednego wyniku dla przedmiotu {StringUtils.ConvertListToTupleFormat(listaBrakujacychPrzedmiotow)}.";
+
+            else if (strategia is StrategiaArchitektura && !czyWprowadzonoEgzaminZRysunku) ViewBag.PopUpMessage = "Brak podanego wyniku dla egzaminu z rysunku.";
+
+            else ViewBag.WartoscWR = strategia.GetTotalPoints(skladowe);
 
             return View(model);
         }
 
 
-        private (List<string>, bool) CzyWprowadzonoWszystkiePotrzebneWartosci(StrategiaWspolRekrut strategia, WyliczWspolczynnikViewModel model)
-        {
-            return strategia switch
-            {
-                StrategiaWspolRekrut1Stopien st1 => CzyWprowadzonoWszystkiePotrzebneWartosciStopien1(st1, model),
-                _ => default,
-            };
-        }
-
-
-        private (List<string>, bool) CzyWprowadzonoWszystkiePotrzebneWartosciStopien1(StrategiaWspolRekrut1Stopien strategia, WyliczWspolczynnikViewModel model)
-        {
-            var brakujacePrzedmioty = new List<string>();
-            var czyWprowadzonoEgzamin = true;
-
-            foreach (var subject in strategia.przedmiotyMaturalne)
-            {
-                var (keyP, keyR) = Consts.SubjectFormKeys[subject];
-                if (model.wynikiMaturalne[keyP] == null && model.wynikiMaturalne[keyR] == null) brakujacePrzedmioty.Add(EnumUtils.GetDescription<PrzedmiotMaturalny>(subject));
-            }
-
-            if (model.wynikiMaturalne["EgzRys"] == null) czyWprowadzonoEgzamin = false;
-
-            return (brakujacePrzedmioty, czyWprowadzonoEgzamin);
-        }
-
-        private double? ObliczPunktyWspolczynnika(StrategiaWspolRekrut strategia, WyliczWspolczynnikViewModel model)
-        {
-            if (strategia == null || model == null) return null;
-            var components = UtilsRR.ConvertFormPointsToComponents(model);
-            return strategia.WyliczPunkty(components);
-        }
 
 
         // Obsluga funkconalnosci pracownika dziekanatu: Mateusz Gazda

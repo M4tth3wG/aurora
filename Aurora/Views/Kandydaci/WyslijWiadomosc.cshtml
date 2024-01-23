@@ -41,7 +41,7 @@
 
     <input type="text" id="bigMessage" class="form-control" style="height: 200px; text-align: start" placeholder="Treść wiadomości">
 
-    <div style="display: flex; justify-content: space-between; max-width: 600px; margin: 0 auto; padding: 20px;">
+    <div class="send-msg-btn-container">
 
         <form asp-action="PrzypiszKandydata" method="get">
             <input type="hidden" name="id" value=@Model.KandydatID>

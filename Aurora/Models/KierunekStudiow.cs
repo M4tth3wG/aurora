@@ -1,15 +1,18 @@
 ﻿using Aurora.Enums;
-using Microsoft.EntityFrameworkCore;
+using Aurora.Interfaces;
+using Aurora.OtherClasses.StrategiesForRR;
+using Aurora.Utils;
+using Microsoft.CodeAnalysis.Operations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Aurora.Models
 {
     [Serializable]
-    [Index(nameof(NazwaKierunku), nameof(JezykWykladowy), nameof(PoziomStudiow), nameof(MiejsceStudiow), nameof(FormaStudiow), IsUnique = true)] // unikalna kombinacja
     public class KierunekStudiow
     {
         [Key]
@@ -19,6 +22,38 @@ namespace Aurora.Models
         [Display(Name = "Język Wykładowy")]
         [Required]
         public int JezykWykladowy { get; set; }
+
+        [NotMapped]
+        private int _StrategiaID;        
+        
+        [NotMapped]
+        private IStrategiaWspolRekrut _Strategia;
+
+        [Required]
+        public int StrategiaID {
+            get { return _StrategiaID; }
+            set
+            {
+                if (Enum.IsDefined(typeof(RodzajStrategii), value))
+                {
+                    _StrategiaID = value;
+                    _Strategia = StrategyUtils.ConvertIDToStrategy(value);
+                }
+            }
+
+        }
+
+        [NotMapped]
+        public IStrategiaWspolRekrut Strategia
+        {
+            get
+            {
+                _Strategia ??= StrategyUtils.ConvertIDToStrategy(_StrategiaID);
+                return _Strategia;
+            }
+            private set => _Strategia = value;
+        }
+
 
         [Required]
         [Display(Name = "Czesne")]
@@ -61,17 +96,18 @@ namespace Aurora.Models
         [MaxLength(1023, ErrorMessage = "Opis może zawierać do 1023 znaków.")]
         public string OpisKierunku { get; set; }
 
-        public ICollection<DziedzinaEgzaminuWstepnegoKierunekStudiow> DostepneEgzaminyWstepne { get; set; }
+        public ICollection<DziedzinaEgzaminuWstepnego> DostepneEgzaminyWstepne { get; set; }
 
         public ICollection<TuraRekrutacji> turyRekrutacji { get; set; }
         public ICollection<AplikacjaRekrutacyjna> aplikacje { get; set; }
 
         public ICollection<KandydatKierunekStudiow> kandydaci { get; set; }
         public ICollection<KandydatUlubionyKierunekStudiow> ulubioneKandydat { get; set; }
+        public ICollection<WspolczynnikRekrutacyjny> WspolczynnikiRekrut { get; set; }
 
 
 
-        public KierunekStudiow(int iD, int jezykWykladowyID, double czesne, double czesneDlaObcokrajowcow, int poziomStudiowID, int miejsceStudiowID, string nazwaKierunku, int formaStudiowID, int wydzialID, string opisKierunku)
+        public KierunekStudiow(int iD, int jezykWykladowyID, double czesne, double czesneDlaObcokrajowcow, int poziomStudiowID, int miejsceStudiowID, string nazwaKierunku, int formaStudiowID, int wydzialID, string opisKierunku, RodzajStrategii strategia)
         {
             ID = iD;
             JezykWykladowy = jezykWykladowyID;
@@ -83,9 +119,10 @@ namespace Aurora.Models
             FormaStudiow = formaStudiowID;
             Wydzial = wydzialID;
             OpisKierunku = opisKierunku;
-        }
-
-        public KierunekStudiow(int iD, Jezyk jezykWykladowy, double czesne, double czesneDlaObcokrajowcow, int poziomStudiow, int miejsceStudiow, string nazwaKierunku, int formaStudiow, int wydzial, string opisKierunku)
+            StrategiaID = Convert.ToInt32(strategia);
+        }        
+        
+        public KierunekStudiow(int iD, Jezyk jezykWykladowy, double czesne, double czesneDlaObcokrajowcow, int poziomStudiow, int miejsceStudiow, string nazwaKierunku, int formaStudiow, int wydzial, string opisKierunku, int strategiaID)
         {
             ID = iD;
             JezykWykladowy = Convert.ToInt32(jezykWykladowy);
@@ -97,6 +134,7 @@ namespace Aurora.Models
             FormaStudiow = Convert.ToInt32(formaStudiow);
             Wydzial = Convert.ToInt32(wydzial); ;
             OpisKierunku = opisKierunku;
+            StrategiaID = strategiaID;
         }
 
     }
