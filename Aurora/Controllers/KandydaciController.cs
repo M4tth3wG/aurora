@@ -32,7 +32,7 @@ namespace Aurora.Controllers
 
             if (!string.IsNullOrEmpty(searchFilter))
             {
-                kandydaci = kandydaci.Where(k => CzyKandydatPasuje(k.Imie, k.Nazwisko, searchFilter)).ToList();
+                kandydaci = kandydaci.Where(k => StringUtils.CzyKandydatPasuje(k.Imie, k.Nazwisko, searchFilter)).ToList();
             }
 
             switch (sortOption)
@@ -68,50 +68,48 @@ namespace Aurora.Controllers
 
         {
             if (id == null) return NotFound();
+
             var kandydat = await _context.Kandydaci.FindAsync(id);
-            if (kandydat != null)
-            {
-                if (model == null) 
+
+            if (kandydat == null) return NotFound();
+
+            if (model == null) model = new PrzypiszKandydataViewModel();
+
+            var aplikacje = GetAktualneAplikacje(id);
+
+            model.Kandydat = kandydat;
+
+            int liczbaAplikacjiPrzedFiltrowaniem = aplikacje.Count;
+
+            if (!string.IsNullOrEmpty(model.SearchFilter)) aplikacje = aplikacje.Where(a => a.KierunekStudiow.NazwaKierunku.Contains(model.SearchFilter)).ToList();
+
+            if (!string.IsNullOrEmpty(model.FilterPoziom) && model.FilterPoziom != "dowolny") aplikacje = aplikacje.Where(a => a.KierunekStudiow.PoziomStudiow == Convert.ToInt32(model.FilterPoziom)).ToList();
+
+            if (!string.IsNullOrEmpty(model.FilterForma) && model.FilterForma != "dowolna") aplikacje = aplikacje.Where(a => a.KierunekStudiow.FormaStudiow == Convert.ToInt32(model.FilterForma)).ToList();
+
+            if (!string.IsNullOrEmpty(model.FilterJezyk) && model.FilterJezyk != "dowolny") aplikacje = aplikacje.Where(a => a.KierunekStudiow.JezykWykladowy == Convert.ToInt32(model.FilterJezyk)).ToList();
+
+            if (!string.IsNullOrEmpty(model.FilterWydzial) && model.FilterWydzial != "dowolny") aplikacje = aplikacje.Where(a => a.KierunekStudiow.Wydzial == Convert.ToInt32(model.FilterWydzial)).ToList();
+
+            if (!string.IsNullOrEmpty(model.FilterMiejsce) && model.FilterMiejsce != "dowolne") aplikacje = aplikacje.Where(a => a.KierunekStudiow.MiejsceStudiow == Convert.ToInt32(model.FilterMiejsce)).ToList();
+
+            ViewBag.PopUpMessage = PostMessage;
+            model.FilterAplikacje = aplikacje;
+
+            if (aplikacje.Count == 0) {
+                if (liczbaAplikacjiPrzedFiltrowaniem != 0)
                 {
-                    model = new PrzypiszKandydataViewModel();
-                }
-                var aplikacje = GetAktualneAplikacje(id);
-
-                model.Kandydat = kandydat;
-
-                int liczbaAplikacjiPrzedFiltrowaniem = aplikacje.Count;
-
-                if (!string.IsNullOrEmpty(model.SearchFilter)) aplikacje = aplikacje.Where(a => a.KierunekStudiow.NazwaKierunku.Contains(model.SearchFilter)).ToList();
-
-                if (!string.IsNullOrEmpty(model.FilterPoziom) && model.FilterPoziom != "dowolny") aplikacje = aplikacje.Where(a => a.KierunekStudiow.PoziomStudiow == Convert.ToInt32(model.FilterPoziom)).ToList();
-
-                if (!string.IsNullOrEmpty(model.FilterForma) && model.FilterForma != "dowolna") aplikacje = aplikacje.Where(a => a.KierunekStudiow.FormaStudiow == Convert.ToInt32(model.FilterForma)).ToList();
-
-                if (!string.IsNullOrEmpty(model.FilterJezyk) && model.FilterJezyk != "dowolny") aplikacje = aplikacje.Where(a => a.KierunekStudiow.JezykWykladowy == Convert.ToInt32(model.FilterJezyk)).ToList();
-
-                if (!string.IsNullOrEmpty(model.FilterWydzial) && model.FilterWydzial != "dowolny") aplikacje = aplikacje.Where(a => a.KierunekStudiow.Wydzial == Convert.ToInt32(model.FilterWydzial)).ToList();
-
-                if (!string.IsNullOrEmpty(model.FilterMiejsce) && model.FilterMiejsce != "dowolne") aplikacje = aplikacje.Where(a => a.KierunekStudiow.MiejsceStudiow == Convert.ToInt32(model.FilterMiejsce)).ToList();
-
-                ViewBag.PopUpMessage = PostMessage;
-                model.FilterAplikacje = aplikacje;
-
-                if (aplikacje.Count == 0) {
-                    if (liczbaAplikacjiPrzedFiltrowaniem != 0)
-                    {
-                        ViewBag.PopUpMessage = "Nie znaleziono pasujących wyników do podanych kryteriów wyszukiwania.";
-                    }
-
-                    // czy zrobić osobne komunikaty dla przypadku gdy kandydat nie ma żadnych aplikacji
-                    // oraz dla przypadku gdy nie ma aplikacji, które nie spełniają kryteriów wyszukiwania
-
-                    ViewBag.NoResultMessage = $"Kandydat {kandydat.Imie} {kandydat.Nazwisko} nie posiada w aktualnej turze rekrutacji aplikacji spełniające podane kryteria wyszukiwania.";
-
+                    ViewBag.PopUpMessage = "Nie znaleziono pasujących wyników do podanych kryteriów wyszukiwania.";
                 }
 
-                return View(model);
+                // czy zrobić osobne komunikaty dla przypadku gdy kandydat nie ma żadnych aplikacji
+                // oraz dla przypadku gdy nie ma aplikacji, które nie spełniają kryteriów wyszukiwania
+
+                ViewBag.NoResultMessage = $"Kandydat {kandydat.Imie} {kandydat.Nazwisko} nie posiada w aktualnej turze rekrutacji aplikacji spełniające podane kryteria wyszukiwania.";
+
             }
-            return NotFound();
+
+            return View(model);
         }
 
 
@@ -132,6 +130,8 @@ namespace Aurora.Controllers
                 ++tura.LiczbaZajetychMiejsc;
 
                 _context.TuryRekrutacji.Update(tura);
+
+                _context.KandydaciTuryRekrutacji.Add(new KandydatTuraRekrutacji(aplikacja.KandydatID, tura.ID));
 
                 aplikacja.Status = Convert.ToInt32(RodzajStatusuAplikacji.ZakonczonaSukcesem);
 
@@ -209,21 +209,7 @@ namespace Aurora.Controllers
         }
 
 
-        private bool CzyKandydatPasuje(string Imie, string Nazwisko, string SearchText) 
-        {
-            //return string.Equals(Nazwisko, SearchText, StringComparison.OrdinalIgnoreCase) ||
-            //       string.Equals(Imie, SearchText, StringComparison.OrdinalIgnoreCase) ||
-            //       string.Equals($"{Nazwisko} {Imie}", SearchText, StringComparison.OrdinalIgnoreCase);
-            var imieMalaLitera = Imie.ToLower();
-            var nazwiskoMalaLitera = Nazwisko.ToLower();
-            var SearchTextMalaLitera = SearchText.ToLower();
-            var polaczoneNazwiskoIImie = $"{nazwiskoMalaLitera} {imieMalaLitera}";
 
-            return imieMalaLitera.Contains(SearchTextMalaLitera) ||
-                   nazwiskoMalaLitera.Contains(SearchTextMalaLitera) ||
-                   polaczoneNazwiskoIImie.Contains(SearchTextMalaLitera);
-                    
-        }
         
 
 
@@ -235,6 +221,8 @@ namespace Aurora.Controllers
                                                  .Include(a => a.KierunekStudiow)
                                                  .Where(a => a.KandydatID == id &&
                                                             a.Status == Convert.ToInt32(RodzajStatusuAplikacji.OczekujeNaRozpatrzenie) &&
+                                                            a.DataZlozenia <= a.TuraRekrutacji.TerminZakonczeniaPrzyjmowaniaAplikacji &&
+                                                            a.DataZlozenia >= a.TuraRekrutacji.DataOtwarcia &&
                                                             (a.TuraRekrutacji.StatusTury == Convert.ToInt32(RodzajStatusuTury.zamknieta) ||
                                                             a.TuraRekrutacji.StatusTury == Convert.ToInt32(RodzajStatusuTury.otwarta))
                                                  )
