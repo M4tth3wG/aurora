@@ -64,7 +64,7 @@ namespace Aurora.Test
         private void PrepareDB(DataDbContext dbContext)
         {
             dbContext.KierunkiStudiow.Add( new KierunekStudiow(
-                1, 1, 0.0, 1500.0, 2, 0, "Architektura", 0, 0, "Architektura dla ambitnych",0
+                1, 1, 0.0, 1500.0, 2, 0, "Architektura", 0, 0, "Architektura dla ambitnych", 0
             ));
             dbContext.Adresy.Add(new Adres(1, "Aleje Jerozolimskie", "123", "00-001", "Warszawa"));
             dbContext.AplikacjeRekrutacyjne.Add(new AplikacjaRekrutacyjna(1, 1, 1, 1, new DateTime(2023, 1, 15), 4, 1));
