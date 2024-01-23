@@ -35,8 +35,8 @@ namespace Aurora.Controllers
             var aplikacje = await _context.AplikacjeRekrutacyjne
                 .Where(e => e.Status == Convert.ToInt32(RodzajStatusuAplikacji.ZakonczonaSukcesem) || e.Status == Convert.ToInt32(RodzajStatusuAplikacji.ZakonczonaNiepowodzeniem) || e.Status == Convert.ToInt32(RodzajStatusuAplikacji.Odrzucona))
                 .Include(e => e.Kandydat)
-/*                .Where(e => e.Kandydat.AdresEmail == HttpContext.User.Identity.Name)
-*/                .Include(e => e.KierunekStudiow)
+                .Where(e => e.Kandydat.AdresEmail == HttpContext.User.Identity.Name)
+                .Include(e => e.KierunekStudiow)
                 .Include(e => e.TuraRekrutacji)
                     .ThenInclude(e => e.Opinie)
                 .Where(e => e.TuraRekrutacji.DataZakonczenia < DateTime.Now.Date)
