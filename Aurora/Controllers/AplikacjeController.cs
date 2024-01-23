@@ -154,6 +154,7 @@ namespace Aurora.Controllers
                                         
 
             ViewBag.AplikacjaID = aplikacja.ID;
+            ViewBag.PopUpMessage = TempData["PopUpMessage"];
 
             if (dostepneEgzaminy.Any())
             {
@@ -191,6 +192,7 @@ namespace Aurora.Controllers
             TempData["PopUpMessage"] = "Pomyślnie zapisano na egzamin.";
 
             return RedirectToAction(nameof(ZapiszNaEgzaminy), new { aplikacja.ID });
+            //return View("ZapiszNaEgzaminy");
         }
 
         public bool CzyKandydatZalogowany(Kandydat kandydat)

@@ -15,13 +15,29 @@
     form.submit();
 }
 
+function clearFilters2() {
+    document.getElementById('SearchFilter').value = '';
+
+    var dropdowns = document.getElementsByClassName('select-item');
+    for (var i = 0; i < dropdowns.length; i++) {
+        var select = dropdowns[i];
+        select.selectedIndex = 0;
+    }
+
+    var form = document.getElementById('filterForm');
+    if (form) {
+        form.submit();
+    }
+}
+
 function submitFilterForm() {
     document.getElementById("filterForm").submit();
-    document.getElementById("searchForm").elements["filterPoziom"].value = document.getElementById("filterPoziom").value;
-    document.getElementById("searchForm").elements["filterForma"].value = document.getElementById("filterForma").value;
-    document.getElementById("searchForm").elements["filterJezyk"].value = document.getElementById("filterJezyk").value;
-    document.getElementById("searchForm").elements["filterWydzial"].value = document.getElementById("filterWydzial").value;
-    document.getElementById("searchForm").elements["filterMiejsce"].value = document.getElementById("filterMiejsce").value;
+//    document.getElementById("searchForm").elements["txtSearchFilter"].value = document.getElementById("txtSearchFilter").value;
+//    document.getElementById("searchForm").elements["filterPoziom"].value = document.getElementById("filterPoziom").value;
+//    document.getElementById("searchForm").elements["filterForma"].value = document.getElementById("filterForma").value;
+//    document.getElementById("searchForm").elements["filterJezyk"].value = document.getElementById("filterJezyk").value;
+//    document.getElementById("searchForm").elements["filterWydzial"].value = document.getElementById("filterWydzial").value;
+//    document.getElementById("searchForm").elements["filterMiejsce"].value = document.getElementById("filterMiejsce").value;
 }
 
 function ograniczWartosciMinMax(element) {

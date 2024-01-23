@@ -1,4 +1,5 @@
 ﻿using Aurora.Interfaces;
+using Aurora.Utils;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,16 +14,11 @@ namespace Aurora.Models
         [Display(Name = "ID")]
         public int ID { get; set; }
 
-
-        //tymaczsowo public
-        [NotMapped]
-        public StrategiaWspolRekrut strategia { get; set; }
-
         public double Wartosc 
         {
             get
             {
-                return strategia.WyliczPunkty(skladowe.ToList());
+                return AplikacjaRekrutacyjna.KierunekStudiow.Strategia?.GetTotalPoints(skladowe.ToList()) ?? -1.0;
             }
         }
 
@@ -33,27 +29,25 @@ namespace Aurora.Models
         [AllowNull]
         [Display(Name = "Aplikacja rekrutacyjna")]
         public virtual AplikacjaRekrutacyjna AplikacjaRekrutacyjna { get; set; }
-        
+
+        [AllowNull]
+        public int? EgzaminID { get; set; }
+
         [AllowNull]
         [Display(Name = "Egzamin")]
-        public virtual Egzamin egzamin { get; set; }
+        public virtual Egzamin Egzamin { get; set; }
 
         public ICollection<SkladowaWspRekrut> skladowe { get; set; }
 
         public WspolczynnikRekrutacyjny()
         {
         }
-        public WspolczynnikRekrutacyjny(int iD, int aplikacjaRekrutacyjnaID)
-        {
-            ID = iD;
-            AplikacjaRekrutacyjnaID = aplikacjaRekrutacyjnaID;
-        }
 
-        public WspolczynnikRekrutacyjny(int iD, StrategiaWspolRekrut strategia, int aplikacjaRekrutacyjnaID)
+        public WspolczynnikRekrutacyjny(int iD, int aplikacjaRekrutacyjnaID, int? egzaminID = null)
         {
             ID = iD;
-            this.strategia = strategia;
             AplikacjaRekrutacyjnaID = aplikacjaRekrutacyjnaID;
+            EgzaminID = egzaminID;
         }
     }
 }
