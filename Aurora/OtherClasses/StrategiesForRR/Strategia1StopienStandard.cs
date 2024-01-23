@@ -53,10 +53,5 @@ namespace Aurora.OtherClasses.StrategiesForRR
         {
             return 0.0;
         }
-
-        public override bool HasRequiredValues(List<SkladowaWspRekrut> skladowe)
-        {
-            return UtilsRR.HasPassedMatura(skladowe, przedmiotyMaturalneDodatkowe);
-        }
     }
 }
