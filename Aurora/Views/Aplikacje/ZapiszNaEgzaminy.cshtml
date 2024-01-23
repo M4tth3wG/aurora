@@ -26,17 +26,14 @@
     <a class="btn btn-primary" asp-action="Details" asp-route-id="@ViewBag.AplikacjaID">Powrót</a>
 </div>
 
-@{
-    var message = TempData["PopUpMessage"];
-}
 
-@if (message != null)
+@if (ViewBag.PopUpMessage != null)
 {
     <div class="modal" id="myModal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">
-                    <h3 style="text-align: center">@message</h3>
+                    <h3 style="text-align: center">@ViewBag.PopUpMessage</h3>
                     <button style="float: right" type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
                 </div>
             </div>

@@ -40,13 +40,10 @@
                 Zapisano na egzaminy: 
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.OplataRekrutacyjna.Kwota)
-            </dd>
-            <dt class="col-sm-2">
                 @if (Model.Dokumenty.Any())
                 {
                     <ul>
-                        @foreach (var item in Model.KierunekStudiow.DostepneEgzaminyWstepne)
+                        @foreach (var item in Model.EgzaminyWstepne)
                         {
                             <li>
                                 @item.Dziedzina
@@ -54,6 +51,9 @@
                         }
                     </ul>
                 }
+            </dd>
+            <dt class="col-sm-2">
+                Złożone dokumenty 
             </dt>
             <dd class="col-sm-10">
                 @if (Model.Dokumenty.Any())
