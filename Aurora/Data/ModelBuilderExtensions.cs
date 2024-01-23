@@ -209,7 +209,7 @@ namespace Aurora.Data
             );
 
             AplikacjaRekrutacyjna aplikacja5 = new AplikacjaRekrutacyjna(
-                5, 2, 3, 5, new DateTime(2023, 1, 12), 5, 3
+                5, 2, 3, 5, new DateTime(2023, 1, 12), 6, 3
             );
 
             AplikacjaRekrutacyjna aplikacja6 = new AplikacjaRekrutacyjna(
@@ -217,7 +217,7 @@ namespace Aurora.Data
             );
 
             AplikacjaRekrutacyjna aplikacja7 = new AplikacjaRekrutacyjna(
-                7, 2, 3, 7, new DateTime(2023, 1, 14), 6, 5
+                7, 2, 3, 7, new DateTime(2023, 1, 14), 5, 5
             );
 
             AplikacjaRekrutacyjna aplikacja8 = new AplikacjaRekrutacyjna(
@@ -280,6 +280,7 @@ namespace Aurora.Data
             );
 
             SkladowaWspRekrut skladowa1 = new SkladowaWspRekrut(1, 70, 1, 0, 1, null);
+            SkladowaWspRekrut skladowa57 = new SkladowaWspRekrut(57, 70, 1, 0, 0, null); // add basic math
             SkladowaWspRekrut skladowa2 = new SkladowaWspRekrut(2, 70, 1, 3, 1, null);
             SkladowaWspRekrut skladowa3 = new SkladowaWspRekrut(3, 70, 1, 1, 1, null);
             SkladowaWspRekrut skladowa4 = new SkladowaWspRekrut(4, 70, 1, 1, 0, null);
@@ -358,7 +359,7 @@ namespace Aurora.Data
                 skladowa40, skladowa41, skladowa42, skladowa43, skladowa44,
                 skladowa45, skladowa46, skladowa47, skladowa48, skladowa49,
                 skladowa50, skladowa51, skladowa52, skladowa53, skladowa54,
-                skladowa55, skladowa56
+                skladowa55, skladowa56, skladowa57
             );
 
             var pracownicy = new List<PracownikDziekanatu>()
