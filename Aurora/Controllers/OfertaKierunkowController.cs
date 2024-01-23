@@ -195,7 +195,7 @@ namespace Aurora.Controllers
             return View("DodajNowyKierunekStudiowSzczegoly", kierunek);
         }
 
-        private bool CzyKluczKierunkuUnikalny(KierunekStudiow klucz)
+        public bool CzyKluczKierunkuUnikalny(KierunekStudiow klucz)
         {
             var kierunki = _context.KierunkiStudiow.ToList();
 
