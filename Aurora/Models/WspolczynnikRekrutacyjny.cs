@@ -18,7 +18,7 @@ namespace Aurora.Models
         {
             get
             {
-                return AplikacjaRekrutacyjna.KierunekStudiow.Strategia?.WyliczPunkty(skladowe.ToList()) ?? -1.0;
+                return AplikacjaRekrutacyjna.KierunekStudiow.Strategia?.GetTotalPoints(skladowe.ToList()) ?? -1.0;
             }
         }
 

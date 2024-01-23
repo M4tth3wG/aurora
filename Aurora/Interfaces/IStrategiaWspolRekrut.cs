@@ -6,7 +6,7 @@ namespace Aurora.Interfaces
 {
     public interface IStrategiaWspolRekrut
     {
-        public double WyliczPunkty(List<SkladowaWspRekrut> skladowe)
+        public double GetTotalPoints(List<SkladowaWspRekrut> skladowe)
         {
             if (HasRequiredValues(skladowe)) return GetBasicPoints(skladowe) + GetExtraSubjectPoints(skladowe) + GetMedBiologyPoints(skladowe) +
                 GetDPoints(skladowe) + GetAverageGradePoints(skladowe) + GetODPoints(skladowe) + GetExamPoints(skladowe);
@@ -30,6 +30,7 @@ namespace Aurora.Interfaces
 
         public abstract bool HasRequiredValues(List<SkladowaWspRekrut> skladowe);
 
+        public abstract List<string> GetMissingSubjects(List<SkladowaWspRekrut> skladowe);
 
     }
 }

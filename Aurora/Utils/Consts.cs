@@ -6,11 +6,11 @@ namespace Aurora.Utils
     public static class Consts
     {
 
-        public readonly static List<PrzedmiotMaturalny> defaultMaturaSubjects = new() { PrzedmiotMaturalny.Matematyka, PrzedmiotMaturalny.JezykPolski, PrzedmiotMaturalny.JezykObcy } ;
-        public readonly static List<PrzedmiotMaturalny> defaultExtraMaturaSubjects = new() { PrzedmiotMaturalny.Fizyka } ;
-        public readonly static List<PrzedmiotMaturalny> defaultExtraMaturaSubjectsMed = new() { PrzedmiotMaturalny.Biologia,PrzedmiotMaturalny.Fizyka } ;
-        
-        
+        public readonly static List<PrzedmiotMaturalny> defaultMaturaSubjects = new() { PrzedmiotMaturalny.Matematyka, PrzedmiotMaturalny.JezykPolski, PrzedmiotMaturalny.JezykObcy };
+        public readonly static List<PrzedmiotMaturalny> defaultExtraMaturaSubjects = new() { PrzedmiotMaturalny.Fizyka };
+        public readonly static List<PrzedmiotMaturalny> defaultExtraMaturaSubjectsMed = new() { PrzedmiotMaturalny.Biologia, PrzedmiotMaturalny.Fizyka };
+
+
         public readonly static Dictionary<PrzedmiotMaturalny, (string, string)> SubjectFormKeys = new()
         {
             { PrzedmiotMaturalny.JezykPolski, ("PolPodst", "PolRoz" ) },
@@ -22,6 +22,14 @@ namespace Aurora.Utils
             { PrzedmiotMaturalny.Geografia, ("GeoPodst", "GeoRoz" ) },
             { PrzedmiotMaturalny.Informatyka, ("InfoPodst", "InfoRoz" ) }
         };
+
+        public readonly static Dictionary<PrzedmiotMaturalny, List<RodzajSkladowejWspRekrut>> basicMaturaSubjectDict = new()
+        {
+            { PrzedmiotMaturalny.JezykPolski, new () {RodzajSkladowejWspRekrut.P, RodzajSkladowejWspRekrut.JP } },
+            { PrzedmiotMaturalny.JezykObcy, new () {RodzajSkladowejWspRekrut.P, RodzajSkladowejWspRekrut.JO } },
+            { PrzedmiotMaturalny.Matematyka, new () {RodzajSkladowejWspRekrut.P, RodzajSkladowejWspRekrut.M} }
+        };
+        
 
        public static List<(RodzajSkladowejWspRekrut, PrzedmiotMaturalny, string)> RRFormValuesConverterList = new() {
             (RodzajSkladowejWspRekrut.P, PrzedmiotMaturalny.Matematyka, "MatPodst"),

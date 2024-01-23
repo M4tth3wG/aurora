@@ -99,18 +99,8 @@ namespace Aurora.Utils
             return (punktyMatematyka, punktyJezykObcy, punktyJezykPolski);
         }
 
-        public static bool HasPassedMatura(List<SkladowaWspRekrut> components, List<PrzedmiotMaturalny> maturaSubjects)
-        {
-            foreach (var subject in maturaSubjects)
-            {
-                var subjectComponents = components.Where(c => c.PrzedmiotMaturalny == Convert.ToInt32(subject)).ToList();
-                if (subjectComponents.Count == 0) return false;
-            }
 
-            return true;
-        }
-
-        public static List<SkladowaWspRekrut> ConvertFormPointsToComponents(WyliczWspolczynnikViewModel model)
+        public static List<SkladowaWspRekrut> ConvertModelToComponents(WyliczWspolczynnikViewModel model)
         {
             List<SkladowaWspRekrut> result = new() { };
             foreach (var (type, subject, key) in Consts.RRFormValuesConverterList)
@@ -138,13 +128,6 @@ namespace Aurora.Utils
                 );
             }
             return result;
-        }
-
-        public static double? ObliczPunktyWspolczynnika(IStrategiaWspolRekrut strategia, WyliczWspolczynnikViewModel model)
-        {
-            if (strategia == null || model == null) return null;
-            var components = ConvertFormPointsToComponents(model);
-            return strategia.WyliczPunkty(components);
         }
 
     }

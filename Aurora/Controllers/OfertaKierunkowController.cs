@@ -101,44 +101,23 @@ namespace Aurora.Controllers
 
             var kierunek = await _context.KierunkiStudiow.FindAsync(model.KierunekID);
 
-            if (kierunek == null) return View("Error");
+            if (kierunek == null) return NotFound();
 
             var strategia = kierunek.Strategia;
 
-            var (listaBrakujacychPrzedmiotow, czyWprowadzonoEgzaminZRysunku) = CzyWprowadzonoWszystkiePotrzebneWartosci(strategia, model);
-            
+            var skladowe = UtilsRR.ConvertModelToComponents(model);
+
+            var listaBrakujacychPrzedmiotow = strategia.GetMissingSubjects(skladowe);
+
+            var czyWprowadzonoEgzaminZRysunku = model.wynikiMaturalne["EgzRys"] != null;
+
             if (listaBrakujacychPrzedmiotow.Count > 0) ViewBag.PopUpMessage = $"Brak podanego przynajmniej jednego wyniku dla przedmiotu {StringUtils.ConvertListToTupleFormat(listaBrakujacychPrzedmiotow)}.";
-            
+
             else if (strategia is StrategiaArchitektura && !czyWprowadzonoEgzaminZRysunku) ViewBag.PopUpMessage = "Brak podanego wyniku dla egzaminu z rysunku.";
 
-            else ViewBag.WartoscWR = UtilsRR.ObliczPunktyWspolczynnika(strategia, model);
+            else ViewBag.WartoscWR = strategia.GetTotalPoints(skladowe);
 
             return View(model);
-        }
-
-
-        private (List<string>, bool) CzyWprowadzonoWszystkiePotrzebneWartosci(IStrategiaWspolRekrut strategia, WyliczWspolczynnikViewModel model)
-        {
-            return strategia switch
-            {
-                StrategiaWspolRekrut1Stopien st1 => CzyWprowadzonoWszystkiePotrzebneWartosciStopien1(st1.przedmiotyMaturalneDodatkowe, model),
-                _ => default,
-            };
-        }
-
-
-        private (List<string>, bool) CzyWprowadzonoWszystkiePotrzebneWartosciStopien1(List<PrzedmiotMaturalny> przedmiotyMaturalne, WyliczWspolczynnikViewModel model)
-        {
-            var brakujacePrzedmioty = new List<string>();
-
-            foreach (var subject in przedmiotyMaturalne.Union(Consts.defaultMaturaSubjects))
-            {
-                var (keyP, keyR) = Consts.SubjectFormKeys[subject];
-                if (model.wynikiMaturalne[keyP] == null && model.wynikiMaturalne[keyR] == null) brakujacePrzedmioty.Add(EnumUtils.GetDescription<PrzedmiotMaturalny>(subject));
-            }
-
-
-            return (brakujacePrzedmioty, model.wynikiMaturalne["EgzRys"] != null);
         }
 
 

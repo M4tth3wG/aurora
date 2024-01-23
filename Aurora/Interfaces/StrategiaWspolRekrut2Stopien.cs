@@ -1,4 +1,5 @@
 ﻿using Aurora.Models;
+using Aurora.ViewModels;
 using System.Collections.Generic;
 
 namespace Aurora.Interfaces
@@ -11,6 +12,7 @@ namespace Aurora.Interfaces
         public abstract double GetExamPoints(List<SkladowaWspRekrut> skladowe);
         public abstract double GetExtraSubjectPoints(List<SkladowaWspRekrut> skladowe);
         public abstract double GetMedBiologyPoints(List<SkladowaWspRekrut> skladowe);
+        public abstract List<string> GetMissingSubjects(List<SkladowaWspRekrut> skladowe);
         public abstract double GetODPoints(List<SkladowaWspRekrut> skladowe);
         public abstract bool HasRequiredValues(List<SkladowaWspRekrut> skladowe);
     }
