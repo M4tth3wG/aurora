@@ -57,11 +57,11 @@ namespace Aurora.Controllers
                     .ThenInclude(k => k.DostepneEgzaminyWstepne)
                         .ThenInclude(d => d.Dziedzina)
                 .Include(a => a.WspolczynnikRekrutacyjny)
+                    .ThenInclude(w => w.skladowe)
                 .Include(a => a.TuraRekrutacji)
                 .Include(a => a.Dokumenty)
                     .ThenInclude(d => d.Dokument)
                 .FirstAsync();
-            // potrzebne jeszcze egazminy dostepne i na ktore zapisany
 
             if (!CzyKandydatZalogowany(aplikacja.Kandydat))
             {
@@ -192,7 +192,6 @@ namespace Aurora.Controllers
             TempData["PopUpMessage"] = "Pomyślnie zapisano na egzamin.";
 
             return RedirectToAction(nameof(ZapiszNaEgzaminy), new { aplikacja.ID });
-            //return View("ZapiszNaEgzaminy");
         }
 
         public bool CzyKandydatZalogowany(Kandydat kandydat)

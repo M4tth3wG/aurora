@@ -13,7 +13,7 @@ namespace Aurora.Models
         [Display(Name = "Liczba punktów")]
         [Range(0.0d, double.MaxValue, ErrorMessage = "Value must be greater than or equal to 0.0")]
         [DisplayFormat(DataFormatString = "{0:F2}", ApplyFormatInEditMode = true)]
-        public double LiczbaPunktow;
+        public double LiczbaPunktow { get; set; }
 
         public SkladowaWspRekrut()
         {
