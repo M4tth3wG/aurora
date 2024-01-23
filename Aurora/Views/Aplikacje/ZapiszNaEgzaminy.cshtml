@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Aurora.Models.DziedzinaEgzaminuWstepnego>
+
+@{
+    ViewData["Title"] = "ZapiszNaEgzaminy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Dostępne egzaminy wewnętrzne</h1>
+
+<table class="table">
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                Zakres: @Html.DisplayFor(modelItem => item.Dziedzina)
+            </td>
+            <td>
+                    <a class="btn btn-primary" href="@Url.Action("ZapisNaEgzaminyPotwierdz", new {item.ID, aplikacjaID=ViewBag.AplikacjaID})">Zapisz się</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<div class="float-left">
+    <a class="btn btn-primary" asp-action="Details" asp-route-id="@ViewBag.AplikacjaID">Powrót</a>
+</div>
+
+@{
+    var message = TempData["PopUpMessage"];
+}
+
+@if (message != null)
+{
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h3 style="text-align: center">@message</h3>
+                    <button style="float: right" type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+            var popUpMessage = '@Html.Raw(ViewBag.PopUpMessage)';
+
+            if (popUpMessage.trim() !== '') {
+                $('#myModal').modal({ backdrop: 'static', keyboard: false });
+                $('#myModal').modal('show');
+            }
+        });
+    </script>
+}
