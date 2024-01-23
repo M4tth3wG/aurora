@@ -133,6 +133,8 @@ namespace Aurora.Controllers
 
             /*            wszyskieAplikacjeWTurze = wszyskieAplikacjeWTurze.OrderBy(p => p.WspolczynnikRekrutacyjny.Wartosc).ToList();
             */
+            var punkty = aplikacja.FirstOrDefault().WspolczynnikRekrutacyjny.Wartosc;
+            @ViewBag.IloscPunktow = aplikacja.FirstOrDefault().WspolczynnikRekrutacyjny.Wartosc;
             int i = 0;
 
             foreach (var aplikacje in wszyskieAplikacjeWTurze)
