@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Aurora.OtherClasses.StrategiesForRR
 {
-    public class StrategiaLekarski: Standard1Stopien
+    public class StrategiaLekarski: Strategia1StopienStandard
     {
         public StrategiaLekarski(List<PrzedmiotMaturalny> przedmiotyMaturalne = null) : base(Consts.defaultExtraMaturaSubjectsMed)
         {

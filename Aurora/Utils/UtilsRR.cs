@@ -56,13 +56,6 @@ namespace Aurora.Utils
 
         }
 
-        // P, P + 1.5 * R, 2.5 * R
-        public static double GetPoints(Dictionary<string, int?> results, string keyP, string keyR)
-        {
-            var P = results[keyP] ?? 0.0;
-            var R = results[keyR] ?? 0.0;
-            return GetMax(P, P + 1.5 * R, 2.5 * R);
-        }
 
         // P, R
         public static double GetPoints2(List<SkladowaWspRekrut> components, RodzajSkladowejWspRekrut comp, PrzedmiotMaturalny subject)
@@ -97,16 +90,6 @@ namespace Aurora.Utils
             }
             return PD;
         }
-        public static double GetPointsPD(WyliczWspolczynnikViewModel model, List<(string, string)> keys)
-        {
-            double PD = 0.0;
-            foreach (var (keyP, keyR) in keys)
-            {
-                var currentPoints = GetPoints(model.wynikiMaturalne, keyP, keyR);
-                PD = GetMax(PD, currentPoints);
-            }
-            return PD;
-        }
 
         public static (double, double, double) GetBasicPoints(List<SkladowaWspRekrut> skladowe)
         {
@@ -127,30 +110,10 @@ namespace Aurora.Utils
             return true;
         }
 
-
-        static List<(RodzajSkladowejWspRekrut, PrzedmiotMaturalny, string)> x = new() {
-            (RodzajSkladowejWspRekrut.P, PrzedmiotMaturalny.Matematyka, "MatPodst"),
-            (RodzajSkladowejWspRekrut.R, PrzedmiotMaturalny.Matematyka, "MatRoz"),
-            (RodzajSkladowejWspRekrut.P, PrzedmiotMaturalny.JezykPolski, "PolPodst"),
-            (RodzajSkladowejWspRekrut.R, PrzedmiotMaturalny.JezykPolski, "PolRoz"),
-            (RodzajSkladowejWspRekrut.P, PrzedmiotMaturalny.JezykObcy, "ObcPodst"),
-            (RodzajSkladowejWspRekrut.R, PrzedmiotMaturalny.JezykObcy, "ObcRoz"),
-            (RodzajSkladowejWspRekrut.P, PrzedmiotMaturalny.Fizyka, "FizPodst"),
-            (RodzajSkladowejWspRekrut.R, PrzedmiotMaturalny.Fizyka, "FizRoz"), 
-            (RodzajSkladowejWspRekrut.P, PrzedmiotMaturalny.Chemia, "ChePodst"),
-            (RodzajSkladowejWspRekrut.R, PrzedmiotMaturalny.Chemia, "CheRoz"),
-            (RodzajSkladowejWspRekrut.P, PrzedmiotMaturalny.Geografia, "GeoPodst"),
-            (RodzajSkladowejWspRekrut.R, PrzedmiotMaturalny.Geografia, "GeoRoz"),
-            (RodzajSkladowejWspRekrut.P, PrzedmiotMaturalny.Biologia, "BioPodst"),
-            (RodzajSkladowejWspRekrut.R, PrzedmiotMaturalny.Biologia, "BioRoz"),
-            (RodzajSkladowejWspRekrut.P, PrzedmiotMaturalny.Informatyka, "InfoPodst"),
-            (RodzajSkladowejWspRekrut.R, PrzedmiotMaturalny.Informatyka, "InfoRoz"),
-        };
-
         public static List<SkladowaWspRekrut> ConvertFormPointsToComponents(WyliczWspolczynnikViewModel model)
         {
             List<SkladowaWspRekrut> result = new() { };
-            foreach (var (type, subject, key) in x)
+            foreach (var (type, subject, key) in Consts.RRFormValuesConverterList)
             {
                 if (model.wynikiMaturalne[key] != null)
                 {
@@ -176,5 +139,13 @@ namespace Aurora.Utils
             }
             return result;
         }
+
+        public static double? ObliczPunktyWspolczynnika(IStrategiaWspolRekrut strategia, WyliczWspolczynnikViewModel model)
+        {
+            if (strategia == null || model == null) return null;
+            var components = ConvertFormPointsToComponents(model);
+            return strategia.WyliczPunkty(components);
+        }
+
     }
 }

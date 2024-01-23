@@ -23,6 +23,25 @@ namespace Aurora.Utils
             { PrzedmiotMaturalny.Informatyka, ("InfoPodst", "InfoRoz" ) }
         };
 
+       public static List<(RodzajSkladowejWspRekrut, PrzedmiotMaturalny, string)> RRFormValuesConverterList = new() {
+            (RodzajSkladowejWspRekrut.P, PrzedmiotMaturalny.Matematyka, "MatPodst"),
+            (RodzajSkladowejWspRekrut.R, PrzedmiotMaturalny.Matematyka, "MatRoz"),
+            (RodzajSkladowejWspRekrut.P, PrzedmiotMaturalny.JezykPolski, "PolPodst"),
+            (RodzajSkladowejWspRekrut.R, PrzedmiotMaturalny.JezykPolski, "PolRoz"),
+            (RodzajSkladowejWspRekrut.P, PrzedmiotMaturalny.JezykObcy, "ObcPodst"),
+            (RodzajSkladowejWspRekrut.R, PrzedmiotMaturalny.JezykObcy, "ObcRoz"),
+            (RodzajSkladowejWspRekrut.P, PrzedmiotMaturalny.Fizyka, "FizPodst"),
+            (RodzajSkladowejWspRekrut.R, PrzedmiotMaturalny.Fizyka, "FizRoz"),
+            (RodzajSkladowejWspRekrut.P, PrzedmiotMaturalny.Chemia, "ChePodst"),
+            (RodzajSkladowejWspRekrut.R, PrzedmiotMaturalny.Chemia, "CheRoz"),
+            (RodzajSkladowejWspRekrut.P, PrzedmiotMaturalny.Geografia, "GeoPodst"),
+            (RodzajSkladowejWspRekrut.R, PrzedmiotMaturalny.Geografia, "GeoRoz"),
+            (RodzajSkladowejWspRekrut.P, PrzedmiotMaturalny.Biologia, "BioPodst"),
+            (RodzajSkladowejWspRekrut.R, PrzedmiotMaturalny.Biologia, "BioRoz"),
+            (RodzajSkladowejWspRekrut.P, PrzedmiotMaturalny.Informatyka, "InfoPodst"),
+            (RodzajSkladowejWspRekrut.R, PrzedmiotMaturalny.Informatyka, "InfoRoz"),
+        };
+
         public const double DEFAULT_RR_MAX_VALUE = 535.0;
         public const double ARCHITECTURE_DEFAULT_RR_MAX_VALUE = 1195.0;
     }

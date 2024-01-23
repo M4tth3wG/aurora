@@ -1,6 +1,8 @@
 ﻿using Aurora.Enums;
 using Aurora.Interfaces;
 using Aurora.OtherClasses.StrategiesForRR;
+using Aurora.Utils;
+using Microsoft.CodeAnalysis.Operations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,9 +24,37 @@ namespace Aurora.Models
         public int JezykWykladowy { get; set; }
 
         [NotMapped]
-        public IStrategiaWspolRekrut Strategia { get; set; }
-
+        private int _StrategiaID;        
         
+        [NotMapped]
+        private IStrategiaWspolRekrut _Strategia;
+
+        [Required]
+        public int StrategiaID {
+            get { return _StrategiaID; }
+            set
+            {
+                if (Enum.IsDefined(typeof(RodzajStrategii), value))
+                {
+                    _StrategiaID = value;
+                    _Strategia = StrategyUtils.ConvertIDToStrategy(value);
+                }
+            }
+
+        }
+
+        [NotMapped]
+        public IStrategiaWspolRekrut Strategia
+        {
+            get
+            {
+                _Strategia ??= StrategyUtils.ConvertIDToStrategy(_StrategiaID);
+                return _Strategia;
+            }
+            private set => _Strategia = value;
+        }
+
+
         [Required]
         [Display(Name = "Czesne")]
         [Range(0.0d, double.MaxValue, ErrorMessage = "Czesne musi być dodatnią liczbą rzeczywistą.")]
@@ -77,7 +107,7 @@ namespace Aurora.Models
 
 
 
-        public KierunekStudiow(int iD, int jezykWykladowyID, double czesne, double czesneDlaObcokrajowcow, int poziomStudiowID, int miejsceStudiowID, string nazwaKierunku, int formaStudiowID, int wydzialID, string opisKierunku, IStrategiaWspolRekrut strategia)
+        public KierunekStudiow(int iD, int jezykWykladowyID, double czesne, double czesneDlaObcokrajowcow, int poziomStudiowID, int miejsceStudiowID, string nazwaKierunku, int formaStudiowID, int wydzialID, string opisKierunku, RodzajStrategii strategia)
         {
             ID = iD;
             JezykWykladowy = jezykWykladowyID;
@@ -89,25 +119,10 @@ namespace Aurora.Models
             FormaStudiow = formaStudiowID;
             Wydzial = wydzialID;
             OpisKierunku = opisKierunku;
-            Strategia = strategia;
+            StrategiaID = Convert.ToInt32(strategia);
         }        
         
-        public KierunekStudiow(int iD, int jezykWykladowyID, double czesne, double czesneDlaObcokrajowcow, int poziomStudiowID, int miejsceStudiowID, string nazwaKierunku, int formaStudiowID, int wydzialID, string opisKierunku)
-        {
-            ID = iD;
-            JezykWykladowy = jezykWykladowyID;
-            Czesne = czesne;
-            CzesneDlaObcokrajowcow = czesneDlaObcokrajowcow;
-            PoziomStudiow = poziomStudiowID;
-            MiejsceStudiow = miejsceStudiowID;
-            NazwaKierunku = nazwaKierunku;
-            FormaStudiow = formaStudiowID;
-            Wydzial = wydzialID;
-            OpisKierunku = opisKierunku;
-            Strategia = new Standard1Stopien();
-        }
-
-        public KierunekStudiow(int iD, Jezyk jezykWykladowy, double czesne, double czesneDlaObcokrajowcow, int poziomStudiow, int miejsceStudiow, string nazwaKierunku, int formaStudiow, int wydzial, string opisKierunku)
+        public KierunekStudiow(int iD, Jezyk jezykWykladowy, double czesne, double czesneDlaObcokrajowcow, int poziomStudiow, int miejsceStudiow, string nazwaKierunku, int formaStudiow, int wydzial, string opisKierunku, int strategiaID)
         {
             ID = iD;
             JezykWykladowy = Convert.ToInt32(jezykWykladowy);
@@ -119,22 +134,7 @@ namespace Aurora.Models
             FormaStudiow = Convert.ToInt32(formaStudiow);
             Wydzial = Convert.ToInt32(wydzial); ;
             OpisKierunku = opisKierunku;
-            Strategia = new Standard1Stopien();
-        }  
-        
-        public KierunekStudiow(int iD, Jezyk jezykWykladowy, double czesne, double czesneDlaObcokrajowcow, int poziomStudiow, int miejsceStudiow, string nazwaKierunku, int formaStudiow, int wydzial, string opisKierunku, IStrategiaWspolRekrut strategia)
-        {
-            ID = iD;
-            JezykWykladowy = Convert.ToInt32(jezykWykladowy);
-            Czesne = czesne;
-            CzesneDlaObcokrajowcow = czesneDlaObcokrajowcow;
-            PoziomStudiow = Convert.ToInt32(poziomStudiow);
-            MiejsceStudiow = Convert.ToInt32(miejsceStudiow);
-            NazwaKierunku = nazwaKierunku;
-            FormaStudiow = Convert.ToInt32(formaStudiow);
-            Wydzial = Convert.ToInt32(wydzial); ;
-            OpisKierunku = opisKierunku;
-            Strategia = strategia;
+            StrategiaID = strategiaID;
         }
 
     }

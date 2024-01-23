@@ -9,11 +9,11 @@ using System.Linq;
 
 namespace Aurora.OtherClasses.StrategiesForRR
 {
-    public class Standard1Stopien : StrategiaWspolRekrut1Stopien
+    public class Strategia1StopienStandard : StrategiaWspolRekrut1Stopien
 
     {
 
-        public Standard1Stopien(List<PrzedmiotMaturalny> przedmiotyMaturalne = null) : base(Consts.defaultExtraMaturaSubjects.Union(przedmiotyMaturalne ?? new() { }).ToList())
+        public Strategia1StopienStandard(List<PrzedmiotMaturalny> przedmiotyMaturalne = null) : base(Consts.defaultExtraMaturaSubjects.Union(przedmiotyMaturalne ?? new() { }).ToList())
         {
 
         }

@@ -9,10 +9,10 @@ using System.Linq;
 
 namespace Aurora.OtherClasses.StrategiesForRR
 {
-    public class StrategiaArchitektura : Standard1Stopien
+    public class StrategiaArchitektura : Strategia1StopienStandard
 
     {
-        public StrategiaArchitektura(List<PrzedmiotMaturalny> przedmiotyMaturalne = null): base(Consts.defaultMaturaSubjects)
+        public StrategiaArchitektura(List<PrzedmiotMaturalny> przedmiotyMaturalne = null): base(przedmiotyMaturalne)
         {
         }
 

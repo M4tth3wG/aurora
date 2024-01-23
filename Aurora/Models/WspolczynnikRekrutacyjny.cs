@@ -43,7 +43,7 @@ namespace Aurora.Models
         {
         }
 
-        public WspolczynnikRekrutacyjny(int iD, int aplikacjaRekrutacyjnaID, int? egzaminID)
+        public WspolczynnikRekrutacyjny(int iD, int aplikacjaRekrutacyjnaID, int? egzaminID = null)
         {
             ID = iD;
             AplikacjaRekrutacyjnaID = aplikacjaRekrutacyjnaID;
