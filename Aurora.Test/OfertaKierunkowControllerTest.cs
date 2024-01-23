@@ -15,7 +15,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Aurora.Test
 {
 
-    public class OfertaKierunkowTest
+    public class OfertaKierunkowControllerTest
     {
 
         // Mateusz Gazda
