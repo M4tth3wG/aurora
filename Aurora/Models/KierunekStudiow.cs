@@ -1,4 +1,5 @@
 ﻿using Aurora.Enums;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace Aurora.Models
 {
     [Serializable]
+    [Index(nameof(NazwaKierunku), nameof(JezykWykladowy), nameof(PoziomStudiow), nameof(MiejsceStudiow), nameof(FormaStudiow), IsUnique = true)] // unikalna kombinacja
     public class KierunekStudiow
     {
         [Key]
@@ -59,7 +61,7 @@ namespace Aurora.Models
         [MaxLength(1023, ErrorMessage = "Opis może zawierać do 1023 znaków.")]
         public string OpisKierunku { get; set; }
 
-        public ICollection<DziedzinaEgzaminuWstepnego> DostepneEgzaminyWstepne { get; set; }
+        public ICollection<DziedzinaEgzaminuWstepnegoKierunekStudiow> DostepneEgzaminyWstepne { get; set; }
 
         public ICollection<TuraRekrutacji> turyRekrutacji { get; set; }
         public ICollection<AplikacjaRekrutacyjna> aplikacje { get; set; }

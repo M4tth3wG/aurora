@@ -16,7 +16,7 @@ namespace Aurora.Models
         [Required]
         public string Dziedzina { get; set; }
 
-        public ICollection<KierunekStudiow> KierunkiStudiow { get; set; }
+        public ICollection<DziedzinaEgzaminuWstepnegoKierunekStudiow> KierunkiStudiow { get; set; }
 
         public ICollection<AplikacjaRekrutacyjna> AplikacjeRekrutacyjne { get; set; }
     }

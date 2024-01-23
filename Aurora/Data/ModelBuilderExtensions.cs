@@ -5,6 +5,8 @@ using System;
 using System.Linq;
 using Aurora.Enums;
 using System.Collections.Generic;
+using Microsoft.Extensions.Hosting;
+using System.Reflection.Emit;
 
 namespace Aurora.Data
 {
@@ -26,6 +28,9 @@ namespace Aurora.Data
 
             builder.Entity<KandydatUlubionyKierunekStudiow>()
                 .HasKey(k => new { k.KandydatID, k.UlubionyKierunekStudiowID });
+
+            builder.Entity<DziedzinaEgzaminuWstepnegoKierunekStudiow>()
+                .HasKey(k => new { k.DziedzinaID, k.KierunekStudiowID });
 
             foreach (var relationship in builder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
@@ -66,6 +71,37 @@ namespace Aurora.Data
                 kandydat6
             );
 
+            var dziedzinyEgzaminuWstepnego = new List<DziedzinaEgzaminuWstepnego>()
+            {
+                new DziedzinaEgzaminuWstepnego()
+                {
+                    ID = 1,
+                    Dziedzina = "Matematyka"
+                },
+                new DziedzinaEgzaminuWstepnego()
+                {
+                    ID = 2,
+                    Dziedzina = "Fizyka"
+                },
+                new DziedzinaEgzaminuWstepnego()
+                {
+                    ID = 3,
+                    Dziedzina = "Chemia"
+                },
+                new DziedzinaEgzaminuWstepnego()
+                {
+                    ID = 4,
+                    Dziedzina = "Biologia"
+                },
+                new DziedzinaEgzaminuWstepnego()
+                {
+                    ID = 5,
+                    Dziedzina = "Język angielski"
+                }
+            };
+
+            builder.Entity<DziedzinaEgzaminuWstepnego>().HasData(dziedzinyEgzaminuWstepnego);
+
             KierunekStudiow kierunek1 = new KierunekStudiow(
                 1, 1, 0.0, 1500.0, 2, 0, "Architektura", 0, 0, "Architektura dla ambitnych"
             );
@@ -75,9 +111,30 @@ namespace Aurora.Data
             );
 
             builder.Entity<KierunekStudiow>().HasData(
-                kierunek1,
-                kierunek2
+            kierunek1,
+            kierunek2
             );
+
+            var egzaminyKierunki = new List<DziedzinaEgzaminuWstepnegoKierunekStudiow>() {
+                new DziedzinaEgzaminuWstepnegoKierunekStudiow
+                {
+                    DziedzinaID = 1,
+                    KierunekStudiowID = 2
+                },
+                new DziedzinaEgzaminuWstepnegoKierunekStudiow
+                {
+                    DziedzinaID = 2,
+                    KierunekStudiowID = 2
+                },
+                new DziedzinaEgzaminuWstepnegoKierunekStudiow
+                {
+                    DziedzinaID = 5,
+                    KierunekStudiowID = 2
+                }
+            };
+
+            builder.Entity<DziedzinaEgzaminuWstepnegoKierunekStudiow>()
+                .HasData(egzaminyKierunki);
 
             TuraRekrutacji tura1 = new TuraRekrutacji(
                 1, 1, new DateTime(2024, 1, 1), new DateTime(2024, 2, 1), new DateTime(2024, 2, 15), 0, 50, 300.0, 2, 2
@@ -460,32 +517,6 @@ namespace Aurora.Data
                 aplikacjaRekrutacyjnaDokument7,
                 aplikacjaRekrutacyjnaDokument8
             );
-
-            var dziedzinyEgzaminuWstepnego = new List<DziedzinaEgzaminuWstepnego>()
-            {
-                new DziedzinaEgzaminuWstepnego()
-                {
-                    ID = 1,
-                    Dziedzina = "Matematyka"
-                },
-                new DziedzinaEgzaminuWstepnego()
-                {
-                    ID = 2,
-                    Dziedzina = "Język polski"
-                },
-                new DziedzinaEgzaminuWstepnego()
-                {
-                    ID = 3,
-                    Dziedzina = "Chemia"
-                },
-                new DziedzinaEgzaminuWstepnego()
-                {
-                    ID = 4,
-                    Dziedzina = "Biologia"
-                }
-            };
-
-            builder.Entity<DziedzinaEgzaminuWstepnego>().HasData(dziedzinyEgzaminuWstepnego);
         }
     }
 }
