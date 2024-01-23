@@ -51,14 +51,17 @@ namespace Aurora.Controllers
             var aplikacja = await _context.AplikacjeRekrutacyjne
                 .Where(a => a.ID == id)
                 .Include(a => a.Kandydat)
+                .Include(a => a.EgzaminyWstepne)
                 .Include(a => a.OplataRekrutacyjna)
                 .Include(a => a.KierunekStudiow)
+                    .ThenInclude(k => k.DostepneEgzaminyWstepne)
+                        .ThenInclude(d => d.Dziedzina)
                 .Include(a => a.WspolczynnikRekrutacyjny)
+                    .ThenInclude(w => w.skladowe)
                 .Include(a => a.TuraRekrutacji)
                 .Include(a => a.Dokumenty)
                     .ThenInclude(d => d.Dokument)
                 .FirstAsync();
-            // potrzebne jeszcze egazminy dostepne i na ktore zapisany
 
             if (!CzyKandydatZalogowany(aplikacja.Kandydat))
             {
@@ -73,8 +76,11 @@ namespace Aurora.Controllers
             var aplikacja = await _context.AplikacjeRekrutacyjne
                 .Where(a => a.ID == id)
                 .Include (a => a.Kandydat)
+                .Include(a => a.EgzaminyWstepne)
                 .Include(a => a.OplataRekrutacyjna)
                 .Include(a => a.KierunekStudiow)
+                    .ThenInclude(k => k.DostepneEgzaminyWstepne)
+                        .ThenInclude(d => d.Dziedzina)
                 .Include(a => a.WspolczynnikRekrutacyjny)
                 .Include(a => a.TuraRekrutacji)
                 .Include(a => a.Dokumenty)
@@ -122,6 +128,70 @@ namespace Aurora.Controllers
             aplikacja.Status = (int)RodzajStatusuAplikacji.Anulowana;
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Details), new { id });
+        }
+
+        public async Task<IActionResult> ZapiszNaEgzaminy(int id)
+        {
+            var aplikacja = await _context.AplikacjeRekrutacyjne
+                .Where(a => a.ID == id)
+                .Include(a => a.Kandydat)
+                .Include(a => a.EgzaminyWstepne)
+                .Include(a => a.KierunekStudiow)
+                    .ThenInclude(k => k.DostepneEgzaminyWstepne)
+                        .ThenInclude(d => d.Dziedzina)
+                .FirstAsync();
+
+            if (!CzyKandydatZalogowany(aplikacja.Kandydat))
+            {
+                return BadRequest();
+            }
+
+            var dostepneEgzaminy = aplikacja.KierunekStudiow.DostepneEgzaminyWstepne
+                                        .Select(e => e.Dziedzina)
+                                        .Except(
+                                            aplikacja.EgzaminyWstepne
+                                        );
+                                        
+
+            ViewBag.AplikacjaID = aplikacja.ID;
+            ViewBag.PopUpMessage = TempData["PopUpMessage"];
+
+            if (dostepneEgzaminy.Any())
+            {
+                return View(dostepneEgzaminy);
+            }
+
+            return View("BrakEgzaminow");
+        }
+
+        public async Task<IActionResult> ZapisNaEgzaminyPotwierdz(int id, int aplikacjaID)
+        {
+            var aplikacja = await _context.AplikacjeRekrutacyjne
+                .Where(a => a.ID == aplikacjaID)
+                .Include(a => a.Kandydat)
+                .Include(a => a.EgzaminyWstepne)
+                .Include(a => a.KierunekStudiow)
+                    .ThenInclude(k => k.DostepneEgzaminyWstepne)
+                        .ThenInclude(d => d.Dziedzina)
+                .FirstAsync();
+
+            var egzamin = aplikacja.KierunekStudiow
+                                    .DostepneEgzaminyWstepne
+                                    .Where(e => e.DziedzinaID == id)
+                                    .Select(d => d.Dziedzina)
+                                    .FirstOrDefault();
+
+            if (!CzyKandydatZalogowany(aplikacja.Kandydat) || egzamin == null)
+            {
+                return BadRequest();
+            }
+
+            aplikacja.EgzaminyWstepne.Add(egzamin);
+            await _context.SaveChangesAsync();
+
+            TempData["PopUpMessage"] = "Pomyślnie zapisano na egzamin.";
+
+            return RedirectToAction(nameof(ZapiszNaEgzaminy), new { aplikacja.ID });
         }
 
         public bool CzyKandydatZalogowany(Kandydat kandydat)

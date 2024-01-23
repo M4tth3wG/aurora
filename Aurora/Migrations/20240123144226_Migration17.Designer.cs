@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aurora.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    [Migration("20240122191357_DataCorrection15")]
-    partial class DataCorrection15
+    [Migration("20240123144226_Migration17")]
+    partial class Migration17
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -436,7 +436,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 2,
-                            Dziedzina = "Język polski"
+                            Dziedzina = "Fizyka"
                         },
                         new
                         {
@@ -447,6 +447,43 @@ namespace Aurora.Migrations
                         {
                             ID = 4,
                             Dziedzina = "Biologia"
+                        },
+                        new
+                        {
+                            ID = 5,
+                            Dziedzina = "Język angielski"
+                        });
+                });
+
+            modelBuilder.Entity("Aurora.Models.DziedzinaEgzaminuWstepnegoKierunekStudiow", b =>
+                {
+                    b.Property<int>("DziedzinaID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("KierunekStudiowID")
+                        .HasColumnType("int");
+
+                    b.HasKey("DziedzinaID", "KierunekStudiowID");
+
+                    b.HasIndex("KierunekStudiowID");
+
+                    b.ToTable("DziedzinaEgzaminuWstepnegoKierunekStudiow");
+
+                    b.HasData(
+                        new
+                        {
+                            DziedzinaID = 1,
+                            KierunekStudiowID = 2
+                        },
+                        new
+                        {
+                            DziedzinaID = 2,
+                            KierunekStudiowID = 2
+                        },
+                        new
+                        {
+                            DziedzinaID = 5,
+                            KierunekStudiowID = 2
                         });
                 });
 
@@ -694,6 +731,9 @@ namespace Aurora.Migrations
                     b.Property<int>("PoziomStudiow")
                         .HasColumnType("int");
 
+                    b.Property<int>("StrategiaID")
+                        .HasColumnType("int");
+
                     b.Property<int>("Wydzial")
                         .HasColumnType("int");
 
@@ -713,6 +753,7 @@ namespace Aurora.Migrations
                             NazwaKierunku = "Architektura",
                             OpisKierunku = "Architektura dla ambitnych",
                             PoziomStudiow = 2,
+                            StrategiaID = 8,
                             Wydzial = 0
                         },
                         new
@@ -726,6 +767,7 @@ namespace Aurora.Migrations
                             NazwaKierunku = "Automatyka i Robotyka",
                             OpisKierunku = "AiR dla wymagających",
                             PoziomStudiow = 3,
+                            StrategiaID = 0,
                             Wydzial = 10
                         });
                 });
@@ -893,6 +935,9 @@ namespace Aurora.Migrations
                     b.Property<int?>("EgzaminID")
                         .HasColumnType("int");
 
+                    b.Property<double>("LiczbaPunktow")
+                        .HasColumnType("float");
+
                     b.Property<int?>("PrzedmiotMaturalny")
                         .HasColumnType("int");
 
@@ -914,6 +959,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 1,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 0,
                             RodzajSkladowejWspRekrut = 1,
                             WspolczynnikRekrutacyjnyID = 1
@@ -921,6 +967,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 2,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 3,
                             RodzajSkladowejWspRekrut = 1,
                             WspolczynnikRekrutacyjnyID = 1
@@ -928,6 +975,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 3,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 1,
                             RodzajSkladowejWspRekrut = 1,
                             WspolczynnikRekrutacyjnyID = 1
@@ -935,6 +983,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 4,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 1,
                             RodzajSkladowejWspRekrut = 0,
                             WspolczynnikRekrutacyjnyID = 1
@@ -942,6 +991,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 5,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 2,
                             RodzajSkladowejWspRekrut = 0,
                             WspolczynnikRekrutacyjnyID = 1
@@ -949,6 +999,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 6,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 2,
                             RodzajSkladowejWspRekrut = 1,
                             WspolczynnikRekrutacyjnyID = 1
@@ -956,12 +1007,14 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 7,
+                            LiczbaPunktow = 250.0,
                             RodzajSkladowejWspRekrut = 2,
                             WspolczynnikRekrutacyjnyID = 1
                         },
                         new
                         {
                             ID = 8,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 0,
                             RodzajSkladowejWspRekrut = 1,
                             WspolczynnikRekrutacyjnyID = 2
@@ -969,6 +1022,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 9,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 3,
                             RodzajSkladowejWspRekrut = 1,
                             WspolczynnikRekrutacyjnyID = 2
@@ -976,6 +1030,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 10,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 1,
                             RodzajSkladowejWspRekrut = 1,
                             WspolczynnikRekrutacyjnyID = 2
@@ -983,6 +1038,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 11,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 1,
                             RodzajSkladowejWspRekrut = 0,
                             WspolczynnikRekrutacyjnyID = 2
@@ -990,6 +1046,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 12,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 2,
                             RodzajSkladowejWspRekrut = 0,
                             WspolczynnikRekrutacyjnyID = 2
@@ -997,6 +1054,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 13,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 2,
                             RodzajSkladowejWspRekrut = 1,
                             WspolczynnikRekrutacyjnyID = 2
@@ -1004,12 +1062,14 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 14,
+                            LiczbaPunktow = 250.0,
                             RodzajSkladowejWspRekrut = 2,
                             WspolczynnikRekrutacyjnyID = 2
                         },
                         new
                         {
                             ID = 15,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 0,
                             RodzajSkladowejWspRekrut = 1,
                             WspolczynnikRekrutacyjnyID = 3
@@ -1017,6 +1077,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 16,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 3,
                             RodzajSkladowejWspRekrut = 1,
                             WspolczynnikRekrutacyjnyID = 3
@@ -1024,6 +1085,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 17,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 1,
                             RodzajSkladowejWspRekrut = 1,
                             WspolczynnikRekrutacyjnyID = 3
@@ -1031,6 +1093,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 18,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 1,
                             RodzajSkladowejWspRekrut = 0,
                             WspolczynnikRekrutacyjnyID = 3
@@ -1038,6 +1101,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 19,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 2,
                             RodzajSkladowejWspRekrut = 0,
                             WspolczynnikRekrutacyjnyID = 3
@@ -1045,6 +1109,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 20,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 2,
                             RodzajSkladowejWspRekrut = 1,
                             WspolczynnikRekrutacyjnyID = 3
@@ -1052,12 +1117,14 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 21,
+                            LiczbaPunktow = 250.0,
                             RodzajSkladowejWspRekrut = 2,
                             WspolczynnikRekrutacyjnyID = 3
                         },
                         new
                         {
                             ID = 22,
+                            LiczbaPunktow = 60.0,
                             PrzedmiotMaturalny = 0,
                             RodzajSkladowejWspRekrut = 1,
                             WspolczynnikRekrutacyjnyID = 4
@@ -1065,6 +1132,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 23,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 3,
                             RodzajSkladowejWspRekrut = 1,
                             WspolczynnikRekrutacyjnyID = 4
@@ -1072,6 +1140,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 24,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 1,
                             RodzajSkladowejWspRekrut = 1,
                             WspolczynnikRekrutacyjnyID = 4
@@ -1079,6 +1148,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 25,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 1,
                             RodzajSkladowejWspRekrut = 0,
                             WspolczynnikRekrutacyjnyID = 4
@@ -1086,6 +1156,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 26,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 2,
                             RodzajSkladowejWspRekrut = 0,
                             WspolczynnikRekrutacyjnyID = 4
@@ -1093,6 +1164,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 27,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 2,
                             RodzajSkladowejWspRekrut = 1,
                             WspolczynnikRekrutacyjnyID = 4
@@ -1100,12 +1172,14 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 28,
+                            LiczbaPunktow = 250.0,
                             RodzajSkladowejWspRekrut = 2,
                             WspolczynnikRekrutacyjnyID = 4
                         },
                         new
                         {
                             ID = 29,
+                            LiczbaPunktow = 50.0,
                             PrzedmiotMaturalny = 0,
                             RodzajSkladowejWspRekrut = 1,
                             WspolczynnikRekrutacyjnyID = 5
@@ -1113,6 +1187,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 30,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 3,
                             RodzajSkladowejWspRekrut = 1,
                             WspolczynnikRekrutacyjnyID = 5
@@ -1120,6 +1195,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 31,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 1,
                             RodzajSkladowejWspRekrut = 1,
                             WspolczynnikRekrutacyjnyID = 5
@@ -1127,6 +1203,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 32,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 1,
                             RodzajSkladowejWspRekrut = 0,
                             WspolczynnikRekrutacyjnyID = 5
@@ -1134,6 +1211,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 33,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 2,
                             RodzajSkladowejWspRekrut = 0,
                             WspolczynnikRekrutacyjnyID = 5
@@ -1141,6 +1219,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 34,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 2,
                             RodzajSkladowejWspRekrut = 1,
                             WspolczynnikRekrutacyjnyID = 5
@@ -1148,12 +1227,14 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 35,
+                            LiczbaPunktow = 250.0,
                             RodzajSkladowejWspRekrut = 2,
                             WspolczynnikRekrutacyjnyID = 5
                         },
                         new
                         {
                             ID = 36,
+                            LiczbaPunktow = 40.0,
                             PrzedmiotMaturalny = 0,
                             RodzajSkladowejWspRekrut = 1,
                             WspolczynnikRekrutacyjnyID = 6
@@ -1161,6 +1242,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 37,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 3,
                             RodzajSkladowejWspRekrut = 1,
                             WspolczynnikRekrutacyjnyID = 6
@@ -1168,6 +1250,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 38,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 1,
                             RodzajSkladowejWspRekrut = 1,
                             WspolczynnikRekrutacyjnyID = 6
@@ -1175,6 +1258,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 39,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 1,
                             RodzajSkladowejWspRekrut = 0,
                             WspolczynnikRekrutacyjnyID = 6
@@ -1182,6 +1266,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 40,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 2,
                             RodzajSkladowejWspRekrut = 0,
                             WspolczynnikRekrutacyjnyID = 6
@@ -1189,6 +1274,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 41,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 2,
                             RodzajSkladowejWspRekrut = 1,
                             WspolczynnikRekrutacyjnyID = 6
@@ -1196,12 +1282,14 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 42,
+                            LiczbaPunktow = 250.0,
                             RodzajSkladowejWspRekrut = 2,
                             WspolczynnikRekrutacyjnyID = 6
                         },
                         new
                         {
                             ID = 43,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 0,
                             RodzajSkladowejWspRekrut = 1,
                             WspolczynnikRekrutacyjnyID = 7
@@ -1209,6 +1297,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 44,
+                            LiczbaPunktow = 65.0,
                             PrzedmiotMaturalny = 3,
                             RodzajSkladowejWspRekrut = 1,
                             WspolczynnikRekrutacyjnyID = 7
@@ -1216,6 +1305,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 45,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 1,
                             RodzajSkladowejWspRekrut = 1,
                             WspolczynnikRekrutacyjnyID = 7
@@ -1223,6 +1313,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 46,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 1,
                             RodzajSkladowejWspRekrut = 0,
                             WspolczynnikRekrutacyjnyID = 7
@@ -1230,6 +1321,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 47,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 2,
                             RodzajSkladowejWspRekrut = 0,
                             WspolczynnikRekrutacyjnyID = 7
@@ -1237,6 +1329,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 48,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 2,
                             RodzajSkladowejWspRekrut = 1,
                             WspolczynnikRekrutacyjnyID = 7
@@ -1244,12 +1337,14 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 49,
+                            LiczbaPunktow = 250.0,
                             RodzajSkladowejWspRekrut = 2,
                             WspolczynnikRekrutacyjnyID = 7
                         },
                         new
                         {
                             ID = 50,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 0,
                             RodzajSkladowejWspRekrut = 1,
                             WspolczynnikRekrutacyjnyID = 8
@@ -1257,6 +1352,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 51,
+                            LiczbaPunktow = 55.0,
                             PrzedmiotMaturalny = 3,
                             RodzajSkladowejWspRekrut = 1,
                             WspolczynnikRekrutacyjnyID = 8
@@ -1264,6 +1360,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 52,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 1,
                             RodzajSkladowejWspRekrut = 1,
                             WspolczynnikRekrutacyjnyID = 8
@@ -1271,6 +1368,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 53,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 1,
                             RodzajSkladowejWspRekrut = 0,
                             WspolczynnikRekrutacyjnyID = 8
@@ -1278,6 +1376,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 54,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 2,
                             RodzajSkladowejWspRekrut = 0,
                             WspolczynnikRekrutacyjnyID = 8
@@ -1285,6 +1384,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 55,
+                            LiczbaPunktow = 70.0,
                             PrzedmiotMaturalny = 2,
                             RodzajSkladowejWspRekrut = 1,
                             WspolczynnikRekrutacyjnyID = 8
@@ -1292,6 +1392,7 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 56,
+                            LiczbaPunktow = 250.0,
                             RodzajSkladowejWspRekrut = 2,
                             WspolczynnikRekrutacyjnyID = 8
                         });
@@ -1416,7 +1517,10 @@ namespace Aurora.Migrations
                     b.Property<int>("AplikacjaRekrutacyjnaID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("egzaminID")
+                    b.Property<int?>("EgzaminID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("KierunekStudiowID")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
@@ -1424,7 +1528,9 @@ namespace Aurora.Migrations
                     b.HasIndex("AplikacjaRekrutacyjnaID")
                         .IsUnique();
 
-                    b.HasIndex("egzaminID");
+                    b.HasIndex("EgzaminID");
+
+                    b.HasIndex("KierunekStudiowID");
 
                     b.ToTable("WspolczynnikiRekrutacyjne");
 
@@ -1469,21 +1575,6 @@ namespace Aurora.Migrations
                             ID = 8,
                             AplikacjaRekrutacyjnaID = 8
                         });
-                });
-
-            modelBuilder.Entity("DziedzinaEgzaminuWstepnegoTuraRekrutacji", b =>
-                {
-                    b.Property<int>("DostepneEgzaminyWstepneID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TuryID")
-                        .HasColumnType("int");
-
-                    b.HasKey("DostepneEgzaminyWstepneID", "TuryID");
-
-                    b.HasIndex("TuryID");
-
-                    b.ToTable("DziedzinaEgzaminuWstepnegoTuraRekrutacji");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -1774,6 +1865,25 @@ namespace Aurora.Migrations
                     b.Navigation("TuraRekrutacji");
                 });
 
+            modelBuilder.Entity("Aurora.Models.DziedzinaEgzaminuWstepnegoKierunekStudiow", b =>
+                {
+                    b.HasOne("Aurora.Models.DziedzinaEgzaminuWstepnego", "Dziedzina")
+                        .WithMany("KierunkiStudiow")
+                        .HasForeignKey("DziedzinaID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Aurora.Models.KierunekStudiow", "KierunekStudiow")
+                        .WithMany("DostepneEgzaminyWstepne")
+                        .HasForeignKey("KierunekStudiowID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Dziedzina");
+
+                    b.Navigation("KierunekStudiow");
+                });
+
             modelBuilder.Entity("Aurora.Models.Egzamin", b =>
                 {
                     b.HasOne("Aurora.Models.Kandydat", "Kandydat")
@@ -1946,29 +2056,19 @@ namespace Aurora.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Aurora.Models.Egzamin", "egzamin")
+                    b.HasOne("Aurora.Models.Egzamin", "Egzamin")
                         .WithMany()
-                        .HasForeignKey("egzaminID")
+                        .HasForeignKey("EgzaminID")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Aurora.Models.KierunekStudiow", null)
+                        .WithMany("WspolczynnikiRekrut")
+                        .HasForeignKey("KierunekStudiowID")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("AplikacjaRekrutacyjna");
 
-                    b.Navigation("egzamin");
-                });
-
-            modelBuilder.Entity("DziedzinaEgzaminuWstepnegoTuraRekrutacji", b =>
-                {
-                    b.HasOne("Aurora.Models.DziedzinaEgzaminuWstepnego", null)
-                        .WithMany()
-                        .HasForeignKey("DostepneEgzaminyWstepneID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Aurora.Models.TuraRekrutacji", null)
-                        .WithMany()
-                        .HasForeignKey("TuryID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                    b.Navigation("Egzamin");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -2036,6 +2136,11 @@ namespace Aurora.Migrations
                     b.Navigation("Tury");
                 });
 
+            modelBuilder.Entity("Aurora.Models.DziedzinaEgzaminuWstepnego", b =>
+                {
+                    b.Navigation("KierunkiStudiow");
+                });
+
             modelBuilder.Entity("Aurora.Models.Kandydat", b =>
                 {
                     b.Navigation("Egzaminy");
@@ -2055,11 +2160,15 @@ namespace Aurora.Migrations
                 {
                     b.Navigation("aplikacje");
 
+                    b.Navigation("DostepneEgzaminyWstepne");
+
                     b.Navigation("kandydaci");
 
                     b.Navigation("turyRekrutacji");
 
                     b.Navigation("ulubioneKandydat");
+
+                    b.Navigation("WspolczynnikiRekrut");
                 });
 
             modelBuilder.Entity("Aurora.Models.TuraRekrutacji", b =>
