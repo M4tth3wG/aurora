@@ -8,37 +8,33 @@
 
 <h1>Dodawanie nowego kierunku studiów - podstawowe dane</h1>
 
-<div>
-    <h3 class="text-danger">@ViewBag.Blad</h3>
-</div>
-
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="DodajNowyKierunekStudiow">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="JezykWykladowy" class="control-label"></label>
+                <label asp-for="JezykWykladowy" class="control-label font-weight-bold"></label>
                 <select asp-for="JezykWykladowy" class="form-control" asp-items="@GetEnumSelectList<Jezyk>()"></select>
                 <span asp-validation-for="JezykWykladowy" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PoziomStudiow" class="control-label"></label>
+                <label asp-for="PoziomStudiow" class="control-label font-weight-bold"></label>
                 <select asp-for="PoziomStudiow" class="form-control" asp-items="@GetEnumSelectList<PoziomStudiow>()"></select>
                 <span asp-validation-for="PoziomStudiow" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="MiejsceStudiow" class="control-label"></label>
+                <label asp-for="MiejsceStudiow" class="control-label font-weight-bold"></label>
                 <select asp-for="MiejsceStudiow" class="form-control" asp-items="@GetEnumSelectList<MiejsceStudiow>()"></select>
                 <span asp-validation-for="MiejsceStudiow" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="NazwaKierunku" class="control-label"></label>
+                <label asp-for="NazwaKierunku" class="control-label font-weight-bold"></label>
                 <input asp-for="NazwaKierunku" class="form-control" />
                 <span asp-validation-for="NazwaKierunku" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FormaStudiow" class="control-label"></label>
+                <label asp-for="FormaStudiow" class="control-label font-weight-bold"></label>
                 <select asp-for="FormaStudiow" class="form-control" asp-items="@GetEnumSelectList<FormaStudiow>()"></select>
                 <span asp-validation-for="FormaStudiow" class="text-danger"></span>
             </div>
@@ -49,8 +45,34 @@
     </div>
 </div>
 
+@if (ViewBag.PopUpMessage != null)
+{
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h3 style="text-align: center">@ViewBag.PopUpMessage</h3>
+                    <button style="float: right" type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
+
+    <script>
+        $(document).ready(function () {
+            var popUpMessage = '@Html.Raw(ViewBag.PopUpMessage)';
+
+            if (popUpMessage.trim() !== '') {
+                $('#myModal').modal({ backdrop: 'static', keyboard: false });
+                $('#myModal').modal('show');
+            }
+        });
+    </script>
 }
