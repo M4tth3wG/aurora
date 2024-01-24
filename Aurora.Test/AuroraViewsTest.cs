@@ -33,8 +33,8 @@ namespace Aurora.Test
         public void Test() 
         {
 
-            //driver.Navigate().GoToUrl("http://m4tth3wg-001-site1.btempurl.com/?fbclid=IwAR2PV55ynjc_7wAmG5TRNNePX4e8twtNvN9Fcrc2Mrm5eJr33EL8xYdOgdM");
-            driver.Navigate().GoToUrl("https://localhost:44388/");
+            driver.Navigate().GoToUrl("http://m4tth3wg-001-site1.btempurl.com/?fbclid=IwAR2PV55ynjc_7wAmG5TRNNePX4e8twtNvN9Fcrc2Mrm5eJr33EL8xYdOgdM");
+            //driver.Navigate().GoToUrl("https://localhost:44388/");
 
             IWebElement signInButton = driver.FindElement(By.Id("login"));
 
@@ -45,6 +45,11 @@ namespace Aurora.Test
 
             InputForMail.SendKeys("anna.nowak@example.com");
             InputForPassword.SendKeys("haslo");
+
+            IWebElement loginButton = driver.FindElement(By.CssSelector("button[type='submit']"));
+            loginButton.Click();
+
+            driver.Navigate().GoToUrl("http://m4tth3wg-001-site1.btempurl.com/OfertaKierunkow");
 
             //IWebElement submitBtn = driver.FindElement(By.Id("submitLoginBtn"));
 
