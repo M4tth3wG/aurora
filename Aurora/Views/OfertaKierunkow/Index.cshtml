@@ -83,28 +83,28 @@
                         <tbody>
 
                             <tr class="application-row">
-                                <td id="candStudyTxt" class="my-td">Kierunek: @kierunek.NazwaKierunku</td>
-                                <td id="candStudyFormTxt" class="my-td">Forma studiów: @(EnumUtils.ConvertIDToTypeAsString<FormaStudiow>(kierunek.FormaStudiow)) </td>
+                                <td id="candStudyTxt" data-index="@kierunek.ID" class="my-td">Kierunek: @kierunek.NazwaKierunku</td>
+                                <td id="candStudyFormTxt" data-index="@kierunek.ID" class="my-td">Forma studiów: @(EnumUtils.ConvertIDToTypeAsString<FormaStudiow>(kierunek.FormaStudiow)) </td>
                                 <td class="my-td">
                                     <form asp-action="WyliczWspolczynnik" asp-route-id="@kierunek.ID" method="get">
-                                        <button id="calculateRRBtn" type="submit" class="btn btn-secondary index-offers-button">Wylicz współczynnik</button>
+                                        <button id="calculateRRBtn" data-index="@kierunek.ID" type="submit" class="btn btn-secondary index-offers-button">Wylicz współczynnik</button>
                                     </form>
                                 </td>
-                                <td id ="recruitProceduresBtn" class="my-td"> <button class="btn btn-secondary index-offers-button">Procedury rekrutacji</button></td>
-                                <td id="applyBtn" class="my-td"> <button class="btn btn-secondary index-offers-button">Aplikuj</button></td>
+                                <td id="recruitProceduresBtn" data-index="@kierunek.ID" class="my-td"> <button class="btn btn-secondary index-offers-button">Procedury rekrutacji</button></td>
+                                <td id="applyBtn" data-index="@kierunek.ID" class="my-td"> <button class="btn btn-secondary index-offers-button">Aplikuj</button></td>
                             </tr>
 
                             <tr class="application-row">
-                                <td id="candStudyDepartTxt" class="my-td">@(EnumUtils.ConvertIDToTypeAsString<NazwaWydzialu>(kierunek.Wydzial)) </td>
-                                <td id="candStudyLvlTxt" class="my-td">Poziom studiów: @(EnumUtils.ConvertIDToTypeAsString<PoziomStudiow>(kierunek.PoziomStudiow)) </td>
-                                <td id="recruitDeadlinesBtn" class="my-td"> <button class="btn btn-secondary index-offers-button">Terminy rekrutacji</button></td>
-                                <td id="thresholdPointsBtn" class="my-td"> <button class="btn btn-secondary index-offers-button">Progi punktowe</button></td>
+                                <td id="candStudyDepartTxt" data-index="@kierunek.ID" class="my-td">@(EnumUtils.ConvertIDToTypeAsString<NazwaWydzialu>(kierunek.Wydzial)) </td>
+                                <td id="candStudyLvlTxt" data-index="@kierunek.ID" class="my-td">Poziom studiów: @(EnumUtils.ConvertIDToTypeAsString<PoziomStudiow>(kierunek.PoziomStudiow)) </td>
+                                <td id="recruitDeadlinesBtn" data-index="@kierunek.ID" class="my-td"> <button class="btn btn-secondary index-offers-button">Terminy rekrutacji</button></td>
+                                <td id="thresholdPointsBtn" data-index="@kierunek.ID" class="my-td"> <button class="btn btn-secondary index-offers-button">Progi punktowe</button></td>
                                 <td class="my-td"></td>
                             </tr>
 
                             <tr class="application-row">
-                                <td id="addToFavouriteBtn" class="my-td">Dodaj do ulubionych</td>
-                                <td id="candLnagTxt" class="my-td">Język wykładowy: @(EnumUtils.ConvertIDToTypeAsString<Jezyk>(kierunek.JezykWykladowy))</td>
+                                <td id="addToFavouriteBtn" data-index="@kierunek.ID" class="my-td">Dodaj do ulubionych</td>
+                                <td id="candLnagTxt" data-index="@kierunek.ID" class="my-td">Język wykładowy: @(EnumUtils.ConvertIDToTypeAsString<Jezyk>(kierunek.JezykWykladowy))</td>
                                 <td class="my-td"></td>
                                 <td class="my-td"></td>
                                 <td class="my-td"></td>

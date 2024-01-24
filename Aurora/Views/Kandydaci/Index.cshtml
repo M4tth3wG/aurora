@@ -50,21 +50,21 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td id="candLastNameTxt">Nazwisko: @kandydat.Nazwisko</td>
-                                    <td id="candNameTxt">Imię: @kandydat.Imie</td>
+                                    <td data-index="@kandydat.ID" id="candLastNameTxt">Nazwisko: @kandydat.Nazwisko</td>
+                                    <td data-index="@kandydat.ID" id="candNameTxt">Imię: @kandydat.Imie</td>
 
                                     <td class="text-right" style="white-space: nowrap;">
-                                        <button id="candDocsBtn" class="btn btn-secondary" style="margin-right: 5px;">Dokumenty</button>
-                                        <button id="sendcandMsgBtn" class="btn btn-secondary" style="margin-right: 5px;">Wyślij wiadomość</button>
+                                        <button data-index="@kandydat.ID" id="candDocsBtn" class="btn btn-secondary" style="margin-right: 5px;">Dokumenty</button>
+                                        <button data-index="@kandydat.ID" id="sendcandMsgBtn" class="btn btn-secondary" style="margin-right: 5px;">Wyślij wiadomość</button>
                                         <form asp-action="PrzypiszKandydata" asp-route-id="@kandydat.ID" method="get" style="display: inline-block;">
-                                            <button id="assignCandBtn" type="submit" class="btn btn-secondary">Przypisz</button>
+                                            <button data-index ="@kandydat.ID" id="assignCandBtn" type="submit" class="btn btn-secondary">Przypisz</button>
                                         </form>
                                     </td>
 
 
                                 </tr>
                                 <tr class="last-row">
-                                    <td id="candIDTxt">ID kandydata: @kandydat.ID</td>
+                                    <td data-index="@kandydat.ID" id="candIDTxt">ID kandydata: @kandydat.ID</td>
                                 </tr>
                             </tbody>
                         </table>

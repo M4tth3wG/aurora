@@ -24,7 +24,7 @@ namespace Aurora.Test
 
         public void Dispose()
         {
-            Thread.Sleep(5000);
+            Thread.Sleep(15000);
             driver.Quit();
         }
 
@@ -33,8 +33,20 @@ namespace Aurora.Test
         public void Test() 
         {
 
+            //LogInAs("anna.nowak@example.com", "pracownik");
+
+
+            driver.Navigate().GoToUrl("http://m4tth3wg-001-site1.btempurl.com/OfertaKierunkow");
+
+            IWebElement submitBtn = driver.FindElement(By.Id("calculateRRBtn"));
+
+            submitBtn.Click();
+
+        }
+
+        private void LogInAs(string mail, string password) 
+        {
             driver.Navigate().GoToUrl("http://m4tth3wg-001-site1.btempurl.com/?fbclid=IwAR2PV55ynjc_7wAmG5TRNNePX4e8twtNvN9Fcrc2Mrm5eJr33EL8xYdOgdM");
-            //driver.Navigate().GoToUrl("https://localhost:44388/");
 
             IWebElement signInButton = driver.FindElement(By.Id("login"));
 
@@ -43,17 +55,17 @@ namespace Aurora.Test
             IWebElement InputForMail = driver.FindElement(By.Id("Input_Email"));
             IWebElement InputForPassword = driver.FindElement(By.Id("Input_Password"));
 
-            InputForMail.SendKeys("anna.nowak@example.com");
-            InputForPassword.SendKeys("haslo");
+            InputForMail.SendKeys(mail);
+            InputForPassword.SendKeys(password);
 
-            IWebElement loginButton = driver.FindElement(By.CssSelector("button[type='submit']"));
-            loginButton.Click();
+            IWebElement submitBtn = driver.FindElement(By.Id("submitLoginBtn"));
 
-            driver.Navigate().GoToUrl("http://m4tth3wg-001-site1.btempurl.com/OfertaKierunkow");
+            submitBtn.Click();
 
-            //IWebElement submitBtn = driver.FindElement(By.Id("submitLoginBtn"));
+            //IWebElement loginButton = driver.FindElement(By.CssSelector("button[type='submit']"));
+            //loginButton.Click();
 
-            //submitBtn.Click();
+
         }
 
     }
