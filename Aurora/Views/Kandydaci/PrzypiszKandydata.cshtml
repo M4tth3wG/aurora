@@ -14,14 +14,14 @@
             </thead>
             <tbody>
                     <tr>
-                        <td class="my-td">Nazwisko: @Model.Kandydat.Nazwisko</td>
-                        <td class="my-td">Imię: @Model.Kandydat.Imie</td>
+                        <td id="candLastNameTxt" class="my-td">Nazwisko: @Model.Kandydat.Nazwisko</td>
+                        <td id="candNameTxt" class="my-td">Imię: @Model.Kandydat.Imie</td>
                         <td class="text-right" rowspan="2">
                             <button type="button" id="cancelAssignmentBtn" class="btn btn-danger cancel-assignment-button">Anuluj przypisanie</button>
                         </td>
                     </tr>
                     <tr>
-                        <td class="my-td">ID Kandydata: @Model.Kandydat.ID</td>
+                        <td id="candIDTxt" class="my-td">ID Kandydata: @Model.Kandydat.ID</td>
                         <td></td>
                         <td></td>
                     </tr>
@@ -46,9 +46,7 @@
         <div class="col-md-12">
             <div class="form-inline pull-right">
                 
-
                     <div class="custom-dropdown">
-
                         <label for="filterPoziom">Poziom studiów:</label>
                     @Html.DropDownList("FilterPoziom", new SelectList(Model.poziomyStudiow, "Value", "Text", Model.FilterPoziom), new { onchange = "submitFilterForm();", @value = Model.FilterPoziom, @class = "select-item" })
                     </div>
@@ -85,7 +83,7 @@
         {
             <br>
             <li class="list-outer-border2">
-                <table class="table" >
+                <table id="candAppsTable" class="table">
                     <thead>
                         <th> </th>
                     </thead>
@@ -100,7 +98,7 @@
                             <td class="my-td">Poziom studiów: @(EnumUtils.ConvertIDToTypeAsString<PoziomStudiow>(aplikacja.KierunekStudiow.PoziomStudiow)) </td>
                             <td class="text-right" rowspan="2" style="white-space: nowrap;">
                                 <form asp-action="WyslijWiadomosc" asp-route-id="@aplikacja.ID" method="get" style="display: inline-block;">
-                                    <button type="submit" class="btn btn-secondary assignment-button">Wyślij wiadomość</button>
+                                    <button id="sendMsgBtn" type="submit" class="btn btn-secondary assignment-button">Wyślij wiadomość</button>
                                 </form>
                                 <button type="button" class="btn btn-secondary assignment-button" data-toggle="modal" data-target="#confirmationModal" data-app-id="@aplikacja.ID">
                                     Przypisz
@@ -123,17 +121,17 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLabel">Potwierdzenie akcji</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <button id="modalExitBtn" type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <div class="modal-body">
+                                    <div class="modal-body" id="popUpAssignQuestionTxt">
                                         Czy na pewno chcesz przypisać kandydata @Model.Kandydat.Nazwisko @Model.Kandydat.Imie do kierunku @aplikacja.KierunekStudiow.NazwaKierunku?
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+                                        <button id="modalCancelBtn" type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
                                         <form id="confirmationForm" method="post">
-                                            <button type="submit" class="btn btn-secondary">Zatwierdź</button>
+                                            <button id="modalSubmitBtn" type="submit" class="btn btn-secondary">Zatwierdź</button>
                                             <input type="hidden" id="aplikacjaId" name="aplikacjaId" value="@aplikacja.ID">
                                         </form>
                                     </div>
@@ -149,7 +147,7 @@
 } 
 @if(!string.IsNullOrEmpty(ViewBag.NoResultMessage))
 {
-    <p class="center-text">@ViewBag.NoResultMessage</p>
+    <p id="noResultMsgTxt" class="center-text">@ViewBag.NoResultMessage</p>
 } 
 
 
@@ -165,11 +163,11 @@
                 </div>
 
                 <div class="modal-body">
-                    <p style="text-align: center">@ViewBag.PopUpMessage</p>
+                    <p id="popUpMsgTxt" style="text-align: center">@ViewBag.PopUpMessage</p>
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Zamknij</button>
+                    <button id="popUpCloseBtn" type="button" class="btn btn-danger" data-dismiss="modal">Zamknij</button>
                 </div>
 
             </div>
@@ -196,7 +194,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" style="text-align: center">
+            <div id="backCancelMsg" class="modal-body" style="text-align: center">
                 Czy na pewno chcesz anulować przypisanie i powrócić do listy kandydatów?
             </div>
             <div class="modal-footer">

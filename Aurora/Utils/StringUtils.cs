@@ -36,7 +36,7 @@ namespace Aurora.Utils
 
         public static string GetDowolnyTekst(string text)
         { 
-            switch (text.ToLower())
+            switch (text.ToLower().Trim())
             {
                 case "formastudiow":
                     return "Dowolna";
@@ -62,6 +62,20 @@ namespace Aurora.Utils
             return stringBuilder.ToString().Trim();
         }
 
+        public static bool CzyKandydatPasuje(string Imie, string Nazwisko, string SearchText)
+        {
+            var imieMalaLitera = Imie.ToLower();
+            var nazwiskoMalaLitera = Nazwisko.ToLower();
+            var SearchTextMalaLitera = SearchText.ToLower();
+            var polaczoneNazwiskoIImie = $"{nazwiskoMalaLitera} {imieMalaLitera}";
+            var polaczoneImieINazwisko = $"{imieMalaLitera} {nazwiskoMalaLitera}";
+
+            return imieMalaLitera.Contains(SearchTextMalaLitera) ||
+                   nazwiskoMalaLitera.Contains(SearchTextMalaLitera) ||
+                   polaczoneNazwiskoIImie.Contains(SearchTextMalaLitera) ||
+                   polaczoneImieINazwisko.Contains(SearchTextMalaLitera);
+
+        }
 
     }
 }

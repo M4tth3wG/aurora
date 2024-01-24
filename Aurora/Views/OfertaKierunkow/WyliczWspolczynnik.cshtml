@@ -6,11 +6,11 @@
     ViewData["Title"] = "Wylicz swój współczynnik rekrutacyjny";
 }
 
-<h5 class="rr-title">Wyliczanie współczynnika rekrutacyjnego dla kierunku @Model.NazwaKierunku</h5>
+<h5 id="RRTitleTxt" class="rr-title">Wyliczanie współczynnika rekrutacyjnego dla kierunku @Model.NazwaKierunku</h5>
 
 
 <div class="rr-main-header">
-    <h2>Wartość współczynnika: @ViewBag.WartoscWR</h2>
+    <h2 id="RRValueTxt">Wartość współczynnika: @ViewBag.WartoscWR</h2>
     <h5>Wyniki procentowe z egzaminu maturalnego</h5>
 </div>
 
@@ -77,7 +77,7 @@
     </div>
 
     <div class="centered-div">
-        <button type="submit" class="btn btn-secondary">Wylicz</button>
+        <button id="wyliczWspolczynnikSubmitButton" type="submit" class="btn btn-secondary">Wylicz</button>
         <button id="wyliczWspolczynnikBackButton" type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("Index", "OfertaKierunkow")'">Powrót</button>
     </div>
 
@@ -92,15 +92,15 @@
 
                 <div class="modal-header">
                     <h4 class="modal-title"></h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <button id="popUpXBtn" type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
                 <div class="modal-body">
-                    <p style="text-align: center">@ViewBag.PopUpMessage</p>
+                    <p id="popUpMsgTxt" style="text-align: center">@ViewBag.PopUpMessage</p>
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Zamknij</button>
+                    <button id="popUpCloseBtn"  type="button" class="btn btn-danger" data-dismiss="modal">Zamknij</button>
                 </div>
 
             </div>

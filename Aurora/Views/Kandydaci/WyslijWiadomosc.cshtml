@@ -17,26 +17,26 @@
             <tbody>
                 <div class="application-row">
                     <tr>
-                        <td class="my-td">Nazwisko: @Model.Kandydat.Nazwisko</td>
-                        <td class="my-td">Imię: @Model.Kandydat.Imie</td>
-                        <td class="my-td">Kierunek: @Model.KierunekStudiow.NazwaKierunku</td>
-                        <td class="my-td">Forma studiów: @(EnumUtils.ConvertIDToTypeAsString<FormaStudiow>(@Model.KierunekStudiow.FormaStudiow))</td>
-                        <td class="my-td">Język wykładowy: @(EnumUtils.ConvertIDToTypeAsString<Jezyk>(@Model.KierunekStudiow.JezykWykladowy))</td>
+                        <td id="candLastNameTxt" class="my-td">Nazwisko: @Model.Kandydat.Nazwisko</td>
+                        <td id="candNameTxt" class="my-td">Imię: @Model.Kandydat.Imie</td>
+                        <td id="candStudyTxt" class="my-td">Kierunek: @Model.KierunekStudiow.NazwaKierunku</td>
+                        <td id="candStudyFormTxt" class="my-td">Forma studiów: @(EnumUtils.ConvertIDToTypeAsString<FormaStudiow>(@Model.KierunekStudiow.FormaStudiow))</td>
+                        <td id="candStudyLang" class="my-td">Język wykładowy: @(EnumUtils.ConvertIDToTypeAsString<Jezyk>(@Model.KierunekStudiow.JezykWykladowy))</td>
 
                     </tr>
                     <tr>
-                        <td class="my-td">ID Kandydata: @Model.Kandydat.ID</td>
+                        <td id="candIDTxt" class="my-td">ID Kandydata: @Model.Kandydat.ID</td>
                         <td></td>
-                        <td class="my-td">@(EnumUtils.ConvertIDToTypeAsString<NazwaWydzialu>(@Model.KierunekStudiow.Wydzial))</td>
-                        <td class="my-td">Poziom studiów: @(EnumUtils.ConvertIDToTypeAsString<PoziomStudiow>(@Model.KierunekStudiow.PoziomStudiow))</td>
-                        <td class="my-td">Miejsce: @(EnumUtils.ConvertIDToTypeAsString<MiejsceStudiow>(@Model.KierunekStudiow.MiejsceStudiow))</td>
+                        <td id="candDepartTxt" class="my-td">@(EnumUtils.ConvertIDToTypeAsString<NazwaWydzialu>(@Model.KierunekStudiow.Wydzial))</td>
+                        <td id="candStudyLvlTxt" class="my-td">Poziom studiów: @(EnumUtils.ConvertIDToTypeAsString<PoziomStudiow>(@Model.KierunekStudiow.PoziomStudiow))</td>
+                        <td id="candStudyPlaceTxt" class="my-td">Miejsce: @(EnumUtils.ConvertIDToTypeAsString<MiejsceStudiow>(@Model.KierunekStudiow.MiejsceStudiow))</td>
                     </tr>
                 </div>
             </tbody>
         </table>
     </div>
 
-    <p>Nadawca: @ViewBag.ImieUsera @ViewBag.NazwiskoUsera</p>
+    <p id ="senderDataTxt">Nadawca: @ViewBag.ImieUsera @ViewBag.NazwiskoUsera</p>
 
 
     <input type="text" id="bigMessage" class="form-control" style="height: 200px; text-align: start" placeholder="Treść wiadomości">
@@ -45,7 +45,7 @@
 
         <form asp-action="PrzypiszKandydata" method="get">
             <input type="hidden" name="id" value=@Model.KandydatID>
-            <button type="submit" class="btn btn-secondary">Powrót</button>
+            <button id="backBtn" type="submit" class="btn btn-secondary">Powrót</button>
         </form>
 
         <form asp-action="WyslijWiadomosc" method="post">
@@ -53,7 +53,7 @@
             <input type="hidden" name="pracownikId" value=@Convert.ToInt32(ViewBag.IDUsera)> 
             <input type="hidden" name="content" id="content" value="">
 
-            <button type="submit" class="btn btn-secondary" onclick="prepareData()">Wyślij</button>
+            <button id="sendMsgConfirmBtn" type="submit" class="btn btn-secondary" onclick="prepareData()">Wyślij</button>
         </form>
     </div>
 
@@ -67,17 +67,17 @@
 
                     <div class="modal-header">
                         <h4 class="modal-title"></h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <button id="popUpCloseBtn" type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
 
                     <div class="modal-body">
-                        <p style="text-align: center">@ViewBag.Message</p>
+                        <p id="popUpMsgTxt" style="text-align: center">@ViewBag.Message</p>
                     </div>
 
                     <div class="modal-footer">
                         <form asp-controller="Kandydaci" asp-action="PrzypiszKandydata" method="get">
                             <input type="hidden" name="id" value="@Model.KandydatID" />
-                            <button type="submit" class="btn btn-danger">Powrót do przypisu</button>
+                            <button id="popUpSubmitBtn" type="submit" class="btn btn-danger">Powrót do przypisu</button>
                         </form>
                     </div>
 

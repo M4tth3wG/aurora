@@ -17,8 +17,8 @@
                     <div class="custom-dropdown">
 
                         <input type="text" class="form-control" placeholder="Wyszukaj" id="txtSearchFilter" name="searchFilter" value="@ViewBag.SearchFilter" />
-                        <button type="submit" class="btn btn-secondary">Szukaj</button>
-                        <button type="button" class="btn btn-outline-danger" onclick="clearFilters()">Usuń filtry</button>
+                        <button id="searchFilterBtn" type="submit" class="btn btn-secondary">Szukaj</button>
+                        <button id="cleanFilterBtn" type="button" class="btn btn-outline-danger" onclick="clearFilters()">Usuń filtry</button>
                         @Html.Hidden("sortOption", TempData["SortOption"])
 
                     </div>
@@ -50,21 +50,21 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Nazwisko: @kandydat.Nazwisko</td>
-                                    <td>Imię: @kandydat.Imie</td>
+                                    <td id="candLastNameTxt">Nazwisko: @kandydat.Nazwisko</td>
+                                    <td id="candNameTxt">Imię: @kandydat.Imie</td>
 
                                     <td class="text-right" style="white-space: nowrap;">
-                                        <button class="btn btn-secondary" style="margin-right: 5px;">Dokumenty</button>
-                                        <button class="btn btn-secondary" style="margin-right: 5px;">Wyślij wiadomość</button>
+                                        <button id="candDocsBtn" class="btn btn-secondary" style="margin-right: 5px;">Dokumenty</button>
+                                        <button id="sendcandMsgBtn" class="btn btn-secondary" style="margin-right: 5px;">Wyślij wiadomość</button>
                                         <form asp-action="PrzypiszKandydata" asp-route-id="@kandydat.ID" method="get" style="display: inline-block;">
-                                            <button type="submit" class="btn btn-secondary">Przypisz</button>
+                                            <button id="assignCandBtn" type="submit" class="btn btn-secondary">Przypisz</button>
                                         </form>
                                     </td>
 
 
                                 </tr>
                                 <tr class="last-row">
-                                    <td>ID kandydata: @kandydat.ID</td>
+                                    <td id="candIDTxt">ID kandydata: @kandydat.ID</td>
                                 </tr>
                             </tbody>
                         </table>
