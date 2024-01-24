@@ -1,5 +1,6 @@
 ﻿using Aurora.Data;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,29 +11,11 @@ namespace Aurora.Utils
     public static class UserUtils
     {
 
-        static List<string> nazwiska = new List<string>() {
-            "Woźniak", "Krawczyk", "Szewczyk", "Nowak", "Kowalczyk", "Duda", "Wójcik", "Krupa", "Socha", "Skiba"
-        };
 
-        static List<string> imiona = new List<string>() {
-            "Jakub", "Szymon", "Jan", "Adam", "Krzysztof", "Anna", "Joanna", "Julia", "Hanna", "Natalia"
-        };
 
         static Random random = new Random();
 
-        public static (string, string, string) GetDanePracownika(DataDbContext context) {
-            //var imie = GetFromSession("UserName", session, imiona);
-            //var nazwisko = GetFromSession("UserLastName", session, nazwiska);
-            //var id = GetIDFromSession("UserID", session);
 
-            //return (imie, nazwisko, id);
-            var pracownik = context.PracownicyDziekanatu.FirstOrDefault();
-            if(pracownik == null)
-            {
-                return ("Natalia", "Kowalczyk", "123456");
-            }
-            return (pracownik.Imie, pracownik.Nazwisko, pracownik.ID.ToString("D6"));
-        }
 
         private static string GetFromSession(string key, ISession session, List<string> list)
         {

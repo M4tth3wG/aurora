@@ -5,6 +5,7 @@ using Aurora.Utils;
 using Aurora.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,11 +20,13 @@ namespace Aurora.Controllers
     {
         private readonly DataDbContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public KandydaciController(DataDbContext context, IWebHostEnvironment hostEnvironment)
+        public KandydaciController(DataDbContext context, IWebHostEnvironment hostEnvironment, UserManager<IdentityUser> userManager)
         {
             _context = context;
             _hostEnvironment = hostEnvironment;
+            _userManager = userManager;
         }
 
         public IActionResult Index(string searchFilter, string sortOption = "ID")
@@ -105,7 +108,7 @@ namespace Aurora.Controllers
                 // czy zrobić osobne komunikaty dla przypadku gdy kandydat nie ma żadnych aplikacji
                 // oraz dla przypadku gdy nie ma aplikacji, które nie spełniają kryteriów wyszukiwania
 
-                ViewBag.NoResultMessage = $"Kandydat {kandydat.Imie} {kandydat.Nazwisko} nie posiada w aktualnej turze rekrutacji aplikacji spełniające podane kryteria wyszukiwania.";
+                ViewBag.NoResultMessage = $"Kandydat {kandydat.Imie} {kandydat.Nazwisko} nie posiada w aktualnej turze rekrutacji aplikacji |spełniające podane kryteria wyszukiwania.|";
 
             }
 
@@ -168,7 +171,7 @@ namespace Aurora.Controllers
             if (!string.IsNullOrEmpty(PostMessage)) ViewBag.Message = PostMessage;
 
 
-            (ViewBag.ImieUsera, ViewBag.NazwiskoUsera, ViewBag.IDUsera) = UserUtils.GetDanePracownika(_context);
+            (ViewBag.ImiePracownika, ViewBag.NazwiskoPracownika, ViewBag.IDPracownika) = await GetDanePracownika();
 
             return View(aplikacja);
         }
@@ -209,8 +212,14 @@ namespace Aurora.Controllers
         }
 
 
+        public async Task<(string, string, string)> GetDanePracownika()
+        {
 
-        
+            var user = await _userManager.GetUserAsync(User);
+            var pracownik = _context.PracownicyDziekanatu.FirstOrDefault(p => p.AdresEmail == user.Email);
+            return (pracownik.Imie, pracownik.Nazwisko, pracownik.ID.ToString());
+        }   
+
 
 
 
