@@ -2,7 +2,7 @@ using Aurora.Utils;
 using System;
 using Xunit;
 
-namespace AuroraTestAdrian
+namespace Aurora.Test
 {
     public class StringUtilsTest
     {

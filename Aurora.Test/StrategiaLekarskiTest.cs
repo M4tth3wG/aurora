@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace AuroraTestAdrian
+namespace Aurora.Test
 {
     public class StrategiaLekarskiTest
     {

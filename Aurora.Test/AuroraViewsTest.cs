@@ -1,12 +1,14 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
 using System;
+using System.Threading;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
 using WebDriverManager.Helpers;
 using Xunit;
 
-namespace AuroraTestAdrian
+namespace Aurora.Test
 {
     public class AuroraViewsTest : IDisposable
     {
@@ -22,7 +24,8 @@ namespace AuroraTestAdrian
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            Thread.Sleep(5000);
+            driver.Quit();
         }
 
         [Fact]
@@ -30,7 +33,8 @@ namespace AuroraTestAdrian
         public void Test() 
         {
 
-            driver.Navigate().GoToUrl("http://m4tth3wg-001-site1.btempurl.com/?fbclid=IwAR2PV55ynjc_7wAmG5TRNNePX4e8twtNvN9Fcrc2Mrm5eJr33EL8xYdOgdM");
+            //driver.Navigate().GoToUrl("http://m4tth3wg-001-site1.btempurl.com/?fbclid=IwAR2PV55ynjc_7wAmG5TRNNePX4e8twtNvN9Fcrc2Mrm5eJr33EL8xYdOgdM");
+            driver.Navigate().GoToUrl("https://localhost:44388/");
 
             IWebElement signInButton = driver.FindElement(By.Id("login"));
 
@@ -42,10 +46,9 @@ namespace AuroraTestAdrian
             InputForMail.SendKeys("anna.nowak@example.com");
             InputForPassword.SendKeys("haslo");
 
-            IWebElement form = driver.FindElement(By.Id("account"));
-            IWebElement submitBtn = form.FindElement(By.CssSelector("input[type='submit']"));
+            //IWebElement submitBtn = driver.FindElement(By.Id("submitLoginBtn"));
 
-            submitBtn.Click();
+            //submitBtn.Click();
         }
 
     }
