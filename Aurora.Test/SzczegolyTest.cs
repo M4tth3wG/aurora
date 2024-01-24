@@ -27,7 +27,7 @@ namespace Aurora.Test
             // Arrange
 
             var dbContextOptions = new DbContextOptionsBuilder<DataDbContext>()
-                .UseInMemoryDatabase(databaseName: "AuroraDB")
+                .UseInMemoryDatabase(databaseName: "SzczegolyTest")
                 .Options;
 
             using (var dbContext = new DataDbContext(dbContextOptions))
@@ -63,6 +63,8 @@ namespace Aurora.Test
 
         private void PrepareDB(DataDbContext dbContext)
         {
+
+
             dbContext.KierunkiStudiow.Add( new KierunekStudiow(
                 1, 1, 0.0, 1500.0, 2, 0, "Architektura", 0, 0, "Architektura dla ambitnych", 0
             ));
@@ -75,6 +77,17 @@ namespace Aurora.Test
             dbContext.OplatyRekrutacyjne.Add(new OplataRekrutacyjna(
                 1, 1, 80.0
             ));
+            dbContext.WspolczynnikiRekrutacyjne.Add(new WspolczynnikRekrutacyjny(
+                1, 1
+            ));
+
+            dbContext.SkladoweWspRekrut.Add(new SkladowaWspRekrut(1, 70, 1, 0, 1, null));
+            dbContext.SkladoweWspRekrut.Add(new SkladowaWspRekrut(2, 70, 1, 3, 1, null));
+            dbContext.SkladoweWspRekrut.Add(new SkladowaWspRekrut(3, 70, 1, 1, 1, null));
+            dbContext.SkladoweWspRekrut.Add(new SkladowaWspRekrut(4, 70, 1, 1, 0, null));
+            dbContext.SkladoweWspRekrut.Add(new SkladowaWspRekrut(5, 70, 1, 2, 0, null));
+            dbContext.SkladoweWspRekrut.Add(new SkladowaWspRekrut(6, 70, 1, 2, 1, null));
+            dbContext.SkladoweWspRekrut.Add(new SkladowaWspRekrut(7, 70, 1, 0, 0, null));
 
             dbContext.SaveChanges();
         }

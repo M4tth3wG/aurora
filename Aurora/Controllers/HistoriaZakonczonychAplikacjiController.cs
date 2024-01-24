@@ -128,28 +128,26 @@ namespace Aurora.Controllers
                 .Include(e => e.WspolczynnikRekrutacyjny)
                     .ThenInclude(e => e.skladowe)
                         .ThenInclude(e => e.Egzamin)
-                /*                .OrderBy(e => e.WspolczynnikRekrutacyjny)*/
                 .ToList();
 
-            /*            wszyskieAplikacjeWTurze = wszyskieAplikacjeWTurze.OrderBy(p => p.WspolczynnikRekrutacyjny.Wartosc).ToList();
-            */
-            var punkty = aplikacja.FirstOrDefault().WspolczynnikRekrutacyjny.Wartosc;
-            @ViewBag.IloscPunktow = aplikacja.FirstOrDefault().WspolczynnikRekrutacyjny.Wartosc;
+            wszyskieAplikacjeWTurze = wszyskieAplikacjeWTurze.OrderBy(p => p.WspolczynnikRekrutacyjny.Wartosc).ToList();
+            wszyskieAplikacjeWTurze.Reverse();
+
             int i = 0;
 
             foreach (var aplikacje in wszyskieAplikacjeWTurze)
             {
                 i++;
 
-/*                aplikacje.WspolczynnikRekrutacyjny.strategia = UtilsRR.GetStrategiaDlaKierunku(aplikacje.KierunekStudiow);*/
 
                 if (aplikacje.ID == aplikacja.FirstOrDefault().ID)
                 {
                     @ViewBag.ZajeteMiejsce = i;
+                    @ViewBag.IloscPunktow = aplikacje.WspolczynnikRekrutacyjny.Wartosc;
                 }
                 if (aplikacje.Status == Convert.ToInt32(RodzajStatusuAplikacji.ZakonczonaSukcesem))
                 {
-/*                    @ViewBag.MinimalnaIloscPunktow = aplikacje.WspolczynnikRekrutacyjny.Wartosc;*/
+                    @ViewBag.MinimalnaIloscPunktow = aplikacje.WspolczynnikRekrutacyjny.Wartosc;
 
                 }
 

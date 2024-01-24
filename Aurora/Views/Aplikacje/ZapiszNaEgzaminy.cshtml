@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Aurora.Models.DziedzinaEgzaminuWstepnego>
 
 @{
-    ViewData["Title"] = "ZapiszNaEgzaminy";
+    ViewData["Title"] = "Egzaminy wstępne";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -12,10 +12,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                Zakres: @Html.DisplayFor(modelItem => item.Dziedzina)
+                <b>Zakres:</b> @Html.DisplayFor(modelItem => item.Dziedzina)
             </td>
             <td>
-                    <a class="btn btn-primary" href="@Url.Action("ZapisNaEgzaminyPotwierdz", new {item.ID, aplikacjaID=ViewBag.AplikacjaID})">Zapisz się</a>
+                <a class="btn btn-primary" href="@Url.Action("ZapisNaEgzaminyPotwierdz", new {item.ID, aplikacjaID=ViewBag.AplikacjaID})">Zapisz się</a>
             </td>
         </tr>
 }

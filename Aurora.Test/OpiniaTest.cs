@@ -27,7 +27,7 @@ namespace Aurora.Test
             // Arrange
 
             var dbContextOptions = new DbContextOptionsBuilder<DataDbContext>()
-                .UseInMemoryDatabase(databaseName: "AuroraDB")
+                .UseInMemoryDatabase(databaseName: "OpiniaTest")
                 .Options;
 
             using (var dbContext = new DataDbContext(dbContextOptions))
@@ -63,6 +63,7 @@ namespace Aurora.Test
 
         private void PrepareDB(DataDbContext dbContext)
         {
+
 
             dbContext.Opinia.Add(new Opinia()
             {
