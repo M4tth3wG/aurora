@@ -60,6 +60,7 @@ namespace Aurora.Data
             Kandydat kandydat4 = new Kandydat(4, adres4.ID, "66677733212", "Adam", "Kowalski", "adam.kowalski@example.com");
             Kandydat kandydat5 = new Kandydat(5, adres5.ID, "12345678902", "Karolina", "Nowak", "karolina.nowak@example.com");
             Kandydat kandydat6 = new Kandydat(6, adres6.ID, "98765432103", "Marek", "Lis", "marek.lis@example.com");
+            Kandydat kandydat7 = new Kandydat(7, adres3.ID, "66677889900", "Szymon", "Nowak", "szymon.nowak@example.com");
 
 
             builder.Entity<Kandydat>().HasData(
@@ -68,7 +69,8 @@ namespace Aurora.Data
                 kandydat3,
                 kandydat4,
                 kandydat5,
-                kandydat6
+                kandydat6,
+                kandydat7
             );
 
             var dziedzinyEgzaminuWstepnego = new List<DziedzinaEgzaminuWstepnego>()
@@ -108,11 +110,16 @@ namespace Aurora.Data
 
             KierunekStudiow kierunek2 = new KierunekStudiow(
                 2, 1, 0.0, 1250.0, 3, 0, "Automatyka i Robotyka", 0, 10, "AiR dla wymagających", RodzajStrategii.Strategia1StopienStandard
+            );  
+            
+            KierunekStudiow kierunek3 = new KierunekStudiow(
+                3, 0, 0.0, 1250.0, 3, 0, "Fizyka techniczna", 0, 9, "Odkryj nowe oblicze fizyki", RodzajStrategii.Strategia1StopienStandard
             );
 
             builder.Entity<KierunekStudiow>().HasData(
             kierunek1,
-            kierunek2
+            kierunek2,
+            kierunek3
             );
 
             var egzaminyKierunki = new List<DziedzinaEgzaminuWstepnegoKierunekStudiow>() {
@@ -137,21 +144,26 @@ namespace Aurora.Data
                 .HasData(egzaminyKierunki);
 
             TuraRekrutacji tura1 = new TuraRekrutacji(
-                1, 1, new DateTime(2024, 1, 1), new DateTime(2024, 2, 1), new DateTime(2024, 2, 15), 0, 50, 300.0, 2, 2
+                1, 1, new DateTime(2024, 1, 1), new DateTime(2024, 2, 1), new DateTime(2024, 2, 15), 0, 50, 0.0, 2, 2
             );
 
             TuraRekrutacji tura2 = new TuraRekrutacji(
-                2, 2, new DateTime(2024, 1, 1), new DateTime(2024, 2, 1), new DateTime(2024, 2, 15), 0, 150, 225.0, 2, 2
+                2, 2, new DateTime(2024, 1, 1), new DateTime(2024, 2, 1), new DateTime(2024, 2, 15), 0, 150, 0.0, 2, 2
             );
 
             TuraRekrutacji tura3 = new TuraRekrutacji(
-                3, 2, new DateTime(2023, 1, 1), new DateTime(2023, 2, 1), new DateTime(2023, 2, 15), 3, 3, 225.0, 4, 2
+                3, 2, new DateTime(2023, 1, 1), new DateTime(2023, 2, 1), new DateTime(2023, 2, 15), 3, 3, 0.0, 4, 2
+            );
+
+            TuraRekrutacji tura4 = new TuraRekrutacji(
+                4, 3, new DateTime(2024, 1, 1), new DateTime(2024, 2, 1), new DateTime(2024, 2, 15), 5, 5, 0.0, 2, 2
             );
 
             builder.Entity<TuraRekrutacji>().HasData(
                 tura1,
                 tura2,
-                tura3
+                tura3,
+                tura4
             );
 
             OplataRekrutacyjna oplata1 = new OplataRekrutacyjna(
@@ -178,6 +190,9 @@ namespace Aurora.Data
             OplataRekrutacyjna oplata8 = new OplataRekrutacyjna(
                 8, 6, 80.0
             );
+            OplataRekrutacyjna oplata9 = new OplataRekrutacyjna(
+                9, 2, 80.0
+            );
 
 
 
@@ -189,7 +204,8 @@ namespace Aurora.Data
                 oplata5,
                 oplata6,
                 oplata7,
-                oplata8
+                oplata8,
+                oplata9
             );
 
             AplikacjaRekrutacyjna aplikacja1 = new AplikacjaRekrutacyjna(
@@ -224,6 +240,10 @@ namespace Aurora.Data
                 8, 2, 3, 8, new DateTime(2023, 1, 15), 6, 6
             );
 
+            AplikacjaRekrutacyjna aplikacja9 = new AplikacjaRekrutacyjna(
+                9, 3, 4, 9, new DateTime(2024, 1, 15), (int)RodzajStatusuAplikacji.OczekujeNaRozpatrzenie, 7
+            );
+
             builder.Entity<AplikacjaRekrutacyjna>().HasData(
                 aplikacja1,
                 aplikacja2,
@@ -232,7 +252,8 @@ namespace Aurora.Data
                 aplikacja5,
                 aplikacja6,
                 aplikacja7,
-                aplikacja8
+                aplikacja8,
+                aplikacja9
             );
 
             WspolczynnikRekrutacyjny wspolczynnik1 = new WspolczynnikRekrutacyjny(
