@@ -141,8 +141,18 @@
 
 
 <div class="float-right">
-    
-    @if (Model.Status != (int)RodzajStatusuAplikacji.Anulowana){
+    @{
+        var niedozwoloneStatusy = new List<RodzajStatusuAplikacji>()
+        {
+            RodzajStatusuAplikacji.Anulowana,
+            RodzajStatusuAplikacji.Anulowana,
+            RodzajStatusuAplikacji.ZakonczonaSukcesem,
+            RodzajStatusuAplikacji.ZakonczonaNiepowodzeniem
+        };
+    }
+
+
+    @if(!niedozwoloneStatusy.Any(s => (int)s == Model.Status)){
         <a class="btn btn-primary" asp-action="ZapiszNaEgzaminy" asp-route-id="@Model.ID">Zapisz na egzaminy</a>
         <a class="btn btn-primary" asp-action="AnulujAplikacje" asp-route-id="@Model.ID">Anuluj aplikację</a>
     }
