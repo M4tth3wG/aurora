@@ -123,7 +123,7 @@ namespace Aurora.Utils
                 new SkladowaWspRekrut
                 {
                         LiczbaPunktow = (double) model.wynikiMaturalne["EgzRys"],
-                        RodzajSkladowejWspRekrut = Convert.ToInt32(RodzajSkladowejWspRekrut.E)
+                        RodzajSkladowejWspRekrut = E
                     }
                 );
             }
