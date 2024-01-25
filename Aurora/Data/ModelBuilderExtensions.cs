@@ -468,11 +468,11 @@ namespace Aurora.Data
                 skladowa45, skladowa46, skladowa47, skladowa48, skladowa49,
                 skladowa50, skladowa51, skladowa52, skladowa53, skladowa54,
                 skladowa55, skladowa56, skladowa57, skladowa58, skladowa59, 
-                skladowa59,skladowa60,skladowa61,skladowa62,skladowa63,
-                skladowa64,skladowa65,skladowa66,skladowa67,skladowa68,
-                skladowa69,skladowa70,skladowa71,skladowa72,skladowa73,
-                skladowa74,skladowa75,skladowa76,skladowa77,skladowa78,
-                skladowa79,skladowa80,skladowa81
+                skladowa60, skladowa61, skladowa62, skladowa63,
+                skladowa64, skladowa65, skladowa66, skladowa67,skladowa68,
+                skladowa69, skladowa70, skladowa71, skladowa72,skladowa73,
+                skladowa74, skladowa75, skladowa76, skladowa77,skladowa78,
+                skladowa79, skladowa80, skladowa81
             );
 
             var pracownicy = new List<PracownikDziekanatu>()
