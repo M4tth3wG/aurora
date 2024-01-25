@@ -267,15 +267,15 @@ namespace Aurora.Data
             );
 
             AplikacjaRekrutacyjna aplikacja10 = new AplikacjaRekrutacyjna(
-                10, 1, 3, 10, new DateTime(2023, 1, 12), (int)RodzajStatusuAplikacji.ZakonczonaSukcesem, 1
+                10, 1, 5, 10, new DateTime(2023, 1, 12), (int)RodzajStatusuAplikacji.ZakonczonaSukcesem, 1
             );
 
             AplikacjaRekrutacyjna aplikacja11 = new AplikacjaRekrutacyjna(
-                11, 1, 3, 11, new DateTime(2023, 1, 14), (int)RodzajStatusuAplikacji.ZakonczonaSukcesem, 2
+                11, 1, 5, 11, new DateTime(2023, 1, 14), (int)RodzajStatusuAplikacji.ZakonczonaSukcesem, 2
             );
 
             AplikacjaRekrutacyjna aplikacja12 = new AplikacjaRekrutacyjna(
-                12, 1, 3, 12, new DateTime(2023, 1, 15), (int)RodzajStatusuAplikacji.ZakonczonaNiepowodzeniem, 3
+                12, 1, 5, 12, new DateTime(2023, 1, 15), (int)RodzajStatusuAplikacji.ZakonczonaNiepowodzeniem, 3
             );
 
             AplikacjaRekrutacyjna aplikacja13 = new AplikacjaRekrutacyjna(
