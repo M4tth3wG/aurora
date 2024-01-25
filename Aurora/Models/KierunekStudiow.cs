@@ -30,6 +30,7 @@ namespace Aurora.Models
         private IStrategiaWspolRekrut _Strategia;
 
         [Required]
+        [Display(Name = "Strategia wyliczania współczynnika rekrutacyjnego")]
         public int StrategiaID {
             get { return _StrategiaID; }
             set
@@ -55,16 +56,18 @@ namespace Aurora.Models
         }
 
 
-        [Required]
+        [Required(ErrorMessage = "Pole wymagane.")]
         [Display(Name = "Czesne")]
-        [Range(0.0d, double.MaxValue, ErrorMessage = "Czesne musi być dodatnią liczbą rzeczywistą.")]
-        [DisplayFormat(DataFormatString = "{0:F1}", ApplyFormatInEditMode = true)]
+        [Range(0.0d, double.MaxValue, ErrorMessage = "Czesne musi być dodatnią liczbą rzeczywistą z dokładnością do 2 miejsc po przecinku.")]
+        [DisplayFormat(DataFormatString = "{0:0.00}")]
+        [RegularExpression(@"^[0-9]*(\.[0-9]{1,2}){0,1}$", ErrorMessage = "Czesne musi być dodatnią liczbą rzeczywistą z dokładnością do 2 miejsc po przecinku.")]
         public double Czesne { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Pole wymagane.")]
         [Display(Name = "Czesne dla obcokrajowców")]
-        [Range(0.0d, double.MaxValue, ErrorMessage = "Czesne dla obcokrajowców musi być dodatnią liczbą rzeczywistą.")]
-        [DisplayFormat(DataFormatString = "{0:F1}", ApplyFormatInEditMode = true)]
+        [Range(0.0d, double.MaxValue, ErrorMessage = "Czesne musi być dodatnią liczbą rzeczywistą z dokładnością do 2 miejsc po przecinku.")]
+        [DisplayFormat(DataFormatString = "{0:0.00}")]
+        [RegularExpression(@"^[0-9]*(\.[0-9]{1,2}){0,1}$", ErrorMessage = "Czesne musi być dodatnią liczbą rzeczywistą z dokładnością do 2 miejsc po przecinku.")]
         public double CzesneDlaObcokrajowcow { get; set; }
 
         [Required]

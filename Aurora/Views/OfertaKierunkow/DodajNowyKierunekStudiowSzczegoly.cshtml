@@ -35,7 +35,7 @@
             <span asp-validation-for="Wydzial" class="text-danger"></span>
         </div>
             <div class="form-group">
-                <label asp-for="Strategia" class="control-label font-weight-bold"></label>
+                <label asp-for="StrategiaID" class="control-label font-weight-bold"></label>
                 <select asp-for="StrategiaID" class="form-control" asp-items="@GetEnumSelectList<RodzajStrategii>()"></select>
                 <span asp-validation-for="StrategiaID" class="text-danger"></span>
             </div>
