@@ -432,23 +432,23 @@ namespace Aurora.Data
             SkladowaWspRekrut skladowa64 = new SkladowaWspRekrut(64, 70, 10, 2, 1, null);
             SkladowaWspRekrut skladowa65 = new SkladowaWspRekrut(65, 250, 10, null, 2, null);
 
-            SkladowaWspRekrut skladowa66 = new SkladowaWspRekrut(66, 70, 10, 0, 1, null);
-            SkladowaWspRekrut skladowa67 = new SkladowaWspRekrut(67, 70, 10, 0, 0, null);
-            SkladowaWspRekrut skladowa68 = new SkladowaWspRekrut(68, 70, 10, 3, 1, null);
-            SkladowaWspRekrut skladowa69 = new SkladowaWspRekrut(69, 70, 10, 1, 1, null);
-            SkladowaWspRekrut skladowa70 = new SkladowaWspRekrut(70, 70, 10, 1, 0, null);
-            SkladowaWspRekrut skladowa71 = new SkladowaWspRekrut(71, 70, 10, 2, 0, null);
-            SkladowaWspRekrut skladowa72 = new SkladowaWspRekrut(72, 70, 10, 2, 1, null);
-            SkladowaWspRekrut skladowa73 = new SkladowaWspRekrut(73, 250, 10, null, 2, null);
+            SkladowaWspRekrut skladowa66 = new SkladowaWspRekrut(66, 70, 11, 0, 1, null);
+            SkladowaWspRekrut skladowa67 = new SkladowaWspRekrut(67, 70, 11, 0, 0, null);
+            SkladowaWspRekrut skladowa68 = new SkladowaWspRekrut(68, 70, 11, 3, 1, null);
+            SkladowaWspRekrut skladowa69 = new SkladowaWspRekrut(69, 70, 11, 1, 1, null);
+            SkladowaWspRekrut skladowa70 = new SkladowaWspRekrut(70, 70, 11, 1, 0, null);
+            SkladowaWspRekrut skladowa71 = new SkladowaWspRekrut(71, 70, 11, 2, 0, null);
+            SkladowaWspRekrut skladowa72 = new SkladowaWspRekrut(72, 70, 11, 2, 1, null);
+            SkladowaWspRekrut skladowa73 = new SkladowaWspRekrut(73, 230, 11, null, 2, null);
 
-            SkladowaWspRekrut skladowa74 = new SkladowaWspRekrut(74, 70, 10, 0, 1, null);
-            SkladowaWspRekrut skladowa75 = new SkladowaWspRekrut(75, 70, 10, 0, 0, null);
-            SkladowaWspRekrut skladowa76 = new SkladowaWspRekrut(76, 70, 10, 3, 1, null);
-            SkladowaWspRekrut skladowa77 = new SkladowaWspRekrut(77, 70, 10, 1, 1, null);
-            SkladowaWspRekrut skladowa78 = new SkladowaWspRekrut(78, 70, 10, 1, 0, null);
-            SkladowaWspRekrut skladowa79 = new SkladowaWspRekrut(79, 70, 10, 2, 0, null);
-            SkladowaWspRekrut skladowa80 = new SkladowaWspRekrut(80, 70, 10, 2, 1, null);
-            SkladowaWspRekrut skladowa81 = new SkladowaWspRekrut(81, 250, 10, null, 2, null);
+            SkladowaWspRekrut skladowa74 = new SkladowaWspRekrut(74, 70, 12, 0, 1, null);
+            SkladowaWspRekrut skladowa75 = new SkladowaWspRekrut(75, 70, 12, 0, 0, null);
+            SkladowaWspRekrut skladowa76 = new SkladowaWspRekrut(76, 70, 12, 3, 1, null);
+            SkladowaWspRekrut skladowa77 = new SkladowaWspRekrut(77, 70, 12, 1, 1, null);
+            SkladowaWspRekrut skladowa78 = new SkladowaWspRekrut(78, 70, 12, 1, 0, null);
+            SkladowaWspRekrut skladowa79 = new SkladowaWspRekrut(79, 70, 12, 2, 0, null);
+            SkladowaWspRekrut skladowa80 = new SkladowaWspRekrut(80, 70, 12, 2, 1, null);
+            SkladowaWspRekrut skladowa81 = new SkladowaWspRekrut(81, 210, 12, null, 2, null);
 
             
 
