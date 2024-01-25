@@ -1,4 +1,5 @@
-﻿using Aurora.Interfaces;
+﻿using Aurora.Enums;
+using Aurora.Interfaces;
 using Aurora.Utils;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,11 +15,15 @@ namespace Aurora.Models
         [Display(Name = "ID")]
         public int ID { get; set; }
 
+        [NotMapped]
+        private double? _wartosc { set; get; }
+
         public double Wartosc 
         {
             get
             {
-                return AplikacjaRekrutacyjna.KierunekStudiow.Strategia?.GetTotalPoints(skladowe.ToList()) ?? -1.0;
+                if (_wartosc == null) _wartosc = AplikacjaRekrutacyjna.KierunekStudiow.Strategia?.GetTotalPoints(skladowe.ToList());
+                return (double)_wartosc;
             }
         }
 
@@ -48,6 +53,7 @@ namespace Aurora.Models
             ID = iD;
             AplikacjaRekrutacyjnaID = aplikacjaRekrutacyjnaID;
             EgzaminID = egzaminID;
+            _wartosc = null;
         }
     }
 }
