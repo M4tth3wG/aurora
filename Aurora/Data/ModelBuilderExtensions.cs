@@ -159,11 +159,16 @@ namespace Aurora.Data
                 4, 3, new DateTime(2024, 1, 1), new DateTime(2024, 2, 1), new DateTime(2024, 2, 15), 5, 5, 0.0, 2, 2
             );
 
+            TuraRekrutacji tura5 = new TuraRekrutacji(
+                5, 1, new DateTime(2023, 1, 1), new DateTime(2023, 2, 1), new DateTime(2023, 2, 15), 2, 2, 0.0, 4, 2
+            );
+
             builder.Entity<TuraRekrutacji>().HasData(
                 tura1,
                 tura2,
                 tura3,
-                tura4
+                tura4,
+                tura5
             );
 
             OplataRekrutacyjna oplata1 = new OplataRekrutacyjna(
@@ -194,6 +199,19 @@ namespace Aurora.Data
                 9, 2, 80.0
             );
 
+            OplataRekrutacyjna oplata10 = new OplataRekrutacyjna(
+                10, 1, 80.0
+            );
+            OplataRekrutacyjna oplata11 = new OplataRekrutacyjna(
+                11, 2, 80.0
+            );
+            OplataRekrutacyjna oplata12 = new OplataRekrutacyjna(
+                12, 3, 80.0
+            );
+            OplataRekrutacyjna oplata13 = new OplataRekrutacyjna(
+                13, 2, 80.0
+            );
+
 
 
             builder.Entity<OplataRekrutacyjna>().HasData(
@@ -205,7 +223,11 @@ namespace Aurora.Data
                 oplata6,
                 oplata7,
                 oplata8,
-                oplata9
+                oplata9,
+                oplata10,
+                oplata11,
+                oplata12,
+                oplata13
             );
 
             AplikacjaRekrutacyjna aplikacja1 = new AplikacjaRekrutacyjna(
@@ -244,6 +266,22 @@ namespace Aurora.Data
                 9, 3, 4, 9, new DateTime(2024, 1, 15), (int)RodzajStatusuAplikacji.OczekujeNaRozpatrzenie, 7
             );
 
+            AplikacjaRekrutacyjna aplikacja10 = new AplikacjaRekrutacyjna(
+                10, 1, 3, 10, new DateTime(2023, 1, 12), (int)RodzajStatusuAplikacji.ZakonczonaSukcesem, 1
+            );
+
+            AplikacjaRekrutacyjna aplikacja11 = new AplikacjaRekrutacyjna(
+                11, 1, 3, 11, new DateTime(2023, 1, 14), (int)RodzajStatusuAplikacji.ZakonczonaSukcesem, 2
+            );
+
+            AplikacjaRekrutacyjna aplikacja12 = new AplikacjaRekrutacyjna(
+                12, 1, 3, 12, new DateTime(2023, 1, 15), (int)RodzajStatusuAplikacji.ZakonczonaNiepowodzeniem, 3
+            );
+
+            AplikacjaRekrutacyjna aplikacja13 = new AplikacjaRekrutacyjna(
+                13, 3, 4, 13, new DateTime(2024, 1, 15), (int)RodzajStatusuAplikacji.Odrzucona, 2
+            );
+
             builder.Entity<AplikacjaRekrutacyjna>().HasData(
                 aplikacja1,
                 aplikacja2,
@@ -253,7 +291,11 @@ namespace Aurora.Data
                 aplikacja6,
                 aplikacja7,
                 aplikacja8,
-                aplikacja9
+                aplikacja9,
+                aplikacja10,
+                aplikacja11,
+                aplikacja12,
+                aplikacja13
             );
 
             WspolczynnikRekrutacyjny wspolczynnik1 = new WspolczynnikRekrutacyjny(
@@ -288,6 +330,19 @@ namespace Aurora.Data
                 8, 8
             );
 
+            WspolczynnikRekrutacyjny wspolczynnik10 = new WspolczynnikRekrutacyjny(
+                10, 10
+            );
+
+            WspolczynnikRekrutacyjny wspolczynnik11 = new WspolczynnikRekrutacyjny(
+                11, 11
+            );
+
+            WspolczynnikRekrutacyjny wspolczynnik12 = new WspolczynnikRekrutacyjny(
+                12, 12
+            );
+
+
 
             builder.Entity<WspolczynnikRekrutacyjny>().HasData(
                 wspolczynnik1,
@@ -297,7 +352,10 @@ namespace Aurora.Data
                 wspolczynnik5,
                 wspolczynnik6,
                 wspolczynnik7,
-                wspolczynnik8
+                wspolczynnik8,
+                wspolczynnik10,
+                wspolczynnik11,
+                wspolczynnik12
             );
 
             SkladowaWspRekrut skladowa1 = new SkladowaWspRekrut(1, 70, 1, 0, 1, null);
@@ -365,6 +423,35 @@ namespace Aurora.Data
             SkladowaWspRekrut skladowa55 = new SkladowaWspRekrut(55, 70, 8, 2, 1, null);
             SkladowaWspRekrut skladowa56 = new SkladowaWspRekrut(56, 70, 8, 0, 0, null);
 
+            SkladowaWspRekrut skladowa58 = new SkladowaWspRekrut(58, 70, 10, 0, 1, null);
+            SkladowaWspRekrut skladowa59 = new SkladowaWspRekrut(59, 70, 10, 0, 0, null);
+            SkladowaWspRekrut skladowa60 = new SkladowaWspRekrut(60, 70, 10, 3, 1, null);
+            SkladowaWspRekrut skladowa61 = new SkladowaWspRekrut(61, 70, 10, 1, 1, null);
+            SkladowaWspRekrut skladowa62 = new SkladowaWspRekrut(62, 70, 10, 1, 0, null);
+            SkladowaWspRekrut skladowa63 = new SkladowaWspRekrut(63, 70, 10, 2, 0, null);
+            SkladowaWspRekrut skladowa64 = new SkladowaWspRekrut(64, 70, 10, 2, 1, null);
+            SkladowaWspRekrut skladowa65 = new SkladowaWspRekrut(65, 250, 10, null, 2, null);
+
+            SkladowaWspRekrut skladowa66 = new SkladowaWspRekrut(66, 70, 11, 0, 1, null);
+            SkladowaWspRekrut skladowa67 = new SkladowaWspRekrut(67, 70, 11, 0, 0, null);
+            SkladowaWspRekrut skladowa68 = new SkladowaWspRekrut(68, 70, 11, 3, 1, null);
+            SkladowaWspRekrut skladowa69 = new SkladowaWspRekrut(69, 70, 11, 1, 1, null);
+            SkladowaWspRekrut skladowa70 = new SkladowaWspRekrut(70, 70, 11, 1, 0, null);
+            SkladowaWspRekrut skladowa71 = new SkladowaWspRekrut(71, 70, 11, 2, 0, null);
+            SkladowaWspRekrut skladowa72 = new SkladowaWspRekrut(72, 70, 11, 2, 1, null);
+            SkladowaWspRekrut skladowa73 = new SkladowaWspRekrut(73, 230, 11, null, 2, null);
+
+            SkladowaWspRekrut skladowa74 = new SkladowaWspRekrut(74, 70, 12, 0, 1, null);
+            SkladowaWspRekrut skladowa75 = new SkladowaWspRekrut(75, 70, 12, 0, 0, null);
+            SkladowaWspRekrut skladowa76 = new SkladowaWspRekrut(76, 70, 12, 3, 1, null);
+            SkladowaWspRekrut skladowa77 = new SkladowaWspRekrut(77, 70, 12, 1, 1, null);
+            SkladowaWspRekrut skladowa78 = new SkladowaWspRekrut(78, 70, 12, 1, 0, null);
+            SkladowaWspRekrut skladowa79 = new SkladowaWspRekrut(79, 70, 12, 2, 0, null);
+            SkladowaWspRekrut skladowa80 = new SkladowaWspRekrut(80, 70, 12, 2, 1, null);
+            SkladowaWspRekrut skladowa81 = new SkladowaWspRekrut(81, 210, 12, null, 2, null);
+
+            
+
 
 
 
@@ -380,7 +467,12 @@ namespace Aurora.Data
                 skladowa40, skladowa41, skladowa42, skladowa43, skladowa44,
                 skladowa45, skladowa46, skladowa47, skladowa48, skladowa49,
                 skladowa50, skladowa51, skladowa52, skladowa53, skladowa54,
-                skladowa55, skladowa56, skladowa57
+                skladowa55, skladowa56, skladowa57, skladowa58, skladowa59, 
+                skladowa60, skladowa61, skladowa62, skladowa63,
+                skladowa64, skladowa65, skladowa66, skladowa67,skladowa68,
+                skladowa69, skladowa70, skladowa71, skladowa72,skladowa73,
+                skladowa74, skladowa75, skladowa76, skladowa77,skladowa78,
+                skladowa79, skladowa80, skladowa81
             );
 
             var pracownicy = new List<PracownikDziekanatu>()

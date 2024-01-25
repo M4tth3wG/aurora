@@ -258,3 +258,8 @@ rr-form-table-container {
     font-weight: bold;
 }
 
+
+.wide-column {
+    width: 175px;
+}
+

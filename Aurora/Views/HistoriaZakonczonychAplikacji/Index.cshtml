@@ -12,7 +12,7 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
+            <th class="wide-column">
                 @Html.DisplayNameFor(model => model.KierunekStudiow.Wydzial)
             </th>
             <th>
@@ -40,7 +40,7 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
+            <td class="wide-column">
                 @(EnumUtils.ConvertIDToTypeAsString<NazwaWydzialu>(item.KierunekStudiow.Wydzial))
             </td>
             <td>
