@@ -279,7 +279,7 @@ namespace Aurora.Data
             );
 
             AplikacjaRekrutacyjna aplikacja13 = new AplikacjaRekrutacyjna(
-                13, 4, 4, 13, new DateTime(2024, 1, 15), (int)RodzajStatusuAplikacji.Odrzucona, 2
+                13, 3, 4, 13, new DateTime(2024, 1, 15), (int)RodzajStatusuAplikacji.Odrzucona, 2
             );
 
             builder.Entity<AplikacjaRekrutacyjna>().HasData(
