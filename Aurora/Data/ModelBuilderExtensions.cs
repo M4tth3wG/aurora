@@ -356,7 +356,7 @@ namespace Aurora.Data
                 wspolczynnik6,
                 wspolczynnik7,
                 wspolczynnik8,
-                wspolczynnik9
+                wspolczynnik9,
                 wspolczynnik10,
                 wspolczynnik11,
                 wspolczynnik12
@@ -454,6 +454,14 @@ namespace Aurora.Data
             SkladowaWspRekrut skladowa80 = new SkladowaWspRekrut(80, 70, 12, 2, 1, null);
             SkladowaWspRekrut skladowa81 = new SkladowaWspRekrut(81, 210, 12, null, 2, null);
 
+            SkladowaWspRekrut skladowa82 = new SkladowaWspRekrut(82, 60, 9, 0, 1, null);
+            SkladowaWspRekrut skladowa83 = new SkladowaWspRekrut(83, 75, 9, 3, 1, null);
+            SkladowaWspRekrut skladowa84 = new SkladowaWspRekrut(84, 80, 9, 1, 1, null);
+            SkladowaWspRekrut skladowa85 = new SkladowaWspRekrut(85, 100, 9, 1, 0, null);
+            SkladowaWspRekrut skladowa86 = new SkladowaWspRekrut(86, 50, 9, 2, 0, null);
+            SkladowaWspRekrut skladowa87 = new SkladowaWspRekrut(87, 45, 9, 2, 1, null);
+            SkladowaWspRekrut skladowa88 = new SkladowaWspRekrut(88, 90, 9, 0, 0, null);
+
             
 
 
@@ -476,7 +484,8 @@ namespace Aurora.Data
                 skladowa64, skladowa65, skladowa66, skladowa67,skladowa68,
                 skladowa69, skladowa70, skladowa71, skladowa72,skladowa73,
                 skladowa74, skladowa75, skladowa76, skladowa77,skladowa78,
-                skladowa79, skladowa80, skladowa81
+                skladowa79, skladowa80, skladowa81, skladowa82, skladowa83,
+                skladowa84, skladowa85, skladowa86, skladowa87, skladowa88
             );
 
             var pracownicy = new List<PracownikDziekanatu>()
