@@ -144,15 +144,6 @@ namespace Aurora.Test
         }
 
         [Fact]
-
-        public void Test()
-        {
-
-            //LogInAs("anna.nowak@example.com", "pracownik");
-
-        }
-
-        [Fact]
         public void CalculatingRRValue_EnteredValidAndRequiredValues_ReturnsPoints()
         {
             foreach (var (values, fieldID, expValue) in correctValuesToTestRRValuesCalculating)
@@ -288,20 +279,19 @@ namespace Aurora.Test
             IJavaScriptExecutor jsExecutor = (IJavaScriptExecutor)driver;
             jsExecutor.ExecuteScript("arguments[0].reportValidity();", inputElement);
 
-            // Poczekaj krótko, aby dać czas na obsłużenie eventu invalid
+            // czas na obsłużenie eventu invalid
             Thread.Sleep(1000);
 
-            // W tym momencie możesz próbować uzyskać dostęp do elementu, który pojawił się w wyniku obsługi eventu invalid
             try
             {
-                IWebElement errorElement = driver.FindElement(By.CssSelector(".error-class")); // Dostosuj do rzeczywistej klasy błędu
+                IWebElement errorElement = driver.FindElement(By.CssSelector(".error-class"));
                 string errorMessage = errorElement.Text;
 
                 Console.WriteLine("Error Message: " + errorMessage);
             }
             catch (NoSuchElementException)
             {
-                Console.WriteLine("Brak widocznego błędu po obsłudze eventu invalid.");
+                //Console.WriteLine("Brak widocznego błędu po obsłudze eventu invalid.");
             }
             return "";
         }

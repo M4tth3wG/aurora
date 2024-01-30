@@ -286,6 +286,9 @@ namespace Aurora.Data
 
             WspolczynnikRekrutacyjny wspolczynnik8 = new WspolczynnikRekrutacyjny(
                 8, 8
+            ); 
+            WspolczynnikRekrutacyjny wspolczynnik9 = new WspolczynnikRekrutacyjny(
+               9, 9
             );
 
 
@@ -297,7 +300,8 @@ namespace Aurora.Data
                 wspolczynnik5,
                 wspolczynnik6,
                 wspolczynnik7,
-                wspolczynnik8
+                wspolczynnik8,
+                wspolczynnik9
             );
 
             SkladowaWspRekrut skladowa1 = new SkladowaWspRekrut(1, 70, 1, 0, 1, null);
@@ -364,6 +368,14 @@ namespace Aurora.Data
             SkladowaWspRekrut skladowa54 = new SkladowaWspRekrut(54, 70, 8, 2, 0, null);
             SkladowaWspRekrut skladowa55 = new SkladowaWspRekrut(55, 70, 8, 2, 1, null);
             SkladowaWspRekrut skladowa56 = new SkladowaWspRekrut(56, 70, 8, 0, 0, null);
+
+            SkladowaWspRekrut skladowa64 = new SkladowaWspRekrut(64, 60, 9, 0, 1, null);
+            SkladowaWspRekrut skladowa58 = new SkladowaWspRekrut(58, 75, 9, 3, 1, null);
+            SkladowaWspRekrut skladowa59 = new SkladowaWspRekrut(59, 80, 9, 1, 1, null);
+            SkladowaWspRekrut skladowa60 = new SkladowaWspRekrut(60, 100, 9, 1, 0, null);
+            SkladowaWspRekrut skladowa61 = new SkladowaWspRekrut(61, 50, 9, 2, 0, null);
+            SkladowaWspRekrut skladowa62 = new SkladowaWspRekrut(62, 45, 9, 2, 1, null);
+            SkladowaWspRekrut skladowa63 = new SkladowaWspRekrut(63, 90, 9, 0, 0, null);
 
 
 

@@ -9,7 +9,7 @@ namespace Aurora.Test
         [Theory]
         [InlineData("FORMASTUDIOW")]
         [InlineData("           FoRMasTuDiOw   ")]
-        public void GetDowolnyTekst_CheckingValidCasesToCatch_ReturnsDowolna(string value)
+        public void GetDowolnyTekst_CheckingValidCasesToCatch_ReturnsValidResult(string value)
         {
             var result = StringUtils.GetDowolnyTekst(value);
 
@@ -19,7 +19,7 @@ namespace Aurora.Test
         [Theory]
         [InlineData("F0RMASTUDI0W")]
         [InlineData("          _FoRMasTuD1qw   ")]
-        public void GetDowolnyTekst_CheckingInvalidCasesToCatch_NoReturnsDowolna(string value)
+        public void GetDowolnyTekst_CheckingInvalidCasesToCatch_ReturnAnotherResult(string value)
         {
             var result = StringUtils.GetDowolnyTekst(value);
 

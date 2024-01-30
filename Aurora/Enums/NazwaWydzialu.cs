@@ -4,6 +4,9 @@ namespace Aurora.Enums
 {
     public enum NazwaWydzialu
     {
+        [Description("Wybierz kierunek")]
+        None = -1,
+
         [Description("Wydział Architektury")]
         WydzialArchitektury,
 
