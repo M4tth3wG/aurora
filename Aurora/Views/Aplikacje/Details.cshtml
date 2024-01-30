@@ -129,7 +129,18 @@
                             Wartość współczynnika rekrutacyjnego
                         </th>
                         <td class="px-3 align-middle">
-                            @Html.DisplayFor(model => model.WspolczynnikRekrutacyjny.Wartosc)
+                            @{var wspolczynnik = "";}
+                            
+                            @if (Model.WspolczynnikRekrutacyjny == null)
+                            {
+                                wspolczynnik = "Brak";
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(model => model.WspolczynnikRekrutacyjny.Wartosc)
+                            }
+                            
+                            @wspolczynnik
                         </td>
                     </tr>
                 </tbody>
@@ -145,7 +156,7 @@
         var niedozwoloneStatusy = new List<RodzajStatusuAplikacji>()
         {
             RodzajStatusuAplikacji.Anulowana,
-            RodzajStatusuAplikacji.Anulowana,
+            RodzajStatusuAplikacji.Odrzucona,
             RodzajStatusuAplikacji.ZakonczonaSukcesem,
             RodzajStatusuAplikacji.ZakonczonaNiepowodzeniem
         };

@@ -138,7 +138,7 @@ namespace Aurora.Controllers
 
                 _context.AplikacjeRekrutacyjne.Update(aplikacja);
 
-                //await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
 
                 var kandydat = await _context.Kandydaci.FindAsync(aplikacja.KandydatID);
 
