@@ -1639,11 +1639,6 @@ namespace Aurora.Migrations
                         {
                             ID = 8,
                             AplikacjaRekrutacyjnaID = 8
-                        },
-                        new
-                        {
-                            ID = 9,
-                            AplikacjaRekrutacyjnaID = 9
                         });
                 });
 
