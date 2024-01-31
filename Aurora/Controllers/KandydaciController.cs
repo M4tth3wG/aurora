@@ -150,11 +150,11 @@ namespace Aurora.Controllers
 
         private async Task<string> OdrzucKandydata(AplikacjaRekrutacyjna aplikacja)
         {
-            aplikacja.Status = Convert.ToInt32(RodzajStatusuAplikacji.ZakonczonaNiepowodzeniem);
+            aplikacja.Status = Convert.ToInt32(RodzajStatusuAplikacji.Odrzucona);
             _context.AplikacjeRekrutacyjne.Update(aplikacja);
             await _context.SaveChangesAsync();
             var kandydat = await _context.Kandydaci.FindAsync(aplikacja.KandydatID);
-            return $"Kandydat {kandydat.Imie} {kandydat.Nazwisko} został pomyślnie przypisany do kierunku {aplikacja.KierunekStudiow.NazwaKierunku}.";
+            return $"Aplikacja kandydata {kandydat.Imie} {kandydat.Nazwisko} na kierunek {aplikacja.KierunekStudiow.NazwaKierunku} została odrzucona.";
         }
 
         public async Task<IActionResult> WyslijWiadomosc(int aplikacjaId, string PostMessage = "") 
