@@ -114,12 +114,22 @@ namespace Aurora.Data
             
             KierunekStudiow kierunek3 = new KierunekStudiow(
                 3, 0, 0.0, 1250.0, 3, 0, "Fizyka techniczna", 0, 9, "Odkryj nowe oblicze fizyki", RodzajStrategii.Strategia1StopienStandard
+            ); 
+            
+            KierunekStudiow kierunek4 = new KierunekStudiow(
+                4, 0, 0.0, 1250.0, (int) PoziomStudiow.pierwszegoStopniaInzynierskie, 0, "Informatyka techniczna", 0, (int) NazwaWydzialu.WydzialIT, "Informatyka Techniczna: Kształtowanie Przyszłości Technologii", RodzajStrategii.Strategia1StopienInfo
+            );
+
+            KierunekStudiow kierunek5 = new KierunekStudiow(
+                5, 1, 0.0, 1250.0, 3, 0, "Fizyka techniczna", 1, 9, "Odkryj nowe oblicze fizyki", RodzajStrategii.Strategia1StopienStandard
             );
 
             builder.Entity<KierunekStudiow>().HasData(
             kierunek1,
             kierunek2,
-            kierunek3
+            kierunek3,
+            kierunek4,
+            kierunek5
             );
 
             var egzaminyKierunki = new List<DziedzinaEgzaminuWstepnegoKierunekStudiow>() {
@@ -163,12 +173,22 @@ namespace Aurora.Data
                 5, 1, new DateTime(2023, 1, 1), new DateTime(2023, 2, 1), new DateTime(2023, 2, 15), 2, 2, 0.0, 4, 2
             );
 
+            TuraRekrutacji tura6 = new TuraRekrutacji(
+                6, 5, new DateTime(2024, 1, 1), new DateTime(2024, 2, 1), new DateTime(2024, 2, 15), 5, 5, 0.0, 2, 2
+            );           
+            
+            TuraRekrutacji tura7 = new TuraRekrutacji(
+                7, 4, new DateTime(2024, 1, 1), new DateTime(2024, 2, 1), new DateTime(2024, 2, 15), 0, 100, 0.0, 2, 2
+            );
+
             builder.Entity<TuraRekrutacji>().HasData(
                 tura1,
                 tura2,
                 tura3,
                 tura4,
-                tura5
+                tura5,
+                tura7,
+                tura6
             );
 
             OplataRekrutacyjna oplata1 = new OplataRekrutacyjna(
@@ -210,6 +230,9 @@ namespace Aurora.Data
             );
             OplataRekrutacyjna oplata13 = new OplataRekrutacyjna(
                 13, 2, 80.0
+            );    
+            OplataRekrutacyjna oplata14 = new OplataRekrutacyjna(
+                14, 2, 80.0
             );
 
 
@@ -227,7 +250,8 @@ namespace Aurora.Data
                 oplata10,
                 oplata11,
                 oplata12,
-                oplata13
+                oplata13,
+                oplata14
             );
 
             AplikacjaRekrutacyjna aplikacja1 = new AplikacjaRekrutacyjna(
@@ -280,6 +304,10 @@ namespace Aurora.Data
 
             AplikacjaRekrutacyjna aplikacja13 = new AplikacjaRekrutacyjna(
                 13, 3, 4, 13, new DateTime(2024, 1, 15), (int)RodzajStatusuAplikacji.Odrzucona, 2
+            );  
+            
+            AplikacjaRekrutacyjna aplikacja14 = new AplikacjaRekrutacyjna(
+                14, 5, 6, 14, new DateTime(2024, 1, 15), (int)RodzajStatusuAplikacji.OczekujeNaRozpatrzenie, 2
             );
 
             builder.Entity<AplikacjaRekrutacyjna>().HasData(
@@ -295,7 +323,8 @@ namespace Aurora.Data
                 aplikacja10,
                 aplikacja11,
                 aplikacja12,
-                aplikacja13
+                aplikacja13,
+                aplikacja14
             );
 
             WspolczynnikRekrutacyjny wspolczynnik1 = new WspolczynnikRekrutacyjny(
@@ -343,6 +372,12 @@ namespace Aurora.Data
 
             WspolczynnikRekrutacyjny wspolczynnik12 = new WspolczynnikRekrutacyjny(
                 12, 12
+            ); 
+            WspolczynnikRekrutacyjny wspolczynnik13 = new WspolczynnikRekrutacyjny(
+                13, 13
+            );
+            WspolczynnikRekrutacyjny wspolczynnik14 = new WspolczynnikRekrutacyjny(
+                14 , 14
             );
 
 
@@ -359,7 +394,9 @@ namespace Aurora.Data
                 wspolczynnik9,
                 wspolczynnik10,
                 wspolczynnik11,
-                wspolczynnik12
+                wspolczynnik12,
+                wspolczynnik13,
+                wspolczynnik14
             );
 
             SkladowaWspRekrut skladowa1 = new SkladowaWspRekrut(1, 70, 1, 0, 1, null);
@@ -462,7 +499,17 @@ namespace Aurora.Data
             SkladowaWspRekrut skladowa87 = new SkladowaWspRekrut(87, 45, 9, 2, 1, null);
             SkladowaWspRekrut skladowa88 = new SkladowaWspRekrut(88, 90, 9, 0, 0, null);
 
-            
+
+
+            SkladowaWspRekrut skladowa89 = new SkladowaWspRekrut(89, 70, 14, 0, 1, null);
+            SkladowaWspRekrut skladowa90 = new SkladowaWspRekrut(90, 70, 14, 0, 0, null);
+            SkladowaWspRekrut skladowa91 = new SkladowaWspRekrut(91, 70, 14, 3, 1, null);
+            SkladowaWspRekrut skladowa92 = new SkladowaWspRekrut(92, 70, 14, 1, 1, null);
+            SkladowaWspRekrut skladowa93 = new SkladowaWspRekrut(93, 70, 14, 1, 0, null);
+            SkladowaWspRekrut skladowa94 = new SkladowaWspRekrut(94, 70, 14, 2, 0, null);
+            SkladowaWspRekrut skladowa95 = new SkladowaWspRekrut(95, 70, 14, 2, 1, null);
+            SkladowaWspRekrut skladowa96 = new SkladowaWspRekrut(96, 210, 14, null, 2, null);
+
 
 
 
@@ -485,7 +532,9 @@ namespace Aurora.Data
                 skladowa69, skladowa70, skladowa71, skladowa72,skladowa73,
                 skladowa74, skladowa75, skladowa76, skladowa77,skladowa78,
                 skladowa79, skladowa80, skladowa81, skladowa82, skladowa83,
-                skladowa84, skladowa85, skladowa86, skladowa87, skladowa88
+                skladowa84, skladowa85, skladowa86, skladowa87, skladowa88,
+                skladowa89, skladowa90, skladowa91, skladowa92, skladowa93,
+                skladowa94, skladowa95, skladowa96
             );
 
             var pracownicy = new List<PracownikDziekanatu>()

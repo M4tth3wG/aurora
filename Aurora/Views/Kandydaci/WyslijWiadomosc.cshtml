@@ -41,12 +41,8 @@
 
     <input type="text" id="bigMessage" class="form-control" style="height: 200px; text-align: start" placeholder="Treść wiadomości">
 
-    <div class="send-msg-btn-container">
-@* 
-        <form asp-action="PrzypiszKandydata" method="get">
-            <input type="hidden" name="id" value=@Model.KandydatID> *@
-            <button id="backBtn" type="submit" class="btn btn-secondary">Powrót</button>
-        @* </form> *@
+    <div class="d-flex justify-content-center" style="padding-top: 20px;">
+            <button id="backBtn" type="submit" class="btn btn-secondary mr-2">Powrót</button>
 
         <form asp-action="WyslijWiadomosc" method="post">
             <input type="hidden" name="aplikacjaId" value=@Model.ID> 

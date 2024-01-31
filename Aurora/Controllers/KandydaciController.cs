@@ -83,7 +83,7 @@ namespace Aurora.Controllers
 
             model.FilterAplikacje = aplikacje;
 
-            ViewBag.PopUpMessage = model.PostMessage;
+            if (!string.IsNullOrEmpty(model.PostMessage)) ViewBag.PopUpMessage = model.PostMessage;
 
             //TempData["PreviousModel"] = JsonConvert.SerializeObject(model);
 
@@ -124,27 +124,27 @@ namespace Aurora.Controllers
 
         }
 
-        private async Task<string> PrzypiszKandydata(AplikacjaRekrutacyjna aplikacja,TuraRekrutacji tura)
+        private async Task<string> PrzypiszKandydata(AplikacjaRekrutacyjna aplikacja, TuraRekrutacji tura)
         {
-            if (tura.DostepneMiejsca > 0)
-            {
-                ++tura.LiczbaZajetychMiejsc;
+            if (tura.DostepneMiejsca < 1) return $"Brak wolnych miejsc na kierunku {aplikacja.KierunekStudiow.NazwaKierunku}";
+            
+            ++tura.LiczbaZajetychMiejsc;
 
-                _context.TuryRekrutacji.Update(tura);
+            _context.TuryRekrutacji.Update(tura);
 
-                _context.KandydaciTuryRekrutacji.Add(new KandydatTuraRekrutacji(aplikacja.KandydatID, tura.ID));
+            _context.KandydaciTuryRekrutacji.Add(new KandydatTuraRekrutacji(aplikacja.KandydatID, tura.ID));
 
-                aplikacja.Status = Convert.ToInt32(RodzajStatusuAplikacji.ZakonczonaSukcesem);
+            aplikacja.Status = Convert.ToInt32(RodzajStatusuAplikacji.ZakonczonaSukcesem);
 
-                _context.AplikacjeRekrutacyjne.Update(aplikacja);
+            _context.AplikacjeRekrutacyjne.Update(aplikacja);
 
-                await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
-                var kandydat = await _context.Kandydaci.FindAsync(aplikacja.KandydatID);
+            var kandydat = await _context.Kandydaci.FindAsync(aplikacja.KandydatID);
 
-                return $"Kandydat {kandydat.Imie} {kandydat.Nazwisko} został pomyślnie przypisany do kierunku {aplikacja.KierunekStudiow.NazwaKierunku}.";
-            }
-            return $"Brak wolnych miejsc na kierunku {aplikacja.KierunekStudiow.NazwaKierunku}";
+            return $"Kandydat {kandydat.Imie} {kandydat.Nazwisko} został pomyślnie przypisany do kierunku {aplikacja.KierunekStudiow.NazwaKierunku}.";
+                
+            
 
         }
 
@@ -152,7 +152,7 @@ namespace Aurora.Controllers
         {
             aplikacja.Status = Convert.ToInt32(RodzajStatusuAplikacji.ZakonczonaNiepowodzeniem);
             _context.AplikacjeRekrutacyjne.Update(aplikacja);
-            //await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
             var kandydat = await _context.Kandydaci.FindAsync(aplikacja.KandydatID);
             return $"Kandydat {kandydat.Imie} {kandydat.Nazwisko} został pomyślnie przypisany do kierunku {aplikacja.KierunekStudiow.NazwaKierunku}.";
         }
