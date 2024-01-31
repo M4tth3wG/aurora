@@ -4,14 +4,16 @@ using Aurora.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Aurora.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    partial class DataDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240131113755_AddingDataAdrian3")]
+    partial class AddingDataAdrian3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1974,19 +1976,6 @@ namespace Aurora.Migrations
                             RodzajRekrutacji = 2,
                             StatusTury = 4,
                             TerminZakonczeniaPrzyjmowaniaAplikacji = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            ID = 7,
-                            DataOtwarcia = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DataZakonczenia = new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            KierunekStudiowID = 4,
-                            LiczbaZajetychMiejsc = 0,
-                            LimitPrzyjec = 100,
-                            MinimalnyProgPunktowy = 0.0,
-                            RodzajRekrutacji = 2,
-                            StatusTury = 2,
-                            TerminZakonczeniaPrzyjmowaniaAplikacji = new DateTime(2024, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {

@@ -5,7 +5,8 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Aurora.Models
 {
-    [Index(nameof(PESEL), IsUnique = true)] // ???
+    [Index(nameof(PESEL), IsUnique = true)]
+    [Index(nameof(AdresEmail), IsUnique = true)]
     public class Kandydat
     {
         public Kandydat()

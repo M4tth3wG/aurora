@@ -36,21 +36,17 @@
         </table>
     </div>
 
-    <p id ="senderDataTxt">Nadawca: @ViewBag.ImieUsera @ViewBag.NazwiskoUsera</p>
+    <p id ="senderDataTxt">Nadawca: @ViewBag.ImiePracownika @ViewBag.NazwiskoPracownika</p>
 
 
     <input type="text" id="bigMessage" class="form-control" style="height: 200px; text-align: start" placeholder="Treść wiadomości">
 
-    <div class="send-msg-btn-container">
-
-        <form asp-action="PrzypiszKandydata" method="get">
-            <input type="hidden" name="id" value=@Model.KandydatID>
-            <button id="backBtn" type="submit" class="btn btn-secondary">Powrót</button>
-        </form>
+    <div class="d-flex justify-content-center" style="padding-top: 20px;">
+            <button id="backBtn" type="submit" class="btn btn-secondary mr-2">Powrót</button>
 
         <form asp-action="WyslijWiadomosc" method="post">
             <input type="hidden" name="aplikacjaId" value=@Model.ID> 
-            <input type="hidden" name="pracownikId" value=@Convert.ToInt32(ViewBag.IDUsera)> 
+            <input type="hidden" name="pracownikId" value=@ViewBag.IDPracownika> 
             <input type="hidden" name="content" id="content" value="">
 
             <button id="sendMsgConfirmBtn" type="submit" class="btn btn-secondary" onclick="prepareData()">Wyślij</button>
@@ -75,10 +71,10 @@
                     </div>
 
                     <div class="modal-footer">
-                        <form asp-controller="Kandydaci" asp-action="PrzypiszKandydata" method="get">
-                            <input type="hidden" name="id" value="@Model.KandydatID" />
+@*                         <form asp-controller="Kandydaci" asp-action="PrzypiszKandydata" method="get">
+                            <input type="hidden" name="id" value="@Model.KandydatID" /> *@
                             <button id="popUpSubmitBtn" type="submit" class="btn btn-danger">Powrót do przypisu</button>
-                        </form>
+                        @* </form> *@
                     </div>
 
 
@@ -103,6 +99,33 @@
         var trescWiadomosci = document.getElementById('bigMessage').value;
         document.getElementById('content').value = trescWiadomosci;
     }
+
+    document.getElementById('backBtn').addEventListener('click', function () {
+        history.back();
+    });
+    
+    document.getElementById('popUpCloseBtn').addEventListener('click', function () {
+        history.back();
+    });
+    
+    document.getElementById('popUpSubmitBtn').addEventListener('click', function () {
+        history.back();
+        history.back();
+    });
+
+    // document.getElementById('backBtn').addEventListener('click', function () {
+    //     var previousPath = sessionStorage.getItem('previousPath');
+    //     if (previousPath && previousPath !== window.location.pathname) {
+    //         history.back();
+    //     } else {
+    //         window.location.href = '/Index'; 
+    //     }
+    // });
+
+    // window.addEventListener('popstate', function (event) {
+    //     sessionStorage.setItem('previousPath', window.location.pathname);
+    // });
+
 </script>
 
 

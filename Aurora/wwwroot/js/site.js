@@ -40,6 +40,10 @@ function submitFilterForm() {
 //    document.getElementById("searchForm").elements["filterMiejsce"].value = document.getElementById("filterMiejsce").value;
 }
 
+function submitWydzialForm() {
+    document.getElementById("wydzialForm").submit();
+}
+
 function ograniczWartosciMinMax(element) {
 
     if (element.value > 100) {

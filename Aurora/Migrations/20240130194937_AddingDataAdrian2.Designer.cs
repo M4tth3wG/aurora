@@ -4,14 +4,16 @@ using Aurora.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Aurora.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    partial class DataDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240130194937_AddingDataAdrian2")]
+    partial class AddingDataAdrian2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -283,16 +285,6 @@ namespace Aurora.Migrations
                             OplataRekrutacyjnaID = 13,
                             Status = 7,
                             TuraRekrutacjiID = 4
-                        },
-                        new
-                        {
-                            ID = 14,
-                            DataZlozenia = new DateTime(2024, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            KandydatID = 2,
-                            KierunekStudiowID = 5,
-                            OplataRekrutacyjnaID = 14,
-                            Status = 8,
-                            TuraRekrutacjiID = 6
                         });
                 });
 
@@ -646,9 +638,6 @@ namespace Aurora.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("AdresEmail")
-                        .IsUnique();
-
                     b.HasIndex("AdresID");
 
                     b.HasIndex("PESEL")
@@ -853,34 +842,6 @@ namespace Aurora.Migrations
                             PoziomStudiow = 3,
                             StrategiaID = 0,
                             Wydzial = 9
-                        },
-                        new
-                        {
-                            ID = 4,
-                            Czesne = 0.0,
-                            CzesneDlaObcokrajowcow = 1250.0,
-                            FormaStudiow = 0,
-                            JezykWykladowy = 0,
-                            MiejsceStudiow = 0,
-                            NazwaKierunku = "Informatyka techniczna",
-                            OpisKierunku = "Informatyka Techniczna: Kształtowanie Przyszłości Technologii",
-                            PoziomStudiow = 3,
-                            StrategiaID = 4,
-                            Wydzial = 3
-                        },
-                        new
-                        {
-                            ID = 5,
-                            Czesne = 0.0,
-                            CzesneDlaObcokrajowcow = 1250.0,
-                            FormaStudiow = 1,
-                            JezykWykladowy = 1,
-                            MiejsceStudiow = 0,
-                            NazwaKierunku = "Fizyka techniczna",
-                            OpisKierunku = "Odkryj nowe oblicze fizyki",
-                            PoziomStudiow = 3,
-                            StrategiaID = 0,
-                            Wydzial = 9
                         });
                 });
 
@@ -1014,12 +975,6 @@ namespace Aurora.Migrations
                         new
                         {
                             ID = 13,
-                            KandydatID = 2,
-                            Kwota = 80.0
-                        },
-                        new
-                        {
-                            ID = 14,
                             KandydatID = 2,
                             Kwota = 80.0
                         });
@@ -1803,69 +1758,6 @@ namespace Aurora.Migrations
                             PrzedmiotMaturalny = 0,
                             RodzajSkladowejWspRekrut = 0,
                             WspolczynnikRekrutacyjnyID = 9
-                        },
-                        new
-                        {
-                            ID = 89,
-                            LiczbaPunktow = 70.0,
-                            PrzedmiotMaturalny = 0,
-                            RodzajSkladowejWspRekrut = 1,
-                            WspolczynnikRekrutacyjnyID = 14
-                        },
-                        new
-                        {
-                            ID = 90,
-                            LiczbaPunktow = 70.0,
-                            PrzedmiotMaturalny = 0,
-                            RodzajSkladowejWspRekrut = 0,
-                            WspolczynnikRekrutacyjnyID = 14
-                        },
-                        new
-                        {
-                            ID = 91,
-                            LiczbaPunktow = 70.0,
-                            PrzedmiotMaturalny = 3,
-                            RodzajSkladowejWspRekrut = 1,
-                            WspolczynnikRekrutacyjnyID = 14
-                        },
-                        new
-                        {
-                            ID = 92,
-                            LiczbaPunktow = 70.0,
-                            PrzedmiotMaturalny = 1,
-                            RodzajSkladowejWspRekrut = 1,
-                            WspolczynnikRekrutacyjnyID = 14
-                        },
-                        new
-                        {
-                            ID = 93,
-                            LiczbaPunktow = 70.0,
-                            PrzedmiotMaturalny = 1,
-                            RodzajSkladowejWspRekrut = 0,
-                            WspolczynnikRekrutacyjnyID = 14
-                        },
-                        new
-                        {
-                            ID = 94,
-                            LiczbaPunktow = 70.0,
-                            PrzedmiotMaturalny = 2,
-                            RodzajSkladowejWspRekrut = 0,
-                            WspolczynnikRekrutacyjnyID = 14
-                        },
-                        new
-                        {
-                            ID = 95,
-                            LiczbaPunktow = 70.0,
-                            PrzedmiotMaturalny = 2,
-                            RodzajSkladowejWspRekrut = 1,
-                            WspolczynnikRekrutacyjnyID = 14
-                        },
-                        new
-                        {
-                            ID = 96,
-                            LiczbaPunktow = 210.0,
-                            RodzajSkladowejWspRekrut = 2,
-                            WspolczynnikRekrutacyjnyID = 14
                         });
                 });
 
@@ -1974,32 +1866,6 @@ namespace Aurora.Migrations
                             RodzajRekrutacji = 2,
                             StatusTury = 4,
                             TerminZakonczeniaPrzyjmowaniaAplikacji = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            ID = 7,
-                            DataOtwarcia = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DataZakonczenia = new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            KierunekStudiowID = 4,
-                            LiczbaZajetychMiejsc = 0,
-                            LimitPrzyjec = 100,
-                            MinimalnyProgPunktowy = 0.0,
-                            RodzajRekrutacji = 2,
-                            StatusTury = 2,
-                            TerminZakonczeniaPrzyjmowaniaAplikacji = new DateTime(2024, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            ID = 6,
-                            DataOtwarcia = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DataZakonczenia = new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            KierunekStudiowID = 5,
-                            LiczbaZajetychMiejsc = 5,
-                            LimitPrzyjec = 5,
-                            MinimalnyProgPunktowy = 0.0,
-                            RodzajRekrutacji = 2,
-                            StatusTury = 2,
-                            TerminZakonczeniaPrzyjmowaniaAplikacji = new DateTime(2024, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -2117,16 +1983,6 @@ namespace Aurora.Migrations
                         {
                             ID = 12,
                             AplikacjaRekrutacyjnaID = 12
-                        },
-                        new
-                        {
-                            ID = 13,
-                            AplikacjaRekrutacyjnaID = 13
-                        },
-                        new
-                        {
-                            ID = 14,
-                            AplikacjaRekrutacyjnaID = 14
                         });
                 });
 
