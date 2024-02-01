@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Aurora.Enums;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using System;
@@ -9,6 +10,7 @@ using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
 using WebDriverManager.Helpers;
 using Xunit;
+
 
 namespace Aurora.Test
 {
@@ -130,6 +132,16 @@ namespace Aurora.Test
             (InvalidValuesToTestRRValueCalculatingArchitekturaMoreThan660, ArchitekturaID, InvalidValueKeyArchitektura, InvalidValuesExpectedMessageMoreThan660)
         };
 
+        public string AssigningCandidate_NoVacancies_ExpectedMessage = "Brak wolnych miejsc na kierunku Fizyka techniczna";
+
+
+        public string TestValidMessageToSend = "It's just a text message.";
+        public string TestEmptyMessageToSend = "";
+
+        public string SendExtraMessageValidMessageExpectedMessage = "Wiadomość do Szymon Nowak została pomyślnie wysłana.";
+
+        public string SendExtraMessageEmptyMessageExpectedMessage = "Wiadomość do Szymon Nowak nie została wysłana - wiadomość jest pusta.";
+
         public AuroraViewsTest() 
         {
             new DriverManager().SetUpDriver(new ChromeConfig(), VersionResolveStrategy.MatchingBrowser);
@@ -153,8 +165,8 @@ namespace Aurora.Test
                 var result = FindRRValue();
                 Assert.Equal(expValue, result);
             }
-        }   
-        
+        }
+
         [Fact]
         public void CalculatingRRValue_NotEnteredRequiredValues_ReturnsErrorMessages()
         {
@@ -165,8 +177,8 @@ namespace Aurora.Test
                 var popUpMessage = GetPopUpMessage();
                 Assert.Equal(expMessage, popUpMessage);
             }
-        } 
-        
+        }
+
         [Fact]
         public void CalculatingRRValue_InvalidValues_ReturnsErrorMessages()
         {
@@ -177,6 +189,111 @@ namespace Aurora.Test
                 GetValidityMessage(key);
                 Assert.Equal(expMessage, validityMessage);
             }
+        }
+
+        [Fact]
+        public void AssigningCandidate_NoVacancies_ReturnsPopUpMessage()
+        {
+            LogInAs("natalia.kowalczyk@pwr.edu.pl", "pracownik");
+            GoToKandydaci();
+            TryToAssign();
+            CheckNoVacanciesMessages();
+        }
+
+        [Fact]
+        public void SendExtraMessage_ValidMessage_SentMessage()
+        {
+            SendExtraMessageTest(TestValidMessageToSend, SendExtraMessageValidMessageExpectedMessage);
+        }
+        
+        [Fact]
+        public void SendExtraMessage_EmptyMessage_NoSentMessage()
+        {
+            SendExtraMessageTest(TestEmptyMessageToSend, SendExtraMessageEmptyMessageExpectedMessage);
+        }
+
+        internal void SendExtraMessageTest(string messageToSend, string expectedMsg)
+        {
+            LogInAs("natalia.kowalczyk@pwr.edu.pl", "pracownik");
+            GoToKandydaci();
+            SendValidMessage(messageToSend);
+            CheckPopUpMessageBySendingMessage(expectedMsg);
+        }
+
+
+        private void SendValidMessage(string messageToSend)
+        {
+            goToDepartment((int)NazwaWydzialu.WydzialPPT);
+
+            IWebElement sendMsgBtn = driver.FindElement(By.CssSelector("button[data-index='9']#sendMsgBtn"));
+
+            sendMsgBtn.Click();
+
+            IWebElement bigMessageField = driver.FindElement(By.Id("bigMessage"));
+
+            bigMessageField.Clear();
+
+            bigMessageField.SendKeys(messageToSend);
+
+            IWebElement sendButton = driver.FindElement(By.Id("sendMsgConfirmBtn"));
+
+            sendButton.Click();
+
+            Thread.Sleep(2000);
+        }
+
+        private void CheckPopUpMessageBySendingMessage(string expectedMessage)
+        {
+            IWebElement modal = driver.FindElement(By.Id("myModal"));
+            IWebElement modalText = modal.FindElement(By.CssSelector("#popUpMsgTxt"));
+
+
+            string modalMessage = modalText.Text;
+            Assert.Equal(modalMessage, expectedMessage);
+        }
+
+
+
+
+        private void CheckNoVacanciesMessages()
+        {
+            IWebElement modal = driver.FindElement(By.Id("myModal"));
+            IWebElement modalText = modal.FindElement(By.CssSelector("#popUpMsgTxt"));
+            string foundMessage = modalText.Text;
+            Assert.Equal(foundMessage, AssigningCandidate_NoVacancies_ExpectedMessage);
+        }
+
+        private void goToDepartment(int departmentId)
+        {
+            IWebElement dropdown = driver.FindElement(By.Id("FilterWydzial"));
+            dropdown.Click();
+
+            Thread.Sleep(1000);
+
+            IWebElement elementToSelect = driver.FindElement(By.XPath($"//select[@id='FilterWydzial']/option[@value='{departmentId}']"));
+            elementToSelect.Click();
+        }
+
+
+        private void TryToAssign()
+        {
+            goToDepartment((int)NazwaWydzialu.WydzialPPT);
+
+            IWebElement assignButton = driver.FindElement(By.CssSelector("button[data-index='9'][data-app-id='9']"));
+            assignButton.Click();
+
+            Thread.Sleep(2000);
+
+            IWebElement modal = driver.FindElement(By.CssSelector("#confirmationModal"));
+            IWebElement submitButton = modal.FindElement(By.CssSelector("button[data-index='9']#modalSubmitBtn"));
+            submitButton.Click();
+
+            System.Threading.Thread.Sleep(2000);
+        }
+
+        private void GoToKandydaci()
+        {
+            driver.Navigate().GoToUrl("http://m4tth3wg-001-site1.btempurl.com/Kandydaci");
         }
 
         private void LogInAs(string mail, string password) 
